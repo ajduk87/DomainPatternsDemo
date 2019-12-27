@@ -1,0 +1,228 @@
+-Lokacije i otvarenje novog prodajnog mesta(marketplace)
+//GET
+serveripadress:appport/api/get/marketplace/{commercialistId} (vraca sva prodajna mesta komercijaliste koji ga trazi)
+serveripadress:appport/api/get/marketplace/{commercialistId}/{id} (vraca jedno prodajno mesto sa zadatim id-jem komercijaliste koji ga trazi )
+Json koji ce dobiti klijentska aplikacija(android aplikacija)
+{
+	id:
+	marketplaceName: 
+	siteName:
+	adress:
+	postalcode:
+	pib:
+	idNumber:
+	work:
+	domicileBankAccount:
+	chanellSales:
+    IsAvailableForSelling:
+}
+
+
+//POST
+serveripadress:appport/api/post/marketplace
+Json koji se prosledjuje sa klijentske strane(android aplikacija)
+{
+	id:
+	marketplaceName: 
+	siteName:
+	adress:
+    buyerName: 
+	postalcode:
+	pib:
+	idNumber:
+	work:
+	domicileBankAccount:
+	chanellSales:
+    commercialistId:
+}
+
+//PUT
+serveripadress:appport/api/put/marketplace/{id}
+Json koji se prosledjuje sa klijentske strane(android aplikacija)
+{
+	marketplaceName: 
+	siteName:
+	adress:
+    buyerName: 
+	postalcode:
+	pib:
+	idNumber:
+	work:
+	domicileBankAccount:
+	chanellSales:
+    commercialistId:
+}
+
+
+//DELETE
+serveripadress:appport/api/delete/marketplace/{id}
+
+
+-Magacin upravljanje njegovim sadrzajem(Storehouse)
+
+//GET
+serveripadress:appport/api/get/storehouse(vraca stanja svih proizvoda u magacinu)
+serveripadress:appport/api/get/storehouse/{productId} (vraca stanja trazenog proizvoda u magacinu)
+Json koji ce dobiti klijentska aplikacija(android ili angular aplikacija)
+{
+    productId:
+    amount:
+}
+
+
+
+//POST
+serveripadress:appport/api/post/storehouse
+Json koji se prosledjuje sa klijentske strane(angular aplikacija)
+{
+    productId:
+    amount:
+}
+
+//PUT
+serveripadress:appport/api/put/storehouse
+Json koji se prosledjuje sa klijentske strane(angular aplikacija)
+{
+    productId:
+    amount:(nova kolicina na stanju)
+}
+
+//DELETE
+serveripadress:appport/api/delete/storehouse/{productId}
+Json koji se prosledjuje sa klijentske strane(android ili angular aplikacija)
+{
+    productId:
+    amount:(kolicina koja se brise sa stanja)
+}
+
+-Proizvodi koji se nalaze u katalogu (Products)
+
+//GET
+serveripadress:appport/api/get/products/(vraca ceo katalog)
+serveripadress:appport/api/get/products/{catalogid}(vraca informacije o trazenom proizvodu)
+Json koji ce dobiti klijentska aplikacija(android ili angular aplikacija)
+{
+    catalogid:
+    productName:
+    description:
+    imageurl:
+    videourl:
+}
+
+//POST
+serveripadress:appport/api/post/product
+Json koji se prosledjuje sa klijentske strane(angular aplikacija)
+{
+    catalogid:
+    productName:
+    description:
+    imageurl:
+    videourl:
+}
+
+//PUT
+serveripadress:appport/api/put/product/{catalogid}
+Json koji se prosledjuje sa klijentske strane(angular aplikacija)
+{
+    productName:
+    description:
+    imageurl:
+    videourl:
+}
+
+//DELETE
+serveripadress:appport/api/delete/product/{catalogid}(ovo se iskljucivo radi iz angular aplikacije)
+
+-Kontakti (Contacts)
+
+//GET
+serveripadress:appport/api/delete/contacts/{commercialistId}(vraca sve kontakte jednog komercijaliste)
+serveripadress:appport/api/delete/contact/{commercialistId}/{contactid}(vraca izabrani kontakt)
+Json koji ce dobiti klijentska aplikacija(android aplikacija)
+{
+    name:
+    adress:
+    phone:
+    email:
+}
+
+//POST
+serveripadress:appport/api/post/contact
+Json koji se prosledjuje sa klijentske strane(android aplikacija)
+{
+    name:
+    adress:
+    phone:
+    email:
+    commercialistId:
+}
+
+//PUT
+serveripadress:appport/api/put/contact/{commercialistId}/{id}
+Json koji se prosledjuje sa klijentske strane(android aplikacija)
+{
+    name:
+    adress:
+    phone:
+    email:    
+}
+
+//DELETE
+serveripadress:appport/api/delete/contact/{commercialistId}/{id}
+
+
+-Porudzbenice (Invoices)
+//GET
+serveripadress:appport/api/put/invoices/{commercialistId}(vraca id-jeve o trazenoj porudzbenica u nekom vremenskom intervalu)
+{
+    dateto:
+    datefrom:
+}
+serveripadress:appport/api/put/invoice/{invoiceid}(vraca informacije o trazenoj porudzbenici)
+serveripadress:appport/api/put/invoice/{issyncronized}(vraca informacije o sinhronizovanim porudzbenicama)
+
+
+//POST
+serveripadress:appport/api/post/salesprogram/
+Json koji se prosledjuje sa klijentske strane(android aplikacija)
+{
+    salesprogram:
+}
+i vraca android aplikaciji id novokreirane porudzbenice
+
+serveripadress:appport/api/post/invoiiceitem/
+Json koji se prosledjuje sa klijentske strane(android aplikacija)
+{
+    name:
+    amount:
+    discount:
+}
+serveripadress:appport/api/post/invoiice/
+{
+    invoiceid:
+    issyncronized:
+}
+
+//PUT
+serveripadress:appport/api/put/salesprogram/{invoiceid}
+Json koji se prosledjuje sa klijentske strane(android aplikacija)
+{
+    salesprogram:
+}
+serveripadress:appport/api/put/invoiiceitem/{invoideid}/{invoideitemid}
+Json koji se prosledjuje sa klijentske strane(android aplikacija)
+{
+    invoiceid:
+    invoiceitemid:
+    name:
+    amount:
+    discount:
+}
+serveripadress:appport/api/post/invoiice/
+{
+    invoiceid:
+    issyncronized:
+}
+
+//DELETE
+serveripadress:appport/api/delete/invoiiceitem/{invoideid}/{invoideitemid}(koristi android aplikacija)

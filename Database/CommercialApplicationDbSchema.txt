@@ -1,0 +1,191 @@
+table Location[
+	id: autoinkrement number, primaran kljuc
+	marketplaceName: string
+	siteName: string
+	address: string
+	postalcode: string
+	pib: string
+	idNumber: string
+	work: string
+	domicileBankAccount: string
+	chanellSales: string
+	isAvailableForSelling: boolean
+]
+
+
+table Commercialist[
+	id: autoinkrement number, primaran kljuc
+	username: string
+	firstName: string
+	lastName: string
+	password: string
+]
+
+//tabela veze izmedju komercijaliste i lokacija na kojima prodaje
+table CommercialistLocation[
+  idCommercialist: number
+  idLocation: number
+  slozeni primarni kljuc {idCommercialist, idLocation}
+]
+
+table Product[
+	id: autoinkrement number, primaran kljuc
+	name: string
+	unitCost: double number
+	description: string
+	imageUrl: string
+	videoLink: string
+]
+
+table Storage[
+	id: autoinkrement number, primaran kljuc
+	name: string
+	location: string
+]
+
+//tabela veze izmedju proizvoda i skladista u kojima se proizvodi nalaze
+table ProductStorage[
+	idProduct: number
+	idStorage: number
+	amountOfProduct: number
+	slozeni primarni kljuc {idProduct, idStorage}
+]
+
+table Customer[
+	id: autoinkrement number, primaran kljuc
+	name: string
+]
+
+table Contact[
+	id: autoinkrement number, primaran kljuc
+	phone: string
+	email: string
+]
+
+//tabela veze izmedju musterije i njegovih kontakata
+table CustomerContact[
+  idCustomer: number
+  idContact: number
+  slozeni primarni kljuc {idCustomer, idContact}
+]
+
+//tabela veze izmedju musterije i njegovih lokacija
+table CustomerLocation[
+  idCustomer: number
+  idLocation: number
+  slozeni primarni kljuc {idCustomer, idLocation}
+]
+
+table SellingProgram[
+	id: autoinkrement number, primaran kljuc
+	sellingProgram: string
+	sellingCondition: string
+	dayForPaying: number
+]
+
+table Action[
+	id:  autoinkrement number, primaran kljuc
+	productid:number, strani kljuc iz tabele Product kolona id
+	tresholdamount: number
+	discountamount: number
+]
+
+table OrderItem[
+	id: autoinkrement number, primaran kljuc
+	productId: number, strani kljuc iz tabele Product kolona id
+	amount: number
+	amountFree: number
+	issynchronized: boolean
+	isrejected: boolean
+	ismodified: boolean
+]
+
+table OrderItemModified[
+	id: autoinkrement number, primaran kljuc
+	orderItemid: number, strani kljuc iz tabele OrderItem kolona id
+	amountAccepted: number
+	amountRejected: number
+]
+
+//tabela veze izmedju stavke narucivanja i akcije (popust pri placanju)
+table OrderItemAction[
+  idorderitem: number
+  idaction: number
+  slozeni primarni kljuc {idorderitem, idaction}
+]
+
+table Orders[
+	id: autoinkrement number, primaran kljuc
+	issynchronized: boolean, da li su sve stavke narudzbenice sinhronizovane(presle su iz narudze u porudzbenicu)
+]
+
+//tabela veze izmedju narudzbe i stavki narudzbi
+table OrderItemOrder[
+  idorder: number
+  idorderitem: number
+  slozeni primarni kljuc {idorder, idaorderitem}
+]
+
+//tabela veze izmedju narudzbe i musterije
+table OrdersCustomer[
+  idorder: number
+  idCustomer: number
+  slozeni primarni kljuc {idorder, idCustomer}
+]
+
+table InvoiceItem[
+	id: autoinkrement number, primaran kljuc
+	productId: number, strani kljuc iz tabele Product kolona id
+	amount: number
+	amountFree: number
+	costNominal: double //bez primene akcija
+	costReal: double // koliko kada se akcije primene treba da se plati za tu stavku
+	isPaid: boolean
+]
+
+//tabela veze izmedju stavke narucivanja i akcije (popust pri placanju)
+table InvoiceItemAction[
+  idinvoiceitem: number
+  idaction: number
+  slozeni primarni kljuc {idorderitem, idaction}
+]
+
+table Invoices[
+	id: autoinkrement number, primaran kljuc
+	sellingprogramId: number, strani kljuc iz tabele SellingProgram kolona id
+	invoiceitemid: number, strani kljuc iz tabele InvoiceItem kolona id
+	isPaid: boolean, da li su sve stavke porudjbenice placene
+]
+
+//tabela veze izmedju porudzbenice i stavki porudzbenice
+table InvoiceItemInvoice[
+  idinvoice: number
+  idinvoiceitem: number
+  slozeni primarni kljuc {idinvoice, idinvoiceitem}
+]
+
+//tabela veze izmedju porudzbenice i musterije
+table InvoicesCustomer[
+  idinvoice: number
+  idCustomer: number
+  slozeni primarni kljuc {idinvoice, idCustomer}
+]
+
+table Events[
+	id: autoinkrement number, primaran kljuc
+	isOutputFromStorages: boolean
+	isInputFromStorages: boolean
+	description: string
+]
+
+table EventsTransaction[
+	id: autoinkrement number, primaran kljuc
+	eventid: number, strani kljuc iz tabele Events kolona id
+	datetime: timestamp
+]
+
+table EventsOther[
+	id: autoinkrement number, primaran kljuc
+	eventid: number, strani kljuc iz tabele Events kolona id
+	datetime: timestamp
+]
