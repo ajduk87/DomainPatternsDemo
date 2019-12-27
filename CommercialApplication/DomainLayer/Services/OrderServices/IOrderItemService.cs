@@ -14,5 +14,6 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         void Delete(IDbConnection connection, long id, IDbTransaction transaction = null);
 
         Money IncludeBasicDiscountForPaying(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null);
+        Money IncludeActionDiscountForPaying(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null);
     }
 }

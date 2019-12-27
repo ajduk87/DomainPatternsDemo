@@ -42,13 +42,24 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
 
         public Money IncludeBasicDiscountForPaying(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
         {
-            dynamic action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
+            ActionEntity action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
             Id id = new Id(orderItem.ProductId);
             double.TryParse(this.productRepository.SelectById(connection, id).UnitCost
                                                                              .Split(' ')
                                                                              .ToList()
                                                                              .First(), out double unitCost);
             return orderItem.Amount.Content > action.ThresholdAmount ? new Money { Value = orderItem.Amount * unitCost * orderItem.DiscountBasic } : new Money { Value = orderItem.Amount * unitCost };
+        }
+
+        public Money IncludeActionDiscountForPaying(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        {
+            ActionEntity action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
+            Id id = new Id(orderItem.ProductId);
+            double.TryParse(this.productRepository.SelectById(connection, id).UnitCost
+                                                                             .Split(' ')
+                                                                             .ToList()
+                                                                             .First(), out double unitCost);
+            return orderItem.Amount.Content > action.ThresholdAmount ? new Money { Value = orderItem.Amount * unitCost * action.Discount } : new Money { Value = orderItem.Amount * unitCost };
         }
     }
 }

@@ -52,6 +52,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                         {
                             OrderItem orderItem = this.dtoToEntityMapper.Map<OrderItemDto, OrderItem>(orderItemDto);
                             orderItem.Value = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItem);
+                            orderItem.Value = this.orderItemService.IncludeActionDiscountForPaying(connection, orderItem);
                             long orderItemId = this.orderItemService.Insert(connection, orderItem);
                             OrderItemOrderDto orderItemOrderDto = new OrderItemOrderDto
                             {
@@ -98,6 +99,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                         {
                             OrderItem orderItem = this.dtoToEntityMapper.Map<OrderItemDto, OrderItem>(orderItemDto);
                             orderItem.Value = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItem);
+                            orderItem.Value = this.orderItemService.IncludeActionDiscountForPaying(connection, orderItem);
                             this.orderItemService.Update(connection, orderItem);
                         }
                         transaction.Commit();
