@@ -1,4 +1,5 @@
-﻿using CommercialApplicationCommand.ApplicationLayer.Models.Product;
+﻿using CommercialApplication.ApplicationLayer.Models.Product;
+using CommercialApplicationCommand.ApplicationLayer.Models.Product;
 using FluentValidation;
 using System.Linq;
 

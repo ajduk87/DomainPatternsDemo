@@ -1,8 +1,12 @@
-﻿using CommercialApplication.ApplicationLayer.Models.Product;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CommercialApplicationCommand.ApplicationLayer.Models.Product
+namespace CommercialApplication.ApplicationLayer.Models.Product
 {
-    public class ProductCreateModel
+    public class ProductViewModel
     {
         public string Name { get; set; }
         public UnitCostModel UnitCost { get; set; }

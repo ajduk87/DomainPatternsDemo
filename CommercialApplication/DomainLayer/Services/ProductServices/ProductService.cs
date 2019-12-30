@@ -3,6 +3,7 @@ using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositories;
+using System.Collections.Generic;
 using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
@@ -16,7 +17,12 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
             this.productRepository = RepositoryFactory.CreateProductRepository();
         }
 
-        public ProductDto SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        public IEnumerable<Product> Select(IDbConnection connection, IDbTransaction transaction = null)
+        {
+            return this.productRepository.Select(connection);
+        }
+
+        public Product SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
         {
             return this.productRepository.SelectByName(connection, name);
         }

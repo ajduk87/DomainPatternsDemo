@@ -147,6 +147,7 @@
     <Compile Include="ApplicationLayer\Models\Customer\CustomerCreateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Customer\CustomerDeleteModel.cs" />
     <Compile Include="ApplicationLayer\Models\Customer\CustomerModelBase.cs" />
+    <Compile Include="ApplicationLayer\Models\Customer\CustomerViewModel.cs" />
     <Compile Include="ApplicationLayer\Models\InvoiceItemInvoices\InvoiceItemInvoicesCreateModel.cs" />
     <Compile Include="ApplicationLayer\Models\InvoiceItemInvoices\InvoiceItemInvoicesDeleteModel.cs" />
     <Compile Include="ApplicationLayer\Models\InvoiceItem\InvoiceItemCreateModel.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="ApplicationLayer\Models\Product\ProductCreateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\ProductDeleteModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\ProductUpdateModel.cs" />
+    <Compile Include="ApplicationLayer\Models\Product\ProductViewModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\UnitCostModel.cs" />
     <Compile Include="ApplicationLayer\Models\Storage\StorageCreateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Storage\StorageDeleteModel.cs" />

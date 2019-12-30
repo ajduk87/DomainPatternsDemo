@@ -1,5 +1,6 @@
 ﻿using CommercialApplicationCommand.ApplicationLayer.Dtoes.Customer;
 using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
+using System.Collections.Generic;
 using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Services.CustomerServices

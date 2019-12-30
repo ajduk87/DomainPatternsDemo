@@ -44,10 +44,8 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
         {
             dynamic action = this.actionRepository.SelectById(connection, invoiceItem.ActionId.Content);
             Id id = new Id(invoiceItem.ProductId);
-            double.TryParse(this.productRepository.SelectById(connection, id).UnitCost
-                                                                             .Split(' ')
-                                                                             .ToList()
-                                                                             .First(), out double unitCost);
+            double unitCost = this.productRepository.SelectById(connection, id).UnitCost
+                                                                               .Value;
             return invoiceItem.Amount.Content > action.ThresholdAmount ? new Money { Value = invoiceItem.Amount * unitCost * invoiceItem.DiscountBasic } : new Money { Value = invoiceItem.Amount * unitCost };
         }
     }

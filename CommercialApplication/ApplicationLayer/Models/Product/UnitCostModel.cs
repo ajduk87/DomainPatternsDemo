@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommercialApplicationCommand.ApplicationLayer.Models.Product
+namespace CommercialApplication.ApplicationLayer.Models.Product
 {
     public class UnitCostModel
     {

@@ -1,8 +1,10 @@
-﻿using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
+﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -10,14 +12,19 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
 {
     public class ProductRepository : IProductRepository
     {
-        public ProductDto SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null)
+        public Product SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null)
         {
-            return connection.Query<ProductDto>(ProductQueries.SelectById, new { id = id.Content }).Single();
+            return connection.Query<Product>(ProductQueries.SelectById, new { id = id.Content }).Single();
         }
 
-        public ProductDto SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        public IEnumerable<Product> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query<ProductDto>(ProductQueries.SelectByName, new { name = name.Content }).Single();
+            return connection.Query<Product>(ProductQueries.Select);
+        }
+
+        public Product SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        {
+            return connection.Query<Product>(ProductQueries.SelectByName, new { name = name.Content }).Single();
         }
 
         public void Insert(IDbConnection connection, Product product, IDbTransaction transaction = null)
