@@ -129,6 +129,9 @@ WHERE id = @id</value>
 VALUES(@productid, @amount, @value,@discountbasic, @actionid)
 RETURNING id</value>
   </data>
+  <data name="SelectById" xml:space="preserve">
+    <value>SELECT * FROM commercialapplication.orderitem WHERE id = @id;</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>UPDATE commercialapplication.orderitem
 SET  productid = @productid, amount = @amount,value = @value, discountbasic = @discountbasic, actionid = @actionid

@@ -157,8 +157,10 @@
     <Compile Include="ApplicationLayer\Models\Order\OrderDeleteModel.cs" />
     <Compile Include="ApplicationLayer\Models\Order\OrderItemCreateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Order\OrderItemUpdateModel.cs" />
+    <Compile Include="ApplicationLayer\Models\Order\OrderItemViewModel.cs" />
     <Compile Include="ApplicationLayer\Models\Order\OrderModelBase.cs" />
     <Compile Include="ApplicationLayer\Models\Order\OrderUpdateModel.cs" />
+    <Compile Include="ApplicationLayer\Models\Order\OrderViewModel.cs" />
     <Compile Include="ApplicationLayer\Models\ProductStorage\ProductStorageCreateModel.cs" />
     <Compile Include="ApplicationLayer\Models\ProductStorage\ProductStorageDeleteModel.cs" />
     <Compile Include="ApplicationLayer\Models\ProductStorage\ProductStorageModelBase.cs" />

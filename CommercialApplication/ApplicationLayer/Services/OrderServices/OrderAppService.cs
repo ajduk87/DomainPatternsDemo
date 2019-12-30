@@ -24,6 +24,29 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
             this.orderItemOrderService = this.registrationServices.Instance.Container.Resolve<IOrderItemOrderService>();
         }
 
+        public OrderDto GetOrder(long id)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                Order order = this.orderService.SelectById(connection, id);
+                IEnumerable<long> orderItemsIds = this.orderItemOrderService.SelectByOrderId(connection, order.Id);
+                List<OrderItemDto> orderItemDtoes = new List<OrderItemDto>();
+                foreach (long orderitemid in orderItemsIds)
+                {
+                    OrderItem orderItemEntity = this.orderItemService.SelectById(connection, orderitemid);
+                    OrderItemDto orderItemDto = this.dtoToEntityMapper.MapView<OrderItem, OrderItemDto>(orderItemEntity);
+                    orderItemDtoes.Add(orderItemDto);
+                }
+                Customer customer = this.orderCustomerService.SelectByOrderId(connection, order.Id);
+
+                return new OrderDto
+                {
+                    CustomerId = customer.Id,
+                    OrderItems = orderItemDtoes
+                };
+            }
+        }
+
         public void CreateNewOrder(OrderDto orderDto)
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
@@ -40,15 +63,9 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                             CustomerId = orderDto.CustomerId,
                             OrderId = orderId
                         };
-                        OrderCommercialistDto orderCommercialistDto = new OrderCommercialistDto
-                        {
-                            OrderId = orderId,
-                            CommercialistId = orderDto.CommercialistId
-                        };
                         OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
-                        OrderCommercialist orderCommercialist = this.dtoToEntityMapper.Map<OrderCommercialistDto, OrderCommercialist>(orderCommercialistDto);
                         this.orderCustomerService.Insert(connection, orderCustomer);
-                        foreach (OrderItemDto orderItemDto in orderDto.orderItems)
+                        foreach (OrderItemDto orderItemDto in orderDto.OrderItems)
                         {
                             OrderItem orderItem = this.dtoToEntityMapper.Map<OrderItemDto, OrderItem>(orderItemDto);
                             orderItem.Value = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItem);
@@ -89,13 +106,12 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                         };
                         OrderCommercialistDto orderCommercialistDto = new OrderCommercialistDto
                         {
-                            OrderId = orderDto.Id,
-                            CommercialistId = orderDto.CommercialistId
+                            OrderId = orderDto.Id
                         };
                         OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
                         OrderCommercialist orderCommercialist = this.dtoToEntityMapper.Map<OrderCommercialistDto, OrderCommercialist>(orderCommercialistDto);
                         this.orderCustomerService.Update(connection, orderCustomer);
-                        foreach (OrderItemDto orderItemDto in orderDto.orderItems)
+                        foreach (OrderItemDto orderItemDto in orderDto.OrderItems)
                         {
                             OrderItem orderItem = this.dtoToEntityMapper.Map<OrderItemDto, OrderItem>(orderItemDto);
                             orderItem.Value = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItem);

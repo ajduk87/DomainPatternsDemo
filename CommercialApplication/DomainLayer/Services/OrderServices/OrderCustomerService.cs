@@ -15,6 +15,11 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderCustomerRepository = RepositoryFactory.CreateOrderCustomerRepository();
         }
 
+        public Customer SelectByOrderId(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return this.orderCustomerRepository.SelectByOrderId(connection, id);
+        }
+
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             this.orderCustomerRepository.Delete(connection, id);

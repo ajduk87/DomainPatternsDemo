@@ -1,6 +1,6 @@
 ﻿using Autofac;
+using CommercialApplication.ApplicationLayer.Models.Order;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Order;
-using CommercialApplicationCommand.ApplicationLayer.Models.Order;
 using CommercialApplicationCommand.ApplicationLayer.Services.OrderServices;
 using CommercialApplicationCommand.ApplicationLayer.Validation;
 using System.Net;
@@ -16,6 +16,16 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         public OrderController()
         {
             this.orderAppService = this.registrationAppServices.Container.Resolve<IOrderAppService>();
+        }
+
+        [HttpGet]
+        [Route("api/order")]
+        public OrderViewModel GetOrder(long id)
+        {
+            OrderDto orderDto = this.orderAppService.GetOrder(id);
+            OrderViewModel orderViewModel = this.mapper.Map<OrderViewModel>(orderDto);
+
+            return orderViewModel;
         }
 
         [HttpPost]

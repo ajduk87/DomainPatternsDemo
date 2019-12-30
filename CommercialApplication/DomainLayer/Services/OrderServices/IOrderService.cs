@@ -5,6 +5,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
 {
     public interface IOrderService
     {
+        Order SelectById(IDbConnection connection, long id, IDbTransaction transaction = null);
         void Delete(IDbConnection connection, long id, IDbTransaction transaction = null);
         long Insert(IDbConnection connection, Order order, IDbTransaction transaction = null);
         void Update(IDbConnection connection, Order order, IDbTransaction transaction = null);

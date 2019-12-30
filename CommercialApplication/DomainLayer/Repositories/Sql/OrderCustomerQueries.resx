@@ -125,6 +125,9 @@ WHERE orderid = @orderid</value>
     <value>INSERT INTO commercialapplication.orderscustomer (orderid, customerid)
 VALUES (@orderid, @customerid)</value>
   </data>
+  <data name="SelectByOrderId" xml:space="preserve">
+    <value>SELECT * FROM commercialapplication.orderscustomer WHERE orderId = @orderId;</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>UPDATE commercialapplication.orderscustomer
 SET customerid = @customerid

@@ -7,6 +7,7 @@ using CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositories;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositories;
 using CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositories;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -23,6 +24,11 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderItemRepository = RepositoryFactory.CreateOrderItemRepository();
             this.actionRepository = RepositoryFactory.CreateActionRepository();
             this.productRepository = RepositoryFactory.CreateProductRepository();
+        }
+
+        public OrderItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return this.orderItemRepository.SelectById(connection, id);
         }
 
         public long Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)

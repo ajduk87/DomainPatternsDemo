@@ -1,4 +1,4 @@
-﻿using CommercialApplicationCommand.ApplicationLayer.Models.Order;
+﻿using CommercialApplication.ApplicationLayer.Models.Order;
 using CommercialApplicationCommand.DomainLayer.Repositories.CustomerRepositories;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using FluentValidation;

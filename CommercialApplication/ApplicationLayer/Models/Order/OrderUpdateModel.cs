@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CommercialApplicationCommand.ApplicationLayer.Models.Order
+namespace CommercialApplication.ApplicationLayer.Models.Order
 {
     public class OrderUpdateModel : OrderModelBase
     {

@@ -1,13 +1,21 @@
-﻿using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
+﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
 using System.Data;
+using System.Linq;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositories
 {
     public class OrderCustomerRepository : IOrderCustomerRepository
     {
+
+        public Customer SelectByOrderId(IDbConnection connection, long orderId, IDbTransaction transaction = null)
+        {
+            return connection.Query<Customer>(OrderCustomerQueries.SelectByOrderId, new { orderId }).Single();
+        }
+
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             connection.Execute(OrderCustomerQueries.Delete, new { orderId = id });

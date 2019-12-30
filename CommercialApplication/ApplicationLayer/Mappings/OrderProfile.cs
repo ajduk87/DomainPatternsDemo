@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using CommercialApplication.ApplicationLayer.Models.Order;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Order;
-using CommercialApplicationCommand.ApplicationLayer.Models.Order;
 using System.Linq;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Mappings
@@ -9,9 +9,11 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
     {
         public OrderProfile()
         {
+            CreateMap<OrderDto, OrderViewModel>();
+
             CreateMap<OrderCreateModel, OrderDto>();
             CreateMap<OrderUpdateModel, OrderDto>()
-             .ForMember(dest => dest.orderItems, opt => opt.MapFrom(src => src.orderItems
+             .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.orderItems
                                                                               .Where(orderItem => orderItem.IsChanged == true)));
             CreateMap<OrderDeleteModel, OrderDto>();
 

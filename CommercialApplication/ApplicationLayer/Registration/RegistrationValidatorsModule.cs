@@ -1,10 +1,10 @@
 ﻿using Autofac;
+using CommercialApplication.ApplicationLayer.Models.Order;
 using CommercialApplicationCommand.ApplicationLayer.Models.Action;
 using CommercialApplicationCommand.ApplicationLayer.Models.Customer;
 using CommercialApplicationCommand.ApplicationLayer.Models.InvoiceItem;
 using CommercialApplicationCommand.ApplicationLayer.Models.InvoiceItemInvoices;
 using CommercialApplicationCommand.ApplicationLayer.Models.Invoices;
-using CommercialApplicationCommand.ApplicationLayer.Models.Order;
 using CommercialApplicationCommand.ApplicationLayer.Models.Product;
 using CommercialApplicationCommand.ApplicationLayer.Models.ProductStorage;
 using CommercialApplicationCommand.ApplicationLayer.Models.Storage;
