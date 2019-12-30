@@ -86,5 +86,16 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.StorageServices
                 this.productStorageService.Delete(connection, productStorage);
             }
         }
+
+        public IEnumerable<ProductStorageDto> GetContent(string name)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                Storage storage = this.storageService.SelectByName(connection, new Name(name));
+                IEnumerable<ProductStorage> storageItems = this.productStorageService.SelectByStorageId(connection, storage.Id);
+                IEnumerable<ProductStorageDto> storageItemDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<ProductStorage>, IEnumerable<ProductStorageDto>>(storageItems);
+                return storageItemDtoes;
+            }
+        }
     }
 }

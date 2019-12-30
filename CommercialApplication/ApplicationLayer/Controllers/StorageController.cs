@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CommercialApplication.ApplicationLayer.Models.ProductStorage;
 using CommercialApplication.ApplicationLayer.Models.Storage;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Storage;
@@ -6,6 +7,7 @@ using CommercialApplicationCommand.ApplicationLayer.Models.ProductStorage;
 using CommercialApplicationCommand.ApplicationLayer.Models.Storage;
 using CommercialApplicationCommand.ApplicationLayer.Services.StorageServices;
 using CommercialApplicationCommand.ApplicationLayer.Validation;
+using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -68,6 +70,17 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
             StorageDto storageDto = this.mapper.Map<StorageDeleteModel, StorageDto>(storageDeleteModel);
             this.storageAppService.DeleteExistingStorage(storageDto);
             return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [HttpGet]
+        [Route("api/storage/content")]
+        [ValidateModelStateFilter]
+        public IEnumerable<ProductStorageViewModel> GetStorageContent(string name)
+        {
+            IEnumerable<ProductStorageDto> storageItemDtoes = this.storageAppService.GetContent(name);
+            IEnumerable<ProductStorageViewModel> storageItemViewModels = this.mapper.Map<IEnumerable<ProductStorageViewModel>>(storageItemDtoes);
+
+            return storageItemViewModels;
         }
 
         [HttpPost]

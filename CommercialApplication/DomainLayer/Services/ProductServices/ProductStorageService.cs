@@ -1,6 +1,7 @@
 ﻿using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositories;
+using System.Collections.Generic;
 using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
@@ -12,6 +13,11 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
         public ProductStorageService()
         {
             this.productStorageRepository = RepositoryFactory.CreateProductStorageRepository();
+        }
+
+        public IEnumerable<ProductStorage> SelectByStorageId(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return this.productStorageRepository.SelectByStorageId(connection, id);
         }
 
         public void Delete(IDbConnection connection, ProductStorage productStorage, IDbTransaction transaction = null) =>

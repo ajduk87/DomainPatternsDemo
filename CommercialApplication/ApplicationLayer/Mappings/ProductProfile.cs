@@ -18,8 +18,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
                 .ForMember(dest => dest.UnitCost, opt => opt.MapFrom(src => MakeUnitCost(src.UnitCost)));
             CreateMap<ProductDeleteModel, ProductDto>();
 
-            CreateMap<ProductStorageCreateModel, ProductStorageDto>();
-            CreateMap<ProductStorageDeleteModel, ProductStorageDto>();
+          
         }
 
         private string MakeUnitCost(UnitCostModel unitCostModel)

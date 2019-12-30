@@ -17,5 +17,6 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.StorageServices
         void AddProductInStorage(ProductStorageDto productStorageDto);
 
         void RemoveProductFromStorage(ProductStorageDto productStorageDto);
+        IEnumerable<ProductStorageDto> GetContent(string name);
     }
 }
