@@ -1,8 +1,10 @@
-﻿using CommercialApplicationCommand.ApplicationLayer.Dtoes.Storage;
+﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+using CommercialApplicationCommand.ApplicationLayer.Dtoes.Storage;
 using CommercialApplicationCommand.DomainLayer.Entities.StorageEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -29,9 +31,14 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.StorageRepositor
             });
         }
 
-        public StorageDto SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        public IEnumerable<Storage> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query<StorageDto>(StorageQueries.SelectByName, new { Name = name.Content }).Single();
+            return connection.Query<Storage>(StorageQueries.Select);
+        }
+
+        public Storage SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        {
+            return connection.Query<Storage>(StorageQueries.SelectByName, new { Name = name.Content }).Single();
         }
 
         public void Update(IDbConnection connection, Storage storage, IDbTransaction transaction = null)

@@ -1,10 +1,12 @@
 ﻿using Autofac;
+using CommercialApplication.ApplicationLayer.Models.Storage;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Storage;
 using CommercialApplicationCommand.ApplicationLayer.Models.ProductStorage;
 using CommercialApplicationCommand.ApplicationLayer.Models.Storage;
 using CommercialApplicationCommand.ApplicationLayer.Services.StorageServices;
 using CommercialApplicationCommand.ApplicationLayer.Validation;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -18,6 +20,24 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         public StorageController()
         {
             this.storageAppService = this.registrationAppServices.Instance.Container.Resolve<IStorageAppService>();
+        }
+
+        [HttpGet]
+        [Route("api/storage")]
+        public IEnumerable<StorageViewModel> GetAll()
+        {
+            IEnumerable<StorageDto> storageDtoes = storageAppService.GetAll();
+            IEnumerable<StorageViewModel> storageViewModels = this.mapper.Map<IEnumerable<StorageViewModel>>(storageDtoes);
+            return storageViewModels;
+        }
+
+        [HttpGet]
+        [Route("api/storage")]
+        public StorageViewModel Get(string name)
+        {
+            StorageDto storageDto = storageAppService.Get(name);
+            StorageViewModel storageViewModel = this.mapper.Map<StorageViewModel>(storageDto);
+            return storageViewModel;
         }
 
         [HttpPost]

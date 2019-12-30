@@ -2,6 +2,7 @@
 using CommercialApplicationCommand.DomainLayer.Entities.StorageEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.DomainLayer.Repositories.StorageRepositories;
+using System.Collections.Generic;
 using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Services.StorageServices
@@ -16,7 +17,12 @@ namespace CommercialApplicationCommand.DomainLayer.Services.StorageServices
         public void Insert(IDbConnection connection, Storage storage, IDbTransaction transaction = null) =>
             this.storageRepository.Insert(connection, storage);
 
-        public StorageDto SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        public IEnumerable<Storage> Select(IDbConnection connection, IDbTransaction transaction = null)
+        {
+            return this.storageRepository.Select(connection);
+        }
+
+        public Storage SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
         {
             return this.storageRepository.SelectByName(connection, name);
         }

@@ -128,6 +128,10 @@ WHERE id = @id </value>
     <value>INSERT INTO commercialapplication.storage(name, location)
 VALUES (@name, @location)</value>
   </data>
+  <data name="Select" xml:space="preserve">
+    <value>SELECT id, name, location
+FROM commercialapplication.storage;</value>
+  </data>
   <data name="SelectByName" xml:space="preserve">
     <value>SELECT id, name, location
 FROM commercialapplication.storage

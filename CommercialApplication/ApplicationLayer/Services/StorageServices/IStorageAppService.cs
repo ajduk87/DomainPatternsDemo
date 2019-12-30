@@ -1,10 +1,13 @@
 ﻿using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Storage;
+using System.Collections.Generic;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.StorageServices
 {
     internal interface IStorageAppService
     {
+        IEnumerable<StorageDto> GetAll();
+        StorageDto Get(string name);
         void CreateNewStorage(StorageDto storageDto);
 
         void UpdateExistingStorage(StorageDto storageDto);
