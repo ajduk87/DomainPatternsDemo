@@ -5,6 +5,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.InvoicesReposito
 {
     public interface IInvoiceItemRepository : IRepository
     {
+        InvoiceItem SelectById(IDbConnection connection, long invoiceId, IDbTransaction transaction = null);
         long Insert(IDbConnection connection, InvoiceItem invoiceItem, IDbTransaction transaction = null);
 
         void Delete(IDbConnection connection, long id, IDbTransaction transaction = null);

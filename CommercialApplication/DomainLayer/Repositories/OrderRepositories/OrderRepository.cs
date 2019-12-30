@@ -1,6 +1,5 @@
 ﻿using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
-using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities.States;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
 using System.Data;
@@ -29,7 +28,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
         {
             return connection.ExecuteScalar<long>(OrderQueries.Insert, new
             {
-                isSynchronized = order.State.GetType().Equals(typeof(SynchronizedState))
+                state = order.State
             });
         }
 
@@ -38,7 +37,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
             connection.Execute(OrderQueries.Update, new
             {
                 id = order.Id,
-                isSynchronized = order.State.GetType().Equals(typeof(SynchronizedState))
+                state = order.State
             });
         }
     }

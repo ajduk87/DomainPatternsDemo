@@ -1,9 +1,13 @@
 ﻿using CommercialApplicationCommand.ApplicationLayer.Models.InvoiceItem;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CommercialApplicationCommand.ApplicationLayer.Models.Invoices
+namespace CommercialApplication.ApplicationLayer.Models.Invoices
 {
-    public class InvoiceCreateModel
+    public class InvoiceViewModel
     {
         public long SellingProgramId { get; set; }
         public long CustomerId { get; set; }

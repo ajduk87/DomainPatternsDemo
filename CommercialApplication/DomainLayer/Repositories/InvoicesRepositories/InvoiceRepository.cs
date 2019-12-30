@@ -1,12 +1,19 @@
-﻿using CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities;
+﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+using CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
 using System.Data;
+using System.Linq;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.InvoicesRepositories
 {
     public class InvoiceRepository : IInvoiceRepository
     {
+        public Invoice SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return connection.Query<Invoice>(InvoicesQueries.SelectById, new { id }).Single();
+        }
+
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             connection.Execute(InvoicesQueries.Delete, new { id });

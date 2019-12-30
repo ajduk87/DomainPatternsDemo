@@ -5,5 +5,6 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities
     public class Invoice : Entity
     {
         public Id SellingProgramId { get; set; }
+        public Id OrderId { get; set; }
     }
 }

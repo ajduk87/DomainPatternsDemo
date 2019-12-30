@@ -25,6 +25,11 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
             this.productRepository = RepositoryFactory.CreateProductRepository();
         }
 
+        public InvoiceItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return this.invoiceItemRepository.SelectById(connection, id);
+        }
+
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             this.invoiceItemRepository.Delete(connection, id);

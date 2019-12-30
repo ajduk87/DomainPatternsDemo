@@ -1,4 +1,5 @@
-﻿using CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities;
+﻿using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
+using CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.InvoicesRepositories;
 using System.Data;
@@ -12,6 +13,11 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
         public InvoiceCustomerService()
         {
             this.invoiceCustomerRepository = RepositoryFactory.CreateInvoiceCustomerRepository();
+        }
+
+        public Customer SelectByInvoiceId(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return invoiceCustomerRepository.SelectByInvoiceId(connection, id);
         }
 
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)

@@ -125,4 +125,7 @@ WHERE invoiceid = @invoiceid</value>
     <value>INSERT INTO commercialapplication.invoicescustomer (invoiceid, customerid)
 VALUES (@invoiceid, @customerid)</value>
   </data>
+  <data name="SelectByInvoiceId" xml:space="preserve">
+    <value>SELECT * FROM commercialapplication.invoicescustomer WHERE invoiceId = @invoiceId;</value>
+  </data>
 </root>

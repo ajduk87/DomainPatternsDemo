@@ -1,7 +1,9 @@
-﻿using CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities;
+﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+using CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
 using System.Data;
+using System.Linq;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.InvoicesRepositories
 {
@@ -15,6 +17,11 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.InvoicesReposito
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return connection.ExecuteScalar<bool>(InvoiceItemQueries.Exists, new { id });
+        }
+
+        public InvoiceItem SelectById(IDbConnection connection, long invoiceId, IDbTransaction transaction = null)
+        {
+            return connection.Query<InvoiceItem>(InvoiceItemQueries.SelectById, new { invoiceId }).Single();
         }
 
         public long Insert(IDbConnection connection, InvoiceItem invoiceItem, IDbTransaction transaction = null)

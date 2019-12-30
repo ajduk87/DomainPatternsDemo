@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using Autofac;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Invoices;
+using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities;
+using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
 using CommercialApplicationCommand.DomainLayer.Services.InvoicesServices;
+using CommercialApplicationCommand.DomainLayer.Services.OrderServices;
 using Npgsql;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
@@ -14,6 +17,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
         private readonly IInvoiceItemInvoiceService invoiceItemInvoicesService;
         private readonly IInvoiceItemService invoiceItemService;
         private readonly IInvoiceService invoicesService;
+        private readonly IOrderService orderService;
 
         public InvoicesAppService()
         {
@@ -21,6 +25,36 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
             this.invoiceItemService = this.registrationServices.Instance.Container.Resolve<IInvoiceItemService>();
             this.invoiceItemInvoicesService = this.registrationServices.Instance.Container.Resolve<IInvoiceItemInvoiceService>();
             this.invoiceCustomerService = this.registrationServices.Instance.Container.Resolve<IInvoiceCustomerService>();
+            this.orderService = this.registrationServices.Instance.Container.Resolve<IOrderService>();
+        }
+
+        public InvoiceDto GetInvoice(long id)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                Invoice invoice = this.invoicesService.SelectById(connection, id);
+                IEnumerable<long> invoiceItemsIds = this.invoiceItemInvoicesService.SelectByInvoiceId(connection, invoice.Id);
+                List<InvoiceItemDto> invoiceItemDtoes = new List<InvoiceItemDto>();
+                foreach (long invoiceitemid in invoiceItemsIds)
+                {
+                    InvoiceItem invoiceItemEntity = this.invoiceItemService.SelectById(connection, invoiceitemid);
+                    InvoiceItemDto invoiceItemDto = this.dtoToEntityMapper.MapView<InvoiceItem, InvoiceItemDto>(invoiceItemEntity);
+                    invoiceItemDtoes.Add(invoiceItemDto);
+                }
+                Customer customer = this.invoiceCustomerService.SelectByInvoiceId(connection, invoice.Id);
+
+                Order order = this.orderService.SelectById(connection, invoice.OrderId);
+                order.State = "Close";
+                this.orderService.Update(connection, order);
+
+                return new InvoiceDto
+                {
+                    CustomerId = customer.Id,
+                    SellingProgramId = invoice.SellingProgramId,
+                    OrderId = invoice.OrderId,
+                    InvoiceItems = invoiceItemDtoes
+                };
+            }
         }
 
         public void RemoveExistingInvoice(InvoiceDto invoiceDto)
@@ -67,13 +101,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
                             InvoiceId = invoiceId,
                             CustomerId = invoiceDto.CustomerId
                         };
-                        InvoiceCommercialistDto invoiceCommercialistDto = new InvoiceCommercialistDto
-                        {
-                            InvoiceId = invoiceId,
-                            CommercialistId = invoiceDto.CommercialistId
-                        };
                         InvoiceCustomer invoiceCustomer = this.dtoToEntityMapper.Map<InvoiceCustomerDto, InvoiceCustomer>(invoiceCustomerDto);
-                        InvoiceCommercialist invoiceCommercialist = this.dtoToEntityMapper.Map<InvoiceCommercialistDto, InvoiceCommercialist>(invoiceCommercialistDto);
                         this.invoiceCustomerService.Insert(connection, invoiceCustomer);
                         foreach (InvoiceItemDto invoiceItemDto in invoiceDto.InvoiceItems)
                         {

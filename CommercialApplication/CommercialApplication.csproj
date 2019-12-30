@@ -153,6 +153,7 @@
     <Compile Include="ApplicationLayer\Models\InvoiceItem\InvoiceItemDeleteModel.cs" />
     <Compile Include="ApplicationLayer\Models\Invoices\InvoiceCreateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Invoices\InvoiceDeleteModel.cs" />
+    <Compile Include="ApplicationLayer\Models\Invoices\InvoiceViewModel.cs" />
     <Compile Include="ApplicationLayer\Models\Order\OrderCreateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Order\OrderDeleteModel.cs" />
     <Compile Include="ApplicationLayer\Models\Order\OrderItemCreateModel.cs" />
@@ -225,9 +226,6 @@
     <Compile Include="DomainLayer\Entities\OrderEntities\Order.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderItem.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderItemOrder.cs" />
-    <Compile Include="DomainLayer\Entities\OrderEntities\States\IOrderState.cs" />
-    <Compile Include="DomainLayer\Entities\OrderEntities\States\NotSynchronizedState.cs" />
-    <Compile Include="DomainLayer\Entities\OrderEntities\States\SynchronizedState.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\UnitCost.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Amount.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Currency.cs" />

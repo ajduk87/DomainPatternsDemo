@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CommercialApplication.ApplicationLayer.Models.Invoices;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Invoices;
 using CommercialApplicationCommand.ApplicationLayer.Models.Invoices;
 using CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService;
@@ -16,6 +17,16 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         public InvoicesController()
         {
             this.invoicesAppService = this.registrationAppServices.Instance.Container.Resolve<IInvoicesAppService>();
+        }
+
+        [HttpGet]
+        [Route("api/invoice")]
+        public InvoiceViewModel GetInvoice(long id)
+        {
+            InvoiceDto invoiceDto = this.invoicesAppService.GetInvoice(id);
+            InvoiceViewModel invoiceViewModel = this.mapper.Map<InvoiceViewModel>(invoiceDto);
+
+            return invoiceViewModel;
         }
 
         [HttpPost]

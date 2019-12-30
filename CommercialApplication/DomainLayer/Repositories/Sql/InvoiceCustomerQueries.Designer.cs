@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CommercialApplicationCommand.DomainLayer.Repositories.Sql {
+namespace CommercialApplication.DomainLayer.Repositories.Sql {
     using System;
     
     
@@ -19,7 +19,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.Sql {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class InvoiceCustomerQueries {
@@ -39,7 +39,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.Sql {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CommercialApplicationCommand.DomainLayer.Repositories.Sql.InvoiceCustomerQueries", typeof(InvoiceCustomerQueries).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CommercialApplication.DomainLayer.Repositories.Sql.InvoiceCustomerQueries", typeof(InvoiceCustomerQueries).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -77,6 +77,15 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.Sql {
         internal static string Insert {
             get {
                 return ResourceManager.GetString("Insert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM commercialapplication.invoicescustomer WHERE invoiceId = @invoiceId;.
+        /// </summary>
+        internal static string SelectByInvoiceId {
+            get {
+                return ResourceManager.GetString("SelectByInvoiceId", resourceCulture);
             }
         }
     }

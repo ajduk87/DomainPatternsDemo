@@ -13,6 +13,11 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
         {
             this.invoicesRepository = RepositoryFactory.CreateInvoiceRepository();
         }
+
+        public Invoice SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return this.invoicesRepository.SelectById(connection, id);
+        }
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             this.invoicesRepository.Delete(connection, id);
