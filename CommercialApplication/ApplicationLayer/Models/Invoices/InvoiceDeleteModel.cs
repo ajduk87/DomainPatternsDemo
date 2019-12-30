@@ -1,4 +1,4 @@
-﻿namespace CommercialApplicationCommand.ApplicationLayer.Models.Invoices
+﻿namespace CommercialApplication.ApplicationLayer.Models.Invoices
 {
     public class InvoiceDeleteModel
     {

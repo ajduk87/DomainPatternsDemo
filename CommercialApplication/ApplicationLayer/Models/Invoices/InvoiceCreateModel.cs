@@ -1,7 +1,7 @@
 ﻿using CommercialApplicationCommand.ApplicationLayer.Models.InvoiceItem;
 using System.Collections.Generic;
 
-namespace CommercialApplicationCommand.ApplicationLayer.Models.Invoices
+namespace CommercialApplication.ApplicationLayer.Models.Invoices
 {
     public class InvoiceCreateModel
     {

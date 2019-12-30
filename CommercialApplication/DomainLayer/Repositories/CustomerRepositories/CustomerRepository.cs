@@ -1,7 +1,9 @@
-﻿using CommercialApplicationCommand.ApplicationLayer.Dtoes.Customer;
+﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+using CommercialApplicationCommand.ApplicationLayer.Dtoes.Customer;
 using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -9,9 +11,14 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.CustomerReposito
 {
     public class CustomerRepository : ICustomerRepository
     {
-        public CustomerDto SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        public IEnumerable<Customer> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query<CustomerDto>(CustomerQueries.SelectById, new { id }).Single();
+            return connection.Query<Customer>(CustomerQueries.Select);
+        }
+
+        public Customer SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return connection.Query<Customer>(CustomerQueries.SelectById, new { id }).Single();
         }
 
         public void Insert(IDbConnection connection, Customer customer, IDbTransaction transaction = null)

@@ -34,7 +34,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         {
             ActionDto actionDto = actionAppService.Get(id);
             ActionViewModel actionViewModel = this.mapper.Map<ActionViewModel>(actionDto);
-            return new ActionViewModel();
+            return actionViewModel;
         }
 
         [HttpPost]

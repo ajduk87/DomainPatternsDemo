@@ -1,4 +1,4 @@
-﻿using CommercialApplicationCommand.ApplicationLayer.Models.Invoices;
+﻿using CommercialApplication.ApplicationLayer.Models.Invoices;
 using CommercialApplicationCommand.DomainLayer.Repositories.CustomerRepositories;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using FluentValidation;

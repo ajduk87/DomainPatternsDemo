@@ -1,8 +1,10 @@
 ﻿using Autofac;
+using CommercialApplication.ApplicationLayer.Models.Customer;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Customer;
 using CommercialApplicationCommand.ApplicationLayer.Models.Customer;
 using CommercialApplicationCommand.ApplicationLayer.Services.CustomerServices;
 using CommercialApplicationCommand.ApplicationLayer.Validation;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -16,6 +18,24 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         private CustomerController()
         {
             this.customerAppService = this.registrationAppServices.Instance.Container.Resolve<ICustomerAppService>();
+        }
+
+        [HttpGet]
+        [Route("api/customer")]
+        public IEnumerable<CustomerViewModel> GetAll()
+        {
+            IEnumerable<CustomerDto> customerDtoes = customerAppService.GetAll();
+            IEnumerable<CustomerViewModel> customerViewModels = this.mapper.Map<IEnumerable<CustomerViewModel>>(customerDtoes);
+            return customerViewModels;
+        }
+
+        [HttpGet]
+        [Route("api/customer")]
+        public CustomerViewModel Get(long id)
+        {
+            CustomerDto customerDto = customerAppService.Get(id);
+            CustomerViewModel customerViewModel = this.mapper.Map<CustomerViewModel>(customerDto);
+            return customerViewModel;
         }
 
         [HttpPost]

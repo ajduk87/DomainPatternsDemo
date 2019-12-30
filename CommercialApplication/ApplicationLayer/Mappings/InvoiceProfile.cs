@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using CommercialApplication.ApplicationLayer.Models.InvoiceItemInvoices;
+using CommercialApplication.ApplicationLayer.Models.Invoices;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Invoices;
 using CommercialApplicationCommand.ApplicationLayer.Models.InvoiceItem;
-using CommercialApplicationCommand.ApplicationLayer.Models.InvoiceItemInvoices;
-using CommercialApplicationCommand.ApplicationLayer.Models.Invoices;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Mappings
 {
@@ -10,6 +10,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
     {
         public InvoiceProfile()
         {
+            CreateMap<InvoiceDto, InvoiceViewModel>();
+
             CreateMap<InvoiceCreateModel, InvoiceDto>();
             CreateMap<InvoiceDeleteModel, InvoiceDto>();
 

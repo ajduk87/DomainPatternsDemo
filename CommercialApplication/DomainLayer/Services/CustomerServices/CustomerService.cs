@@ -2,6 +2,7 @@
 using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.CustomerRepositories;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
+using System.Collections.Generic;
 using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Services.CustomerServices
@@ -15,7 +16,12 @@ namespace CommercialApplicationCommand.DomainLayer.Services.CustomerServices
             this.customerRepository = RepositoryFactory.CreateCustomerRepository();
         }
 
-        public CustomerDto SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        public IEnumerable<Customer> Select(IDbConnection connection, IDbTransaction transaction = null)
+        {
+            return customerRepository.Select(connection);
+        }
+
+        public Customer SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return customerRepository.SelectById(connection, id);
         }

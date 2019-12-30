@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using CommercialApplication.ApplicationLayer.Models.Invoices;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Invoices;
-using CommercialApplicationCommand.ApplicationLayer.Models.Invoices;
 using CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService;
 using CommercialApplicationCommand.ApplicationLayer.Validation;
 using System.Net;

@@ -6,7 +6,8 @@ namespace CommercialApplicationCommand.DomainLayer.Services.CustomerServices
 {
     public interface ICustomerService
     {
-        CustomerDto SelectById(IDbConnection connection, long id, IDbTransaction transaction = null);
+        IEnumerable<Customer> Select(IDbConnection connection, IDbTransaction transaction = null);
+        Customer SelectById(IDbConnection connection, long id, IDbTransaction transaction = null);
 
         void Insert(IDbConnection connection, Customer customer, IDbTransaction transaction = null);
 
