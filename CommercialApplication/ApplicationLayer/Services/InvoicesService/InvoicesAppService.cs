@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Autofac;
+using CommercialApplication.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Invoices;
 using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities;
@@ -44,7 +45,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
                 Customer customer = this.invoiceCustomerService.SelectByInvoiceId(connection, invoice.Id);
 
                 Order order = this.orderService.SelectById(connection, invoice.OrderId);
-                order.State = "Close";
+                order.State = new State("Close");
                 this.orderService.Update(connection, order);
 
                 return new InvoiceDto

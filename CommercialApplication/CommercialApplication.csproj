@@ -232,9 +232,11 @@
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderItemOrder.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\UnitCost.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Amount.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\Common\CreationDate.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Currency.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Id.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\DateTimeValueObject.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\Common\State.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\InvoiceItemInvoice\InvoiceId.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\InvoiceItemInvoice\InvoiceItemId.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\InvoiceItem\ActionId.cs" />
