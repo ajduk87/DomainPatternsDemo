@@ -9,19 +9,19 @@ namespace CommercialApplication.DomainLayer.Entities.ValueObjects.Common
 {
     public class CreationDate : ValueObject
     {
-        public DateTime Content;
+        public string Content;
 
-        public CreationDate(DateTime Content)
+        public CreationDate(string Content)
         {
             this.Content = Content;
         }
 
-        public static explicit operator CreationDate(DateTime creationDate)
+        public static explicit operator CreationDate(string creationDate)
         {
             return new CreationDate(creationDate);
         }
 
-        public static implicit operator DateTime(CreationDate creationDate)
+        public static implicit operator string(CreationDate creationDate)
         {
             return creationDate.Content;
         }

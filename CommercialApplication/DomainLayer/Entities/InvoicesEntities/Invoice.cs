@@ -12,7 +12,7 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities
 
         public Invoice()
         {
-            this.CreationDate = new CreationDate(DateTime.Now);
+            this.CreationDate = new CreationDate(DateTime.Now.ToShortDateString());
         }
     }
 }

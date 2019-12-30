@@ -12,7 +12,7 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.OrderEntities
         public Order()
         {
             this.State = new State("Open");
-            this.CreationDate = new CreationDate(DateTime.Now);
+            this.CreationDate = new CreationDate(DateTime.Now.ToShortDateString());
         }
     }
 }
