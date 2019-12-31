@@ -1,18 +1,11 @@
 CREATE SCHEMA commercialapplication;
 
 
-
-DROP SEQUENCE IF EXISTS commercialapplication.location_id_seq;
-
-DROP SEQUENCE IF EXISTS commercialapplication.commercialist_id_seq;
-
 DROP SEQUENCE IF EXISTS commercialapplication.product_id_seq;
 
 DROP SEQUENCE IF EXISTS commercialapplication.storage_id_seq;
 
 DROP SEQUENCE IF EXISTS commercialapplication.customer_id_seq;
-
-DROP SEQUENCE IF EXISTS commercialapplication.contact_id_seq;
 
 DROP SEQUENCE IF EXISTS commercialapplication.sellingprogram_id_seq;
 
@@ -20,27 +13,11 @@ DROP SEQUENCE IF EXISTS commercialapplication.action_id_seq;
 
 DROP SEQUENCE IF EXISTS commercialapplication.orderitem_id_seq;
 
-DROP SEQUENCE IF EXISTS commercialapplication.orderitemmodified_id_seq;
-
-DROP SEQUENCE IF EXISTS commercialapplication.orderitemrejected_id_seq;
-
 DROP SEQUENCE IF EXISTS commercialapplication.orders_id_seq;
 
 DROP SEQUENCE IF EXISTS commercialapplication.invoiceitem_id_seq;
 
 DROP SEQUENCE IF EXISTS commercialapplication.invoices_id_seq;
-
-DROP SEQUENCE IF EXISTS commercialapplication.events_id_seq;
-
-DROP SEQUENCE IF EXISTS commercialapplication.eventstransaction_id_seq;
-
-DROP SEQUENCE IF EXISTS commercialapplication.eventsother_id_seq;
-
-DROP SEQUENCE IF EXISTS commercialapplication.saleschannel_id_seq;
-
-CREATE SEQUENCE commercialapplication.location_id_seq INCREMENT 1 START 1;
-
-CREATE SEQUENCE commercialapplication.commercialist_id_seq INCREMENT 1 START 1;
 
 CREATE SEQUENCE commercialapplication.product_id_seq INCREMENT 1 START 1;
 
@@ -48,93 +25,17 @@ CREATE SEQUENCE commercialapplication.storage_id_seq INCREMENT 1 START 1;
 
 CREATE SEQUENCE commercialapplication.customer_id_seq INCREMENT 1 START 1;
 
-CREATE SEQUENCE commercialapplication.contact_id_seq INCREMENT 1 START 1;
-
 CREATE SEQUENCE commercialapplication.sellingprogram_id_seq INCREMENT 1 START 1;
 
 CREATE SEQUENCE commercialapplication.action_id_seq INCREMENT 1 START 1;
 
 CREATE SEQUENCE commercialapplication.orderitem_id_seq INCREMENT 1 START 1;
 
-CREATE SEQUENCE commercialapplication.orderitemmodified_id_seq INCREMENT 1 START 1;
-
-CREATE SEQUENCE commercialapplication.orderitemrejected_id_seq INCREMENT 1 START 1;
-
 CREATE SEQUENCE commercialapplication.orders_id_seq INCREMENT 1 START 1;
 
 CREATE SEQUENCE commercialapplication.invoiceitem_id_seq INCREMENT 1 START 1;
 
 CREATE SEQUENCE commercialapplication.invoices_id_seq INCREMENT 1 START 1;
-
-CREATE SEQUENCE commercialapplication.events_id_seq INCREMENT 1 START 1;
-
-CREATE SEQUENCE commercialapplication.eventstransaction_id_seq INCREMENT 1 START 1;
-
-CREATE SEQUENCE commercialapplication.eventsother_id_seq INCREMENT 1 START 1;
-
-CREATE SEQUENCE commercialapplication.saleschannel_id_seq INCREMENT 1 START 1;
-
-
-
-
-DROP TABLE IF EXISTS commercialapplication.location CASCADE;
-
-CREATE TABLE commercialapplication.location
-(
-	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."location_id_seq"'::text)::regclass),
-	MarketplaceName varchar(500) UNIQUE NOT NULL,
-	SiteName varchar(500) NULL,
-	Address varchar(500) NULL,
-	Postalcode varchar(500) NULL,
-	Pib varchar(500) NULL,
-	IdNumber varchar(500) NULL,
-	Work varchar(500) NULL,
-	DomicileBankAccount varchar(500) NULL,
-	ChanelSales varchar(500) NULL,
-	IsAvailableForSelling  boolean NULL,
-	IsContainHyphen boolean NULL
-);
-ALTER TABLE commercialapplication.location ADD CONSTRAINT PK_Location
-	PRIMARY KEY (Id);
-	
-
-
-DROP TABLE IF EXISTS commercialapplication.commercialist CASCADE;
-
-CREATE TABLE commercialapplication.commercialist
-(
-	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."commercialist_id_seq"'::text)::regclass),
-	Username varchar(500) UNIQUE NOT NULL,
-	FirstName varchar(500) NULL,
-	LastName varchar(500) NULL,
-	Password varchar(500) NULL
-);
-ALTER TABLE commercialapplication.commercialist ADD CONSTRAINT PK_Commercialist
-	PRIMARY KEY (Id);
-
-
--- create table connection BEGIN
-DROP TABLE IF EXISTS commercialapplication.commercialistlocation CASCADE;
-
-CREATE TABLE commercialapplication.commercialistlocation
-(
-	CommercialistId integer NOT NULL,
-	LocationId integer NOT NULL
-);
-
-ALTER TABLE commercialapplication.commercialistlocation ADD CONSTRAINT PK_CommercialistLocation
-	PRIMARY KEY (CommercialistId,LocationId);
-
-CREATE INDEX IXFK_CommercialistLocation_Commercialist ON commercialapplication.commercialistlocation (CommercialistId ASC);
-
-CREATE INDEX IXFK_CommercialistLocation_Location ON commercialapplication.commercialistlocation (LocationId ASC);
-
-ALTER TABLE commercialapplication.commercialistlocation ADD CONSTRAINT FK_CommercialistLocation_Location
-	FOREIGN KEY (LocationId) REFERENCES commercialapplication.location (Id) ON DELETE No Action ON UPDATE No Action;
-ALTER TABLE commercialapplication.commercialistlocation ADD CONSTRAINT FK_CommercialistLocation_Commercialist
-	FOREIGN KEY (CommercialistId) REFERENCES commercialapplication.commercialist (Id) ON DELETE No Action ON UPDATE No Action;
--- create table connection END
-
 
 
 
@@ -203,71 +104,6 @@ CREATE TABLE commercialapplication.customer
 );
 ALTER TABLE commercialapplication.customer ADD CONSTRAINT PK_Customer
 	PRIMARY KEY (Id);
-	
-
-
-DROP TABLE IF EXISTS commercialapplication.contact CASCADE;
-
-CREATE TABLE commercialapplication.contact
-(
-	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."contact_id_seq"'::text)::regclass),
-	Phone varchar(500) NULL,
-	Email varchar(500) NULL
-);
-ALTER TABLE commercialapplication.contact ADD CONSTRAINT PK_Contact
-	PRIMARY KEY (Id);
-	
-	
-	
-	
--- create table connection BEGIN
-DROP TABLE IF EXISTS commercialapplication.customercontact CASCADE;
-
-CREATE TABLE commercialapplication.customercontact
-(
-	CustomerId integer NOT NULL,
-	ContactId integer NOT NULL
-);
-
-ALTER TABLE commercialapplication.customercontact ADD CONSTRAINT PK_CustomerContact
-	PRIMARY KEY (CustomerId,ContactId);
-
-CREATE INDEX IXFK_CustomerContact_Customer ON commercialapplication.customercontact (CustomerId ASC);
-
-CREATE INDEX IXFK_CustomerContact_Contact ON commercialapplication.customercontact (ContactId ASC);
-
-ALTER TABLE commercialapplication.customercontact ADD CONSTRAINT FK_CustomerContact_Customer
-	FOREIGN KEY (CustomerId) REFERENCES commercialapplication.customer (Id) ON DELETE No Action ON UPDATE No Action;
-ALTER TABLE commercialapplication.customercontact ADD CONSTRAINT FK_CustomerContact_Contact
-	FOREIGN KEY (ContactId) REFERENCES commercialapplication.contact (Id) ON DELETE No Action ON UPDATE No Action;
--- create table connection END
-
-
-
-
--- create table connection BEGIN
-DROP TABLE IF EXISTS commercialapplication.customerlocation CASCADE;
-
-CREATE TABLE commercialapplication.customerlocation
-(
-	CustomerId integer NOT NULL,
-	LocationId integer NOT NULL
-);
-
-ALTER TABLE commercialapplication.customerlocation ADD CONSTRAINT PK_CustomerLocation
-	PRIMARY KEY (CustomerId,LocationId);
-
-CREATE INDEX IXFK_CustomerLocation_Customer ON commercialapplication.customerlocation (CustomerId ASC);
-
-CREATE INDEX IXFK_CustomerLocation_Location ON commercialapplication.customerlocation (LocationId ASC);
-
-ALTER TABLE commercialapplication.customerlocation ADD CONSTRAINT FK_CustomerLocation_Customer
-	FOREIGN KEY (CustomerId) REFERENCES commercialapplication.customer (Id) ON DELETE No Action ON UPDATE No Action;
-ALTER TABLE commercialapplication.customerlocation ADD CONSTRAINT FK_CustomerLocation_Location
-	FOREIGN KEY (LocationId) REFERENCES commercialapplication.location (Id) ON DELETE No Action ON UPDATE No Action;
--- create table connection END
-
-
 
 
 DROP TABLE IF EXISTS commercialapplication.sellingprogram CASCADE;
@@ -281,7 +117,6 @@ CREATE TABLE commercialapplication.sellingprogram
 );
 ALTER TABLE commercialapplication.sellingprogram ADD CONSTRAINT PK_SellingProgram
 	PRIMARY KEY (Id);
-	
 	
 	
 	
@@ -320,38 +155,7 @@ ALTER TABLE commercialapplication.orderitem ADD CONSTRAINT PK_Orderitem
 ALTER TABLE commercialapplication.orderitem ADD CONSTRAINT FK_Orderitem_Product
 	FOREIGN KEY (Productid) REFERENCES commercialapplication.product (Id) ON DELETE No Action ON UPDATE No Action;
 ALTER TABLE commercialapplication.orderitem ADD CONSTRAINT FK_Orderitem_Action
-	FOREIGN KEY (ActionId) REFERENCES commercialapplication.action (Id) ON DELETE No Action ON UPDATE No Action;
-	
-	
-DROP TABLE IF EXISTS commercialapplication.orderitemmodified CASCADE;
-
-CREATE TABLE commercialapplication.orderitemmodified
-(
-	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."orderitemmodified_id_seq"'::text)::regclass),
-	OrderItemid integer NOT NULL,
-	Productid integer NOT NULL,
-	AmountAccepted integer NOT NULL,
-	AmountOrdered integer NOT NULL
-);
-ALTER TABLE commercialapplication.orderitemmodified ADD CONSTRAINT PK_OrderItemModified
-	PRIMARY KEY (Id);
-ALTER TABLE commercialapplication.orderitemmodified ADD CONSTRAINT FK_OrderItemModified_Orderitem
-	FOREIGN KEY (OrderItemid) REFERENCES commercialapplication.orderitem (Id) ON DELETE No Action ON UPDATE No Action;	
-	
-DROP TABLE IF EXISTS commercialapplication.orderitemrejected CASCADE;
-	
-CREATE TABLE commercialapplication.orderitemrejected
-(
-	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."orderitemrejected_id_seq"'::text)::regclass),
-	OrderItemid integer NOT NULL,
-	Productid integer NOT NULL,
-	AmountOrdered integer NOT NULL
-);
-ALTER TABLE commercialapplication.orderitemrejected ADD CONSTRAINT PK_OrderItemRejected
-	PRIMARY KEY (Id);
-ALTER TABLE commercialapplication.orderitemrejected ADD CONSTRAINT FK_OrderItemRejected_Orderitem
-	FOREIGN KEY (OrderItemid) REFERENCES commercialapplication.orderitem (Id) ON DELETE No Action ON UPDATE No Action;	
-	
+	FOREIGN KEY (ActionId) REFERENCES commercialapplication.action (Id) ON DELETE No Action ON UPDATE No Action;	
 
 
 
@@ -413,29 +217,6 @@ ALTER TABLE commercialapplication.orderscustomer ADD CONSTRAINT FK_OrdersCustome
 ALTER TABLE commercialapplication.orderscustomer ADD CONSTRAINT FK_OrdersCustomer_Customer
 	FOREIGN KEY (CustomerId) REFERENCES commercialapplication.customer (Id) ON DELETE No Action ON UPDATE No Action;
 -- create table connection END
-
-
--- create table connection BEGIN
-DROP TABLE IF EXISTS commercialapplication.orderscommercialist CASCADE;
-CREATE TABLE commercialapplication.orderscommercialist
-(
-	OrderId integer NOT NULL,
-	CommercialistId integer NOT NULL
-);
-
-ALTER TABLE commercialapplication.orderscommercialist ADD CONSTRAINT PK_OrdersCommercialist
-	PRIMARY KEY(OrderId,CommercialistId);
-
-CREATE INDEX IXFK_OrdersCommercialist_Orders ON commercialapplication.orderscommercialist (OrderId ASC);
-
-CREATE INDEX IXFK_OrdersCommercialist_Commercialist ON commercialapplication.orderscommercialist (CommercialistId ASC);
-
-ALTER TABLE commercialapplication.orderscommercialist ADD CONSTRAINT FK_OrderCommercialist_Orders
-	FOREIGN KEY (OrderId) REFERENCES commercialapplication.orders (Id) ON DELETE No Action ON UPDATE No Action;
-
-ALTER TABLE commercialapplication.orderscommercialist ADD CONSTRAINT FK_Orders_Commercialist_Commercialist
-	FOREIGN KEY (CommercialistId) REFERENCES commercialapplication.commercialist (Id) ON DELETE No Action ON UPDATE No Action;
--- create table connection END 
 
 DROP TABLE IF EXISTS commercialapplication.invoiceitem CASCADE;
 
@@ -512,102 +293,3 @@ ALTER TABLE commercialapplication.invoicescustomer ADD CONSTRAINT FK_InvoicesCus
 ALTER TABLE commercialapplication.invoicescustomer ADD CONSTRAINT FK_InvoicesCustomer_Customer
 	FOREIGN KEY (CustomerId) REFERENCES commercialapplication.customer (Id) ON DELETE No Action ON UPDATE No Action;
 -- create table connection END
-
-
--- create table connection BEGIN
-DROP TABLE IF EXISTS commercialapplication.invoicescommercialist CASCADE;
-
-CREATE TABLE commercialapplication.invoicescommercialist
-(
-	InvoiceId integer NOT NULL,
-	CommercialistId integer NOT NULL
-);
-
-ALTER TABLE commercialapplication.invoicescommercialist ADD CONSTRAINT PK_Invoices_Commercialist
-	PRIMARY KEY (CommercialistId, InvoiceId);
-
-CREATE INDEX IXFK_InvoicesCommercialist_Invoices ON commercialapplication.invoicescommercialist (InvoiceId ASC);
-
-CREATE INDEX IXFK_InvoicesCommercialist_Commercialist ON commercialapplication.invoicescommercialist (CommercialistId ASC);
-
-ALTER TABLE commercialapplication.invoicescommercialist ADD CONSTRAINT FK_InvoicesCommercialist_Invoices
-	FOREIGN KEY (InvoiceId) REFERENCES commercialapplication.invoices (Id) ON DELETE No Action ON UPDATE No Action;
-
-ALTER TABLE commercialapplication.invoicescommercialist ADD CONSTRAINT FK_InvoicesCommercialist_Commercialist
-	FOREIGN KEY (CommercialistId) REFERENCES commercialapplication.commercialist (Id) ON DELETE No Action ON UPDATE No Action;
--- create table connection END
-
-
-DROP TABLE IF EXISTS commercialapplication.events CASCADE;
-
-CREATE TABLE commercialapplication.events
-(
-	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."events_id_seq"'::text)::regclass),
-	IsOutputFromStorages boolean NOT NULL,
-	IsInputFromStorages boolean NOT NULL,
-	Description varchar(500) NOT NULL
-);
-ALTER TABLE commercialapplication.events ADD CONSTRAINT PK_Events
-	PRIMARY KEY (Id);
-	
-	
-	
-	
-DROP TABLE IF EXISTS commercialapplication.eventstransaction CASCADE;
-
-CREATE TABLE commercialapplication.eventstransaction
-(
-	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."eventstransaction_id_seq"'::text)::regclass),
-	EventId integer NOT NULL,
-	DateTime timestamp without time zone NOT NULL
-);
-ALTER TABLE commercialapplication.eventstransaction ADD CONSTRAINT PK_EventsTransaction
-	PRIMARY KEY (Id);
-ALTER TABLE commercialapplication.eventstransaction ADD CONSTRAINT FK_EventsTransaction_Events
-	FOREIGN KEY (EventId) REFERENCES commercialapplication.events (Id) ON DELETE No Action ON UPDATE No Action;
-	
-	
-	
-DROP TABLE IF EXISTS commercialapplication.eventsother CASCADE;
-
-CREATE TABLE commercialapplication.eventsother
-(
-	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."eventsother_id_seq"'::text)::regclass),
-	EventId integer NOT NULL,
-	DateTime timestamp without time zone NOT NULL
-);
-ALTER TABLE commercialapplication.eventsother ADD CONSTRAINT PK_EventsOther
-	PRIMARY KEY (Id);
-ALTER TABLE commercialapplication.eventsother ADD CONSTRAINT FK_EventsOther_Events
-	FOREIGN KEY (EventId) REFERENCES commercialapplication.events (Id) ON DELETE No Action ON UPDATE No Action;
-
-
-
-DROP TABLE IF EXISTS commercialapplication.saleschannel CASCADE;
-
-CREATE TABLE commercialapplication.saleschannel
-(
-	Id integer NOT NULL DEFAULT NEXTVAL(('commercialapplication."saleschannel_id_seq"'::text)::regclass),
-	Name varchar(500) UNIQUE NOT NULL,
-	Description varchar(500) NOT NULL
-);
-
-ALTER TABLE commercialapplication.saleschannel ADD CONSTRAINT PK_SalesChannel
-	PRIMARY KEY (ID);
-
-
-
-DROP TABLE IF EXISTS commercialapplication.customersaleschannel
-
-CREATE TABLE commercialapplication.customersaleschannel
-(
-	CustomerId integer NOT NULL,
-	SalesChannelId integer NOT NULL
-);
-
-ALTER TABLE commercialapplication.customersaleschannel ADD CONSTRAINT PK_CustomerSalesChannel
-	PRIMARY KEY(CustomerId);
-ALTER TABLE commercialapplication.customersaleschannel ADD CONSTRAINT FK_CustomerSalesChannel_SalesChannel
-	FOREIGN KEY (SalesChannelId) REFERENCES commercialapplication.saleschannel (Id) ON DELETE No Action ON UPDATE No Action;
-ALTER TABLE commercialapplication.customersaleschannel ADD CONSTRAINT FK_CustomerSalesChannel_Customer
-	FOREIGN KEY(CustomerId) REFERENCES commercialapplication.customer (Id) ON DELETE No Action ON UPDATE No Action;
