@@ -86,7 +86,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         [HttpPut]
         [Route("api/setproductstate")]
         [ValidateModelStateFilter]
-        public HttpResponseMessage SetNotForSold(ProductStateModel productStateModel)
+        public HttpResponseMessage SetState(ProductStateModel productStateModel)
         {
             ProductStateDto productStateDto = this.mapper.Map<ProductStateModel, ProductStateDto>(productStateModel);
             this.productAppService.SetState(productStateDto);

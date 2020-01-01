@@ -7,6 +7,8 @@ using Npgsql;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using CommercialApplication.ApplicationLayer.Dtoes.Order;
+using CommercialApplication.DomainLayer.Entities.OrderEntities;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
 {
@@ -134,7 +136,6 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                             OrderId = orderDto.Id
                         };
                         OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
-                        OrderCommercialist orderCommercialist = this.dtoToEntityMapper.Map<OrderCommercialistDto, OrderCommercialist>(orderCommercialistDto);
                         this.orderCustomerService.Update(connection, orderCustomer);
                         foreach (OrderItemDto orderItemDto in orderDto.OrderItems)
                         {
@@ -179,6 +180,15 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                         Console.Write(ex.Message);
                     }
                 }
+            }
+        }
+
+        public void SetState(OrderStateDto orderStateDto)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                OrderState orderState = this.dtoToEntityMapper.Map<OrderStateDto, OrderState>(orderStateDto);
+                this.orderService.UpdateState(connection, orderState);
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CommercialApplication.ApplicationLayer.Dtoes.Order;
 using CommercialApplication.ApplicationLayer.Models.Order;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Order;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
 
             CreateMap<OrderItemCreateModel, OrderItemDto>();
             CreateMap<OrderItemUpdateModel, OrderItemDto>();
+
+            CreateMap<OrderStateModel, OrderStateDto>();
         }
     }
 }

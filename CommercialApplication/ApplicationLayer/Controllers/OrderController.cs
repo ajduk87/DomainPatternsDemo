@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CommercialApplication.ApplicationLayer.Dtoes.Order;
 using CommercialApplication.ApplicationLayer.Models.Order;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Order;
 using CommercialApplicationCommand.ApplicationLayer.Services.OrderServices;
@@ -67,6 +68,17 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         {
             OrderDto orderDto = this.mapper.Map<OrderDto>(orderUpdateModel);
             this.orderAppService.UpdateExistingOrder(orderDto);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [HttpPut]
+        [Route("api/setorderstate")]
+        [ValidateModelStateFilter]
+        public HttpResponseMessage SetState(OrderStateModel orderStateModel)
+        {
+            OrderStateDto orderStateDto = this.mapper.Map<OrderStateModel, OrderStateDto>(orderStateModel);
+            this.orderAppService.SetState(orderStateDto);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }

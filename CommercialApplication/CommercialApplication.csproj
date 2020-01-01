@@ -128,6 +128,7 @@
     <Compile Include="ApplicationLayer\Dtoes\Order\OrderDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Order\OrderItemDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Order\OrderItemOrderDto.cs" />
+    <Compile Include="ApplicationLayer\Dtoes\Order\OrderStateDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Parameter.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Product\DecreaseFruitsUnitCostDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Product\DecreaseVegetablesUnitCostDto.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="ApplicationLayer\Models\Order\OrderItemUpdateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Order\OrderItemViewModel.cs" />
     <Compile Include="ApplicationLayer\Models\Order\OrderModelBase.cs" />
+    <Compile Include="ApplicationLayer\Models\Order\OrderStateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Order\OrderUpdateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Order\OrderViewModel.cs" />
     <Compile Include="ApplicationLayer\Models\ProductStorage\ProductStorageCreateModel.cs" />
@@ -228,7 +230,6 @@
     <Compile Include="DomainLayer\Entities\ActionEntities\ActionEntity.cs" />
     <Compile Include="DomainLayer\Entities\CommonEntities\Money.cs" />
     <Compile Include="DomainLayer\Entities\CustomerEntities\OrderCustomer.cs" />
-    <Compile Include="DomainLayer\Entities\OrderEntities\OrderCommercialist.cs" />
     <Compile Include="DomainLayer\Entities\InvoicesEntities\Invoice.cs" />
     <Compile Include="DomainLayer\Entities\InvoicesEntities\InvoiceCommercialist.cs" />
     <Compile Include="DomainLayer\Entities\InvoicesEntities\InvoiceCustomer.cs" />
@@ -237,6 +238,7 @@
     <Compile Include="DomainLayer\Entities\OrderEntities\Order.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderItem.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderItemOrder.cs" />
+    <Compile Include="DomainLayer\Entities\OrderEntities\OrderState.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\DecreaseFruitsUnitCost.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\DecreaseVegetablesUnitCost.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\ProductState.cs" />

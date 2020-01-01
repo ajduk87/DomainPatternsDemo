@@ -1,4 +1,5 @@
-﻿using CommercialApplicationCommand.ApplicationLayer.Dtoes.Order;
+﻿using CommercialApplication.ApplicationLayer.Dtoes.Order;
+using CommercialApplicationCommand.ApplicationLayer.Dtoes.Order;
 using System;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
@@ -13,5 +14,6 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
         void UpdateExistingOrder(OrderDto orderDto);
 
         void DeleteExistingOrder(long id);
+        void SetState(OrderStateDto orderStateDto);
     }
 }
