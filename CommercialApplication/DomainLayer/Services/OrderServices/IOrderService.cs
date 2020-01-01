@@ -11,7 +11,8 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         void Delete(IDbConnection connection, long id, IDbTransaction transaction = null);
         long Insert(IDbConnection connection, Order order, IDbTransaction transaction = null);
         void Update(IDbConnection connection, Order order, IDbTransaction transaction = null);
-        bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null);
-        double SumValue(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null);
+        bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null);        
+        long SelectOrderIdWithMaxSumValueByDay(IDbConnection connection, IEnumerable<Order> orders, IDbTransaction transaction = null);
+        long SelectOrderIdWithMinSumValueByDay(IDbConnection connection, IEnumerable<Order> orders, IDbTransaction transaction = null);
     }
 }

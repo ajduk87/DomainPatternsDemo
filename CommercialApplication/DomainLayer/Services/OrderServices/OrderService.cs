@@ -3,16 +3,21 @@ using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositories;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
 {
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository orderRepository;
+        private readonly IOrderItemRepository orderItemRepository;
+        private readonly IOrderItemOrderRepository orderItemOrderRepository;
 
         public OrderService()
         {
             this.orderRepository = RepositoryFactory.CreateOrderRepository();
+            this.orderItemRepository = RepositoryFactory.CreateOrderItemRepository();
+            this.orderItemOrderRepository = RepositoryFactory.CreateOrderItemOrderRepository();
         }
 
         public Order SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
@@ -45,7 +50,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderRepository.Update(connection, order);
         }
 
-        public double SumValue(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        private double SumValue(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
         {
             double orderSumValue = 0;
             foreach (OrderItem orderitem in orderItems)
@@ -53,6 +58,80 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
                 orderSumValue = orderSumValue + orderitem.Value.Value;
             }
             return orderSumValue;
+        }
+
+        public long SelectOrderIdWithMaxSumValueByDay(IDbConnection connection, IEnumerable<Order> orders, IDbTransaction transaction = null)
+        {
+            IEnumerable<long> orderItemsIds = this.orderItemOrderRepository.SelectByOrderId(connection, orders.First().Id);
+            List<OrderItem> orderItems = new List<OrderItem>();
+            foreach (long id in orderItemsIds)
+            {
+                OrderItem orderItem = this.orderItemRepository.SelectById(connection, id);
+                orderItems.Add(orderItem);
+            }
+            double firstOrderSumValue = this.SumValue(connection, orderItems);
+
+
+            long orderIdWithMaxSumValue = orderItemsIds.First();
+            double orderMaxSumValue = firstOrderSumValue;
+
+
+            for (int i = 1; i < orders.Count(); i++)
+            {
+                double currentOrderSumValue = 0;
+                IEnumerable<long> orderItemsIdsForCurrentOrder = this.orderItemOrderRepository.SelectByOrderId(connection, orders.First().Id);
+                List<OrderItem> orderItemsForCurrentOrder = new List<OrderItem>();
+                foreach (long id in orderItemsIds)
+                {
+                    OrderItem orderItem = this.orderItemRepository.SelectById(connection, id);
+                    orderItemsForCurrentOrder.Add(orderItem);
+                }
+                currentOrderSumValue = this.SumValue(connection, orderItemsForCurrentOrder);
+
+                if (currentOrderSumValue > orderMaxSumValue)
+                {
+                    orderIdWithMaxSumValue = i;
+                    orderMaxSumValue = currentOrderSumValue;
+                }
+            }
+            return orderIdWithMaxSumValue;
+        }
+
+        public long SelectOrderIdWithMinSumValueByDay(IDbConnection connection, IEnumerable<Order> orders, IDbTransaction transaction = null)
+        {
+            IEnumerable<long> orderItemsIds = this.orderItemOrderRepository.SelectByOrderId(connection, orders.First().Id);
+            List<OrderItem> orderItems = new List<OrderItem>();
+            foreach (long id in orderItemsIds)
+            {
+                OrderItem orderItem = this.orderItemRepository.SelectById(connection, id);
+                orderItems.Add(orderItem);
+            }
+            double firstOrderSumValue = this.SumValue(connection, orderItems);
+
+
+            long orderIdWithMinSumValue = orderItemsIds.First();
+            double orderMinSumValue = firstOrderSumValue;
+
+
+            for (int i = 1; i < orders.Count(); i++)
+            {
+                double currentOrderSumValue = 0;
+                IEnumerable<long> orderItemsIdsForCurrentOrder = this.orderItemOrderRepository.SelectByOrderId(connection, orders.First().Id);
+                List<OrderItem> orderItemsForCurrentOrder = new List<OrderItem>();
+                foreach (long id in orderItemsIds)
+                {
+                    OrderItem orderItem = this.orderItemRepository.SelectById(connection, id);
+                    orderItemsForCurrentOrder.Add(orderItem);
+                }
+                currentOrderSumValue = this.SumValue(connection, orderItemsForCurrentOrder);
+
+                if (currentOrderSumValue < orderMinSumValue)
+                {
+                    orderIdWithMinSumValue = i;
+                    orderMinSumValue = currentOrderSumValue;
+                }
+            }
+            return orderIdWithMinSumValue;
         }
     }
 }

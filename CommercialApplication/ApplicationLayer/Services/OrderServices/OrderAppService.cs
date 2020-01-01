@@ -59,28 +59,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
             {
                 IEnumerable<Order> orders = this.orderService.SelectByDay(connection, day.ToShortDateString());
 
-                IEnumerable<long> orderItemsIds = this.orderItemOrderService.SelectByOrderId(connection, orders.First().Id);
-                IEnumerable<OrderItem> orderItems = this.orderItemService.SelectByIds(connection, orderItemsIds);
-                double firstOrderSumValue = this.orderService.SumValue(connection, orderItems);
-               
-
-                long orderIdWithMaxSumValue = orderItemsIds.First();
-                double orderMaxSumValue = firstOrderSumValue;
-
-                
-                for (int i = 1; i < orders.Count(); i++)
-                {
-                    double currentOrderSumValue = 0;
-                    IEnumerable<long> orderItemsIdsForCurrentOrder = this.orderItemOrderService.SelectByOrderId(connection, orders.First().Id);
-                    IEnumerable<OrderItem> orderItemsForCurrentOrder = this.orderItemService.SelectByIds(connection, orderItemsIdsForCurrentOrder);
-                    currentOrderSumValue = this.orderService.SumValue(connection, orderItemsForCurrentOrder);
-
-                    if (currentOrderSumValue > orderMaxSumValue)
-                    {
-                        orderIdWithMaxSumValue = i;
-                        orderMaxSumValue = currentOrderSumValue;
-                    }
-                }
+                long orderIdWithMaxSumValue = this.orderService.SelectOrderIdWithMaxSumValueByDay(connection, orders);
 
                 return this.GetLookForOrder(orderIdWithMaxSumValue);
             }
@@ -92,28 +71,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
             {
                 IEnumerable<Order> orders = this.orderService.SelectByDay(connection, day.ToShortDateString());
 
-                IEnumerable<long> orderItemsIds = this.orderItemOrderService.SelectByOrderId(connection, orders.First().Id);
-                IEnumerable<OrderItem> orderItems = this.orderItemService.SelectByIds(connection, orderItemsIds);
-                double firstOrderSumValue = this.orderService.SumValue(connection, orderItems);
-
-
-                long orderIdWithMinSumValue = orderItemsIds.First();
-                double orderMinSumValue = firstOrderSumValue;
-
-
-                for (int i = 1; i < orders.Count(); i++)
-                {
-                    double currentOrderSumValue = 0;
-                    IEnumerable<long> orderItemsIdsForCurrentOrder = this.orderItemOrderService.SelectByOrderId(connection, orders.First().Id);
-                    IEnumerable<OrderItem> orderItemsForCurrentOrder = this.orderItemService.SelectByIds(connection, orderItemsIdsForCurrentOrder);
-                    currentOrderSumValue = this.orderService.SumValue(connection, orderItemsForCurrentOrder);
-
-                    if (currentOrderSumValue > orderMinSumValue)
-                    {
-                        orderIdWithMinSumValue = i;
-                        orderMinSumValue = currentOrderSumValue;
-                    }
-                }
+                long orderIdWithMinSumValue = this.orderService.SelectOrderIdWithMinSumValueByDay(connection, orders);
 
                 return this.GetLookForOrder(orderIdWithMinSumValue);
             }
