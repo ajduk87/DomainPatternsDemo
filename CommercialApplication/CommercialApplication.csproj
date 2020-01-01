@@ -215,6 +215,7 @@
     <Compile Include="ApplicationLayer\Validation\Invoices\InvoicesDeleteValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\OderItem\OrderItemCreateValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\OderItem\OrderItemUpdateValidator.cs" />
+    <Compile Include="ApplicationLayer\Validation\Order\OrderStateValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Order\OrderUpdateValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Order\OrderCreateValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Order\OrderDeleteValidator.cs" />

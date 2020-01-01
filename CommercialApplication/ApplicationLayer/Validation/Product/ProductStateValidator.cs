@@ -54,6 +54,11 @@ namespace CommercialApplication.ApplicationLayer.Validation.Product
 
         private bool ValidateNotForSoldState(ProductStateModel productStateModel)
         {
+            if (!productStateModel.State.Equals("notforsold"))
+            {
+                return true;
+            }
+
             using (NpgsqlConnection connection = databaseConnectionFactory.Instance.Create())
             {
                 return !this.productRepository.SelectByName(connection, new Name(productStateModel.Name)).State.Content.Equals("unsold");
@@ -62,6 +67,11 @@ namespace CommercialApplication.ApplicationLayer.Validation.Product
 
         private bool ValidateUnsoldState(ProductStateModel productStateModel)
         {
+            if (!productStateModel.State.Equals("unsold"))
+            {
+                return true;
+            }
+
             using (NpgsqlConnection connection = databaseConnectionFactory.Instance.Create())
             {
                 return !this.productRepository.SelectByName(connection, new Name(productStateModel.Name)).State.Content.Equals("notforsold");
@@ -70,6 +80,11 @@ namespace CommercialApplication.ApplicationLayer.Validation.Product
 
         private bool ValidateForSoldState(ProductStateModel productStateModel)
         {
+            if (!productStateModel.State.Equals("forsold"))
+            {
+                return true;
+            }
+
             using (NpgsqlConnection connection = databaseConnectionFactory.Instance.Create())
             {
                 long id = this.productRepository.SelectByName(connection, new Name(productStateModel.Name)).Id;

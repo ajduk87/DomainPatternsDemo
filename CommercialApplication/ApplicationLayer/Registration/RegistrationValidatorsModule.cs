@@ -2,6 +2,9 @@
 using CommercialApplication.ApplicationLayer.Models.InvoiceItemInvoices;
 using CommercialApplication.ApplicationLayer.Models.Invoices;
 using CommercialApplication.ApplicationLayer.Models.Order;
+using CommercialApplication.ApplicationLayer.Models.Product;
+using CommercialApplication.ApplicationLayer.Validation.Order;
+using CommercialApplication.ApplicationLayer.Validation.Product;
 using CommercialApplicationCommand.ApplicationLayer.Models.Action;
 using CommercialApplicationCommand.ApplicationLayer.Models.Customer;
 using CommercialApplicationCommand.ApplicationLayer.Models.InvoiceItem;
@@ -81,6 +84,11 @@ namespace CommercialApplicationCommand.ApplicationLayer.Registration
                         .As<IValidator>()
                         .InstancePerLifetimeScope();
 
+            objContainer.RegisterType<ProductStateValidator>()
+                     .Keyed<IValidator>(typeof(ProductStateModel))
+                     .As<IValidator>()
+                     .InstancePerLifetimeScope();
+
             objContainer.RegisterType<ProductDeleteValidator>()
                         .Keyed<IValidator>(typeof(ProductDeleteModel))
                         .As<IValidator>()
@@ -145,6 +153,11 @@ namespace CommercialApplicationCommand.ApplicationLayer.Registration
                         .Keyed<IValidator>(typeof(OrderUpdateModel))
                         .As<IValidator>()
                         .InstancePerLifetimeScope();
+
+            objContainer.RegisterType<OrderStateValidator>()
+                       .Keyed<IValidator>(typeof(OrderStateModel))
+                       .As<IValidator>()
+                       .InstancePerLifetimeScope();
 
             objContainer.RegisterType<OrderDeleteValidator>()
                         .Keyed<IValidator>(typeof(OrderDeleteModel))
