@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CommercialApplication.ApplicationLayer.Dtoes.Product;
 using CommercialApplication.ApplicationLayer.Models.Product;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.ApplicationLayer.Models.Product;
@@ -18,7 +19,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
                 .ForMember(dest => dest.UnitCost, opt => opt.MapFrom(src => MakeUnitCost(src.UnitCost)));
             CreateMap<ProductDeleteModel, ProductDto>();
 
-          
+            CreateMap<DecreaseFruitsUnitCostModel, DecreaseFruitsUnitCostDto>();
+            CreateMap<DecreaseVegetablesUnitCostModel, DecreaseVegetablesUnitCostDto>();
         }
 
         private string MakeUnitCost(UnitCostModel unitCostModel)

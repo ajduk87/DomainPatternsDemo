@@ -1,9 +1,12 @@
 ﻿using Autofac;
+using CommercialApplication.ApplicationLayer.Dtoes.Product;
+using CommercialApplication.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.DomainLayer.Services.ProductServices;
 using Npgsql;
+using System;
 using System.Collections.Generic;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
@@ -61,6 +64,48 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
             {
                 Product product = this.dtoToEntityMapper.Map<ProductDto, Product>(productDto);
                 this.productService.Delete(connection, product);
+            }
+        }
+
+        public void DecreaseUnitcostFruits(DecreaseFruitsUnitCostDto decreaseFruitsUnitCostDto)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        DecreaseFruitsUnitCost decreaseFruitsUnitCost = this.dtoToEntityMapper.Map<DecreaseFruitsUnitCostDto, DecreaseFruitsUnitCost>(decreaseFruitsUnitCostDto);
+                        this.productService.UpdateFruitsUnitCost(connection, decreaseFruitsUnitCost, transaction);
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Console.Write(ex.Message);
+                    }
+                }
+            }
+        }
+
+        public void DecreaseUnitcostVegetables(DecreaseVegetablesUnitCostDto decreaseVegetablesUnitCostDto)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        DecreaseVegetablesUnitCost decreaseVegetablesUnitCost = this.dtoToEntityMapper.Map<DecreaseVegetablesUnitCostDto, DecreaseVegetablesUnitCost>(decreaseVegetablesUnitCostDto);
+                        this.productService.UpdateFruitsUnitCost(connection, decreaseVegetablesUnitCost, transaction);
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Console.Write(ex.Message);
+                    }
+                }
             }
         }
     }

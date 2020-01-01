@@ -102,6 +102,28 @@ namespace CommercialApplication.DomainLayer.Repositories.Sql {
         /// <summary>
         ///   Looks up a localized string similar to SELECT id, name, unitcost, description, imageurl, videolink
         ///  FROM commercialapplication.product
+        ///  WHERE kindofproduct = &quot;fruit&quot;;.
+        /// </summary>
+        internal static string SelectAllFruits {
+            get {
+                return ResourceManager.GetString("SelectAllFruits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT id, name, unitcost, description, imageurl, videolink
+        ///  FROM commercialapplication.product
+        ///  WHERE kindofproduct = &quot;vegetable&quot;;.
+        /// </summary>
+        internal static string SelectAllVegetables {
+            get {
+                return ResourceManager.GetString("SelectAllVegetables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT id, name, unitcost, description, imageurl, videolink
+        ///  FROM commercialapplication.product
         ///WHERE id = @id;.
         /// </summary>
         internal static string SelectById {

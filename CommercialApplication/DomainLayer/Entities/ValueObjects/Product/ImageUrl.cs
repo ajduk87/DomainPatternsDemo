@@ -2,7 +2,7 @@
 {
     public class ImageUrl : ValueObject
     {
-        public string Content { get; set; }
+        public string Content { get; }
 
         public ImageUrl(string Content)
         {

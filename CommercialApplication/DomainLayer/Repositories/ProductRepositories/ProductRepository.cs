@@ -22,6 +22,16 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
             return connection.Query<Product>(ProductQueries.Select);
         }
 
+        public IEnumerable<Product> SelectAllFruits(IDbConnection connection, IDbTransaction transaction = null)
+        {
+            return connection.Query<Product>(ProductQueries.SelectAllFruits);
+        }
+
+        public IEnumerable<Product> SelectAllVegetables(IDbConnection connection, IDbTransaction transaction = null)
+        {
+            return connection.Query<Product>(ProductQueries.SelectAllVegetables);
+        }
+
         public Product SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
         {
             return connection.Query<Product>(ProductQueries.SelectByName, new { name = name.Content }).Single();

@@ -49,7 +49,8 @@ CREATE TABLE commercialapplication.product
 	Description varchar(500) NULL,
 	ImageUrl varchar(500) NULL,
 	VideoLink varchar(500) NULL,
-	SerialNumber varchar(500) NULL
+	SerialNumber varchar(500) NULL,
+	KindOfProduct varchar(500) NOT NULL,
 );
 ALTER TABLE commercialapplication.product ADD CONSTRAINT PK_Product
 	PRIMARY KEY (Id);

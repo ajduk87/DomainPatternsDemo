@@ -1,4 +1,5 @@
-﻿using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
+﻿using CommercialApplication.DomainLayer.Entities.ProductEntities;
+using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
@@ -32,6 +33,26 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
 
         public void Update(IDbConnection connection, Product product, IDbTransaction transaction = null) =>
             this.productRepository.Update(connection, product);
+
+        public void UpdateFruitsUnitCost(IDbConnection connection, DecreaseFruitsUnitCost decreaseFruitsUnitCost, IDbTransaction transaction = null)
+        {
+            IEnumerable<Product> products = this.productRepository.SelectAllFruits(connection);
+            foreach (Product product in products)
+            {
+                product.UnitCost.Value = decreaseFruitsUnitCost.Percent.Content * product.UnitCost.Value;
+                this.productRepository.Update(connection, product, transaction);
+            }
+        }
+
+        public void UpdateVegetablesUnitCost(IDbConnection connection, DecreaseVegetablesUnitCost decreaseVegetablesUnitCost, IDbTransaction transaction = null)
+        {
+            IEnumerable<Product> products = this.productRepository.SelectAllVegetables(connection);
+            foreach (Product product in products)
+            {
+                product.UnitCost.Value = decreaseVegetablesUnitCost.Percent.Content * product.UnitCost.Value;
+                this.productRepository.Update(connection, product, transaction);
+            }
+        }
 
         public void Delete(IDbConnection connection, Product product, IDbTransaction transaction = null) =>
             this.productRepository.Delete(connection, product);

@@ -132,6 +132,16 @@
     <value>SELECT id, name, unitcost, description, imageurl, videolink
   FROM commercialapplication.product;</value>
   </data>
+  <data name="SelectAllFruits" xml:space="preserve">
+    <value>SELECT id, name, unitcost, description, imageurl, videolink
+  FROM commercialapplication.product
+  WHERE kindofproduct = "fruit";</value>
+  </data>
+  <data name="SelectAllVegetables" xml:space="preserve">
+    <value>SELECT id, name, unitcost, description, imageurl, videolink
+  FROM commercialapplication.product
+  WHERE kindofproduct = "vegetable";</value>
+  </data>
   <data name="SelectById" xml:space="preserve">
     <value>SELECT id, name, unitcost, description, imageurl, videolink
   FROM commercialapplication.product

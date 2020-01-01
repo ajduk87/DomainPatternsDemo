@@ -1,4 +1,5 @@
-﻿using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
+﻿using CommercialApplication.ApplicationLayer.Dtoes.Product;
+using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using System.Collections.Generic;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
@@ -10,5 +11,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
         void CreateNewProduct(ProductDto productDto);
         void UpdateExistingProduct(ProductDto productDto);
         void RemoveExistingProduct(ProductDto productDto);
+        void DecreaseUnitcostFruits(DecreaseFruitsUnitCostDto decreaseFruitsUnitCostDto);
+        void DecreaseUnitcostVegetables(DecreaseVegetablesUnitCostDto decreaseVegetablesUnitCostDto);
     }
 }

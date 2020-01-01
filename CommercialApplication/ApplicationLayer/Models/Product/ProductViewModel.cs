@@ -14,5 +14,6 @@ namespace CommercialApplication.ApplicationLayer.Models.Product
         public string ImageUrl { get; set; }
         public string VideoLink { get; set; }
         public string SerialNumber { get; set; }
+        public string KindOfProduct { get; set; }
     }
 }

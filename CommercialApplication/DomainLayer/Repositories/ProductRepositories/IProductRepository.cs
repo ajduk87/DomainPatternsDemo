@@ -9,6 +9,8 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
     public interface IProductRepository : IRepository
     {
         IEnumerable<Product> Select(IDbConnection connection, IDbTransaction transaction = null);
+        IEnumerable<Product> SelectAllFruits(IDbConnection connection, IDbTransaction transaction = null);
+        IEnumerable<Product> SelectAllVegetables(IDbConnection connection, IDbTransaction transaction = null);
         Product SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null);
         Product SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null);
 

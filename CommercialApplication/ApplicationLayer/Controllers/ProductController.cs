@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CommercialApplication.ApplicationLayer.Dtoes.Product;
 using CommercialApplication.ApplicationLayer.Models.Product;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.ApplicationLayer.Models.Product;
@@ -56,6 +57,28 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         {
             ProductDto productDto = this.mapper.Map<ProductUpdateModel, ProductDto>(productUpdateModel);
             this.productAppService.UpdateExistingProduct(productDto);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [HttpPut]
+        [Route("api/decrease/unitcost/fruits")]
+        [ValidateModelStateFilter]
+        public HttpResponseMessage DecreaseUnitcostFruits(DecreaseFruitsUnitCostModel decreaseFruitsUnitCostModel)
+        {
+            DecreaseFruitsUnitCostDto decreaseFruitsUnitCostDto = this.mapper.Map<DecreaseFruitsUnitCostModel, DecreaseFruitsUnitCostDto>(decreaseFruitsUnitCostModel);
+            this.productAppService.DecreaseUnitcostFruits(decreaseFruitsUnitCostDto);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [HttpPut]
+        [Route("api/decrease/unitcost/vegetables")]
+        [ValidateModelStateFilter]
+        public HttpResponseMessage DecreaseUnitcostVegetables(DecreaseVegetablesUnitCostModel decreaseVegetablesUnitCostModel)
+        {
+            DecreaseVegetablesUnitCostDto decreaseVegetablesUnitCostDto = this.mapper.Map<DecreaseVegetablesUnitCostModel, DecreaseVegetablesUnitCostDto>(decreaseVegetablesUnitCostModel);
+            this.productAppService.DecreaseUnitcostFruits(decreaseVegetablesUnitCostDto);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
