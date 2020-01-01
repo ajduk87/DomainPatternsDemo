@@ -125,6 +125,9 @@ WHERE productid = @productid AND storageid = @storageid</value>
     <value>INSERT INTO commercialapplication.productstorage(productId, storageid, amountofproduct)
 VALUES (@productid, @storageid, @amountofproduct)</value>
   </data>
+  <data name="SelectByProductFromAllStorages" xml:space="preserve">
+    <value>SELECT * FROM commercialapplication.productstorage WHERE productid = @productid;</value>
+  </data>
   <data name="SelectByStorageId" xml:space="preserve">
     <value>SELECT * FROM commercialapplication.productstorage WHERE storageid = @storageid;</value>
   </data>

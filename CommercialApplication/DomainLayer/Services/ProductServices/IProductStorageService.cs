@@ -6,6 +6,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
 {
     public interface IProductStorageService
     {
+        IEnumerable<ProductStorage> SelectProductFromAllStorages(IDbConnection connection, long id, IDbTransaction transaction = null);
         IEnumerable<ProductStorage> SelectByStorageId(IDbConnection connection, long id, IDbTransaction transaction = null);
         void Insert(IDbConnection connection, ProductStorage productStorage, IDbTransaction transaction = null);
 

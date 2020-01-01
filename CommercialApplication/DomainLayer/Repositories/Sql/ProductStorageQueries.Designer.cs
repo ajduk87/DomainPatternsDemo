@@ -81,6 +81,15 @@ namespace CommercialApplication.DomainLayer.Repositories.Sql {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM commercialapplication.productstorage WHERE productid = @productid;.
+        /// </summary>
+        internal static string SelectByProductFromAllStorages {
+            get {
+                return ResourceManager.GetString("SelectByProductFromAllStorages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT * FROM commercialapplication.productstorage WHERE storageid = @storageid;.
         /// </summary>
         internal static string SelectByStorageId {

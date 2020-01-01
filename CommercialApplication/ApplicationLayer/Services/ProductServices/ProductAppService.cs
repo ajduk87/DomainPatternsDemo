@@ -98,7 +98,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
                     try
                     {
                         DecreaseVegetablesUnitCost decreaseVegetablesUnitCost = this.dtoToEntityMapper.Map<DecreaseVegetablesUnitCostDto, DecreaseVegetablesUnitCost>(decreaseVegetablesUnitCostDto);
-                        this.productService.UpdateFruitsUnitCost(connection, decreaseVegetablesUnitCost, transaction);
+                        this.productService.UpdateVegetablesUnitCost(connection, decreaseVegetablesUnitCost, transaction);
                     }
                     catch (Exception ex)
                     {
@@ -106,6 +106,15 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
                         Console.Write(ex.Message);
                     }
                 }
+            }
+        }
+
+        public void SetState(ProductStateDto productStateDto)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                ProductState productState = this.dtoToEntityMapper.Map<ProductStateDto, ProductState>(productStateDto);
+                this.productService.UpdateState(connection, productState);
             }
         }
     }

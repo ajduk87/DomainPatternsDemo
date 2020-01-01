@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CommercialApplication.ApplicationLayer.Dtoes.Product;
+using CommercialApplication.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using System.Linq;
@@ -10,6 +12,10 @@ namespace CommercialApplicationCommand.DomainLayer.Mappings.Entities
         public ProductProfile()
         {
             CreateMap<ProductDto, Product>();
+            CreateMap<ProductStateDto, ProductState>();
+            CreateMap<ProductStorageDto, ProductStorage>();
+            CreateMap<DecreaseFruitsUnitCostDto, DecreaseFruitsUnitCost>();
+            CreateMap<DecreaseVegetablesUnitCostDto, DecreaseVegetablesUnitCost>();
         }
     }
 }

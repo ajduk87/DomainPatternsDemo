@@ -9,6 +9,11 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
 {
     public class ProductStorageRepository : IProductStorageRepository
     {
+        public IEnumerable<ProductStorage> SelectProductFromAllStorages(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return connection.Query<ProductStorage>(ProductStorageQueries.SelectByProductFromAllStorages, new { productId = id });
+        }
+
         public IEnumerable<ProductStorage> SelectByStorageId(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return connection.Query<ProductStorage>(ProductStorageQueries.SelectByStorageId, new { storageId = id});

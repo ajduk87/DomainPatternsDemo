@@ -129,7 +129,10 @@
     <Compile Include="ApplicationLayer\Dtoes\Order\OrderItemDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Order\OrderItemOrderDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Parameter.cs" />
+    <Compile Include="ApplicationLayer\Dtoes\Product\DecreaseFruitsUnitCostDto.cs" />
+    <Compile Include="ApplicationLayer\Dtoes\Product\DecreaseVegetablesUnitCostDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Product\ProductDto.cs" />
+    <Compile Include="ApplicationLayer\Dtoes\Product\ProductStateDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Product\ProductStorageDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Storage\StorageDto.cs" />
     <Compile Include="ApplicationLayer\Mappings\ActionProfile.cs" />
@@ -167,8 +170,11 @@
     <Compile Include="ApplicationLayer\Models\ProductStorage\ProductStorageDeleteModel.cs" />
     <Compile Include="ApplicationLayer\Models\ProductStorage\ProductStorageModelBase.cs" />
     <Compile Include="ApplicationLayer\Models\ProductStorage\ProductStorageViewModel.cs" />
+    <Compile Include="ApplicationLayer\Models\Product\DecreaseFruitsUnitCostModel.cs" />
+    <Compile Include="ApplicationLayer\Models\Product\DecreaseVegetablesUnitCostModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\ProductCreateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\ProductDeleteModel.cs" />
+    <Compile Include="ApplicationLayer\Models\Product\ProductStateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\ProductUpdateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\ProductViewModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\UnitCostModel.cs" />
@@ -214,6 +220,7 @@
     <Compile Include="ApplicationLayer\Validation\ProductStorage\ProductStorageDeleteValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Product\ProductCreateValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Product\ProductDeleteValidator.cs" />
+    <Compile Include="ApplicationLayer\Validation\Product\ProductStateValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Product\ProductUpdateValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Storage\StorageCreateValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Storage\StorageDeleteValidator.cs" />
@@ -230,12 +237,16 @@
     <Compile Include="DomainLayer\Entities\OrderEntities\Order.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderItem.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderItemOrder.cs" />
+    <Compile Include="DomainLayer\Entities\ProductEntities\DecreaseFruitsUnitCost.cs" />
+    <Compile Include="DomainLayer\Entities\ProductEntities\DecreaseVegetablesUnitCost.cs" />
+    <Compile Include="DomainLayer\Entities\ProductEntities\ProductState.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\UnitCost.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Amount.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\CreationDate.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Currency.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Id.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\DateTimeValueObject.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\Common\Percent.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\State.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\InvoiceItemInvoice\InvoiceId.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\InvoiceItemInvoice\InvoiceItemId.cs" />
@@ -243,6 +254,7 @@
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Discount.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\OrderItemOrder\OrderId.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\OrderItemOrder\OrderItemId.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\Product\KindOfProduct.cs" />
     <Compile Include="DomainLayer\Mappings\DtoToEntityMapper.cs" />
     <Compile Include="ApplicationLayer\Validation\ValidateModelStateFilter.cs" />
     <Compile Include="ApplicationLayer\Validation\ValidatorFactory.cs" />

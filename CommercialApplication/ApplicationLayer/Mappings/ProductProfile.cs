@@ -21,6 +21,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
 
             CreateMap<DecreaseFruitsUnitCostModel, DecreaseFruitsUnitCostDto>();
             CreateMap<DecreaseVegetablesUnitCostModel, DecreaseVegetablesUnitCostDto>();
+
+            CreateMap<ProductStateModel, ProductStateDto>();
         }
 
         private string MakeUnitCost(UnitCostModel unitCostModel)

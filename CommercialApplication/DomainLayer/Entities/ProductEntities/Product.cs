@@ -1,4 +1,6 @@
-﻿using CommercialApplication.DomainLayer.Entities.ValueObjects.Product;
+﻿using CommercialApplication.DomainLayer.Entities.ProductEntities;
+using CommercialApplication.DomainLayer.Entities.ValueObjects.Common;
+using CommercialApplication.DomainLayer.Entities.ValueObjects.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Product;
 
@@ -13,5 +15,7 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.ProductEntities
         public VideoLink VideoLink { get; set; }
         public SerialNumber SerialNumber { get; set; }
         public KindOfProduct KindOfProduct { get; set; }
+        public State State { get; set; }
+
     }
 }

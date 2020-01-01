@@ -78,7 +78,18 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         public HttpResponseMessage DecreaseUnitcostVegetables(DecreaseVegetablesUnitCostModel decreaseVegetablesUnitCostModel)
         {
             DecreaseVegetablesUnitCostDto decreaseVegetablesUnitCostDto = this.mapper.Map<DecreaseVegetablesUnitCostModel, DecreaseVegetablesUnitCostDto>(decreaseVegetablesUnitCostModel);
-            this.productAppService.DecreaseUnitcostFruits(decreaseVegetablesUnitCostDto);
+            this.productAppService.DecreaseUnitcostVegetables(decreaseVegetablesUnitCostDto);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [HttpPut]
+        [Route("api/setproductstate")]
+        [ValidateModelStateFilter]
+        public HttpResponseMessage SetNotForSold(ProductStateModel productStateModel)
+        {
+            ProductStateDto productStateDto = this.mapper.Map<ProductStateModel, ProductStateDto>(productStateModel);
+            this.productAppService.SetState(productStateDto);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }

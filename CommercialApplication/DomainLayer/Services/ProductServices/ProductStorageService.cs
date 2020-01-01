@@ -15,6 +15,11 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
             this.productStorageRepository = RepositoryFactory.CreateProductStorageRepository();
         }
 
+        public IEnumerable<ProductStorage> SelectProductFromAllStorages(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return this.productStorageRepository.SelectProductFromAllStorages(connection, id);
+        }
+
         public IEnumerable<ProductStorage> SelectByStorageId(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return this.productStorageRepository.SelectByStorageId(connection, id);

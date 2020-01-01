@@ -54,6 +54,13 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
             }
         }
 
+        public void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null)
+        {
+            Product product = this.productRepository.SelectByName(connection, productState.Name);
+            product.State = productState.State;
+            this.productRepository.Update(connection, product, transaction);
+        }
+
         public void Delete(IDbConnection connection, Product product, IDbTransaction transaction = null) =>
             this.productRepository.Delete(connection, product);
     }

@@ -13,5 +13,6 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
         void RemoveExistingProduct(ProductDto productDto);
         void DecreaseUnitcostFruits(DecreaseFruitsUnitCostDto decreaseFruitsUnitCostDto);
         void DecreaseUnitcostVegetables(DecreaseVegetablesUnitCostDto decreaseVegetablesUnitCostDto);
+        void SetState(ProductStateDto productStateDto);
     }
 }
