@@ -31,13 +31,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
             {
                 Order order = this.orderService.SelectById(connection, id);
                 IEnumerable<long> orderItemsIds = this.orderItemOrderService.SelectByOrderId(connection, order.Id);
-                List<OrderItemDto> orderItemDtoes = new List<OrderItemDto>();
-                foreach (long orderitemid in orderItemsIds)
-                {
-                    OrderItem orderItemEntity = this.orderItemService.SelectById(connection, orderitemid);
-                    OrderItemDto orderItemDto = this.dtoToEntityMapper.MapView<OrderItem, OrderItemDto>(orderItemEntity);
-                    orderItemDtoes.Add(orderItemDto);
-                }
+                List<OrderItem> orderItems = this.orderItemService.SelectByIds(connection, orderItemsIds).ToList();
+                IEnumerable<OrderItemDto> orderItemDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<OrderItem>, IEnumerable< OrderItemDto>>(orderItems);
                 Customer customer = this.orderCustomerService.SelectByOrderId(connection, order.Id);
 
                 return new OrderDto
