@@ -20,6 +20,16 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderItemOrderRepository = RepositoryFactory.CreateOrderItemOrderRepository();
         }
 
+        private double SumValue(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        {
+            double orderSumValue = 0;
+            foreach (OrderItem orderitem in orderItems)
+            {
+                orderSumValue = orderSumValue + orderitem.Value.Value;
+            }
+            return orderSumValue;
+        }
+
         public Order SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return this.orderRepository.SelectById(connection, id);
@@ -48,17 +58,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         public void Update(IDbConnection connection, Order order, IDbTransaction transaction = null)
         {
             this.orderRepository.Update(connection, order);
-        }
-
-        private double SumValue(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
-        {
-            double orderSumValue = 0;
-            foreach (OrderItem orderitem in orderItems)
-            {
-                orderSumValue = orderSumValue + orderitem.Value.Value;
-            }
-            return orderSumValue;
-        }
+        }       
 
         public long SelectOrderIdWithMaxSumValueByDay(IDbConnection connection, IEnumerable<Order> orders, IDbTransaction transaction = null)
         {
