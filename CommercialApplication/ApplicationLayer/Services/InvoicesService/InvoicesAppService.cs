@@ -29,19 +29,14 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
             this.orderService = this.registrationServices.Instance.Container.Resolve<IOrderService>();
         }
 
-        public InvoiceDto GetInvoice(long id)
+        private InvoiceDto GetLookForInvoice(long id)
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
                 Invoice invoice = this.invoicesService.SelectById(connection, id);
                 IEnumerable<long> invoiceItemsIds = this.invoiceItemInvoicesService.SelectByInvoiceId(connection, invoice.Id);
-                List<InvoiceItemDto> invoiceItemDtoes = new List<InvoiceItemDto>();
-                foreach (long invoiceitemid in invoiceItemsIds)
-                {
-                    InvoiceItem invoiceItemEntity = this.invoiceItemService.SelectById(connection, invoiceitemid);
-                    InvoiceItemDto invoiceItemDto = this.dtoToEntityMapper.MapView<InvoiceItem, InvoiceItemDto>(invoiceItemEntity);
-                    invoiceItemDtoes.Add(invoiceItemDto);
-                }
+                IEnumerable<InvoiceItem> invoiceItems = this.invoiceItemService.SelectByIds(connection, invoiceItemsIds);
+                IEnumerable<InvoiceItemDto> invoiceItemDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<InvoiceItem>, IEnumerable<InvoiceItemDto>>(invoiceItems);
                 Customer customer = this.invoiceCustomerService.SelectByInvoiceId(connection, invoice.Id);
 
                 Order order = this.orderService.SelectById(connection, invoice.OrderId);
@@ -58,6 +53,11 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
             }
         }
 
+        public InvoiceDto GetInvoice(long id)
+        {
+            return this.GetLookForInvoice(id);
+        }
+
         public void RemoveExistingInvoice(InvoiceDto invoiceDto)
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
@@ -68,13 +68,10 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
                     try
                     {
                         IEnumerable<long> invoiceItemIds = this.invoiceItemInvoicesService.SelectByInvoiceId(connection, invoiceDto.Id);
-                        this.invoiceItemInvoicesService.Delete(connection, invoiceDto.Id);
-                        this.invoiceCustomerService.Delete(connection, invoiceDto.Id);
-                        foreach (long id in invoiceItemIds)
-                        {
-                            this.invoiceItemService.Delete(connection, id);
-                        }
-                        this.invoicesService.Delete(connection, invoiceDto.Id);
+                        this.invoiceItemInvoicesService.Delete(connection, invoiceDto.Id, transaction);
+                        this.invoiceCustomerService.Delete(connection, invoiceDto.Id, transaction);
+                        this.invoiceItemService.DeleteByIds(connection, invoiceItemIds, transaction);
+                        this.invoicesService.Delete(connection, invoiceDto.Id, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -104,20 +101,10 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
                         };
                         InvoiceCustomer invoiceCustomer = this.dtoToEntityMapper.Map<InvoiceCustomerDto, InvoiceCustomer>(invoiceCustomerDto);
                         this.invoiceCustomerService.Insert(connection, invoiceCustomer);
-                        foreach (InvoiceItemDto invoiceItemDto in invoiceDto.InvoiceItems)
-                        {
-                            InvoiceItem invoiceItem = this.dtoToEntityMapper.Map<InvoiceItemDto, InvoiceItem>(invoiceItemDto);
-                            invoiceItem.Value = this.invoiceItemService.IncludeBasicDiscountForPaying(connection, invoiceItem);
-                            long invoiceItemId = this.invoiceItemService.Insert(connection, invoiceItem);
-                            InvoiceItemInvoiceDto invoiceItemInvoiceDto = new InvoiceItemInvoiceDto
-                            {
-                                InvoiceId = invoiceId,
-                                InvoiceItemId = invoiceItemId
-                            };
-
-                            InvoiceItemInvoice invoiceItemInvoice = this.dtoToEntityMapper.Map<InvoiceItemInvoiceDto, InvoiceItemInvoice>(invoiceItemInvoiceDto);
-                            this.invoiceItemInvoicesService.Insert(connection, invoiceItemInvoice);
-                        }
+                        IEnumerable<InvoiceItem> invoiceItems = this.dtoToEntityMapper.MapList<IEnumerable<InvoiceItemDto>, IEnumerable<InvoiceItem>>(invoiceDto.InvoiceItems);
+                        IEnumerable<InvoiceItem> calculatedInvoiceItems = this.invoiceItemService.IncludeBasicDiscountForPaying(connection, invoiceItems);
+                        this.invoiceItemService.InsertList(connection, calculatedInvoiceItems, transaction);
+                        this.invoiceItemInvoicesService.InsertList(connection, calculatedInvoiceItems, invoiceId, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -126,7 +113,17 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
                         Console.Write(ex.Message);
                     }
                 }
-            }
+            }           
+        }
+
+        public InvoiceDto GetMaxSumValueInvoiceForDay(DateTime day)
+        {
+            return new InvoiceDto();
+        }
+
+        public InvoiceDto GetMinSumValueInvoiceForDay(DateTime day)
+        {
+            return new InvoiceDto();
         }
     }
 }

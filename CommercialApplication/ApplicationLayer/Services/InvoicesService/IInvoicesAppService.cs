@@ -1,4 +1,5 @@
 ﻿using CommercialApplicationCommand.ApplicationLayer.Dtoes.Invoices;
+using System;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
 {
@@ -8,5 +9,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
         void CreateNewInvoice(InvoiceDto invoicesDto);
 
         void RemoveExistingInvoice(InvoiceDto invoicesDto);
+        InvoiceDto GetMaxSumValueInvoiceForDay(DateTime day);
+        InvoiceDto GetMinSumValueInvoiceForDay(DateTime day);
     }
 }

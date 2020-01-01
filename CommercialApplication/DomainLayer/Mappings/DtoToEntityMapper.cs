@@ -19,6 +19,12 @@ namespace CommercialApplicationCommand.DomainLayer.Mappings
             return (Destination)this.entityFactory.Create<Source, Destination>(dto);
         }
 
+        public Destination MapList<Source, Destination>(Source dto) where Source : IEnumerable<Dto>
+                                                        where Destination : IEnumerable<Entity>
+        {
+            return (Destination)this.entityFactory.CreateList<Source, Destination>(dto);
+        }
+
         public Destination MapView<Source, Destination>(Source entity) where Source : Entity
                                                        where Destination : Dto
         {

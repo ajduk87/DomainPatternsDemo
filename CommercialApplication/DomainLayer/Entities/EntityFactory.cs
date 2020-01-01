@@ -43,6 +43,12 @@ namespace CommercialApplicationCommand.DomainLayer.Entities
             return this.mapper.Map<Source, Destination>(dto);
         }
 
+        public IEnumerable<Entity> CreateList<Source, Destination>(Source dto) where Source : IEnumerable<Dto>
+                                                             where Destination : IEnumerable<Entity>
+        {
+            return this.mapper.Map<Source, Destination>(dto);
+        }
+
         public Dto Get<Source, Destination>(Source entity) where Source : Entity
                                                              where Destination : Dto
         {

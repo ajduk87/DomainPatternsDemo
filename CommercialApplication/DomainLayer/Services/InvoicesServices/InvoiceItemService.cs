@@ -7,6 +7,7 @@ using CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositories;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.InvoicesRepositories;
 using CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositories;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -25,9 +26,29 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
             this.productRepository = RepositoryFactory.CreateProductRepository();
         }
 
+        private Money IncludeBasicDiscountForPayingOneItem(IDbConnection connection, InvoiceItem invoiceItem, IDbTransaction transaction = null)
+        {
+            dynamic action = this.actionRepository.SelectById(connection, invoiceItem.ActionId.Content);
+            Id id = new Id(invoiceItem.ProductId);
+            double unitCost = this.productRepository.SelectById(connection, id).UnitCost
+                                                                               .Value;
+            return invoiceItem.Amount.Content > action.ThresholdAmount ? new Money { Value = invoiceItem.Amount * unitCost * invoiceItem.DiscountBasic } : new Money { Value = invoiceItem.Amount * unitCost };
+        }
+
         public InvoiceItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return this.invoiceItemRepository.SelectById(connection, id);
+        }
+
+        public IEnumerable<InvoiceItem> SelectByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null)
+        {
+            List<InvoiceItem> invoiceItems = new List<InvoiceItem>();
+            foreach (long id in ids)
+            {
+                InvoiceItem invoiceItem = this.invoiceItemRepository.SelectById(connection, id);
+                invoiceItems.Add(invoiceItem);
+            }
+            return invoiceItems;
         }
 
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
@@ -35,18 +56,37 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
             this.invoiceItemRepository.Delete(connection, id);
         }
 
+        public void DeleteByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null)
+        {
+            foreach (long id in ids)
+            {
+                this.invoiceItemRepository.Delete(connection, id);
+            }
+        }
+
         public long Insert(IDbConnection connection, InvoiceItem invoiceItem, IDbTransaction transaction = null)
         {
             return this.invoiceItemRepository.Insert(connection, invoiceItem);
         }
 
-        public Money IncludeBasicDiscountForPaying(IDbConnection connection, InvoiceItem invoiceItem, IDbTransaction transaction = null)
+        public void InsertList(IDbConnection connection, IEnumerable<InvoiceItem> invoiceItems, IDbTransaction transaction = null)
         {
-            dynamic action = this.actionRepository.SelectById(connection, invoiceItem.ActionId.Content);
-            Id id = new Id(invoiceItem.ProductId);
-            double unitCost = this.productRepository.SelectById(connection, id).UnitCost
-                                                                               .Value;
-            return invoiceItem.Amount.Content > action.ThresholdAmount ? new Money { Value = invoiceItem.Amount * unitCost * invoiceItem.DiscountBasic } : new Money { Value = invoiceItem.Amount * unitCost };
+            foreach (InvoiceItem invoiceItem in invoiceItems)
+            {
+                this.invoiceItemRepository.Insert(connection, invoiceItem);
+            }
+        }
+
+        public IEnumerable<InvoiceItem> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<InvoiceItem> invoiceItems, IDbTransaction transaction = null)
+        {
+            List<InvoiceItem> calculatedInvoiceItems = new List<InvoiceItem>();
+            foreach(InvoiceItem invoiceItem in invoiceItems)
+            {
+                InvoiceItem calculatedInvoiceItem = new InvoiceItem();
+                calculatedInvoiceItem.Value = this.IncludeBasicDiscountForPayingOneItem(connection, invoiceItem);
+                calculatedInvoiceItems.Add(calculatedInvoiceItem);
+            }
+            return calculatedInvoiceItems;
         }
     }
 }

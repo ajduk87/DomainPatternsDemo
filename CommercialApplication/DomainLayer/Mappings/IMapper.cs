@@ -8,6 +8,8 @@ namespace CommercialApplicationCommand.DomainLayer.Mappings
     {
         Destination Map<Source, Destination>(Source dto) where Source : Dto
                                                         where Destination : Entity;
+        Destination MapList<Source, Destination>(Source dto) where Source : IEnumerable<Dto>
+                                                        where Destination : IEnumerable<Entity>;
 
         Destination MapView<Source, Destination>(Source entity) where Source : Entity
                                                         where Destination : Dto;

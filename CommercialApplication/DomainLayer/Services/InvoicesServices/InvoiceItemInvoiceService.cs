@@ -1,4 +1,5 @@
 ﻿using CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities;
+using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.InvoiceItemInvoice;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.InvoicesRepositories;
 using System.Collections.Generic;
@@ -28,6 +29,19 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
         public void Insert(IDbConnection connection, InvoiceItemInvoice invoiceItemInvoice, IDbTransaction transaction = null)
         {
             this.invoiceItemInvoicesRepository.Insert(connection, invoiceItemInvoice);
+        }
+
+        public void InsertList(IDbConnection connection, IEnumerable<InvoiceItem> invoiceItems, long invoiceId, IDbTransaction transaction = null)
+        {
+            foreach (InvoiceItem invoiceItem in invoiceItems)
+            {
+                InvoiceItemInvoice invoiceItemInvoice = new InvoiceItemInvoice
+                {
+                    InvoiceItemId = new InvoiceItemId(invoiceItem.Id),
+                    InvoiceId = new InvoiceId(invoiceId)
+                };
+                this.invoiceItemInvoicesRepository.Insert(connection, invoiceItemInvoice);
+            }
         }
     }
 }
