@@ -132,6 +132,9 @@ RETURNING id</value>
   <data name="Select" xml:space="preserve">
     <value>SELECT * FROM commercialapplication.orders WHERE id = @id;</value>
   </data>
+  <data name="SelectByDay" xml:space="preserve">
+    <value>SELECT * FROM commercialapplication.orders WHERE day = @day;</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>UPDATE commercialapplication.orders
 SET issynchronized = @issynchronized

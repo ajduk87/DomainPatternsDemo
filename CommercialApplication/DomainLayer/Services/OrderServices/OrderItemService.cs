@@ -31,6 +31,17 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             return this.orderItemRepository.SelectById(connection, id);
         }
 
+        public IEnumerable<OrderItem> SelectByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null)
+        {
+            List<OrderItem> orderItems = new List<OrderItem>();
+            foreach (long id in ids)
+            {
+                OrderItem orderItem = this.orderItemRepository.SelectById(connection, id);
+                orderItems.Add(orderItem);
+            }
+            return orderItems;
+        }
+
         public long Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
         {
             return this.orderItemRepository.Insert(connection, orderItem);

@@ -3,6 +3,7 @@ using CommercialApplication.ApplicationLayer.Models.Order;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Order;
 using CommercialApplicationCommand.ApplicationLayer.Services.OrderServices;
 using CommercialApplicationCommand.ApplicationLayer.Validation;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -23,6 +24,26 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         public OrderViewModel GetOrder(long id)
         {
             OrderDto orderDto = this.orderAppService.GetOrder(id);
+            OrderViewModel orderViewModel = this.mapper.Map<OrderViewModel>(orderDto);
+
+            return orderViewModel;
+        }
+
+        [HttpGet]
+        [Route("api/maxsumvalueorder")]
+        public OrderViewModel GetMaxSumValueOrder(DateTime day)
+        {
+            OrderDto orderDto = this.orderAppService.GetMaxSumValueOrderForDay(day);
+            OrderViewModel orderViewModel = this.mapper.Map<OrderViewModel>(orderDto);
+
+            return orderViewModel;
+        }
+
+        [HttpGet]
+        [Route("api/minsumvalueorder")]
+        public OrderViewModel GetMinSumValueOrder(DateTime day)
+        {
+            OrderDto orderDto = this.orderAppService.GetMinSumValueOrderForDay(day);
             OrderViewModel orderViewModel = this.mapper.Map<OrderViewModel>(orderDto);
 
             return orderViewModel;

@@ -100,6 +100,15 @@ namespace CommercialApplication.DomainLayer.Repositories.Sql {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM commercialapplication.orders WHERE day = @day;.
+        /// </summary>
+        internal static string SelectByDay {
+            get {
+                return ResourceManager.GetString("SelectByDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UPDATE commercialapplication.orders
         ///SET issynchronized = @issynchronized
         ///WHERE id = @id.

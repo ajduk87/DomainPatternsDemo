@@ -5,6 +5,7 @@ using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
 using CommercialApplicationCommand.DomainLayer.Services.OrderServices;
 using Npgsql;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
@@ -24,7 +25,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
             this.orderItemOrderService = this.registrationServices.Instance.Container.Resolve<IOrderItemOrderService>();
         }
 
-        public OrderDto GetOrder(long id)
+        private OrderDto GetLookForOrder(long id)
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
@@ -44,6 +45,77 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                     CustomerId = customer.Id,
                     OrderItems = orderItemDtoes
                 };
+            }
+        }
+
+        public OrderDto GetOrder(long id)
+        {
+            return this.GetLookForOrder(id);
+        }
+
+        public OrderDto GetMaxSumValueOrderForDay(DateTime day)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                IEnumerable<Order> orders = this.orderService.SelectByDay(connection, day.ToShortDateString());
+
+                IEnumerable<long> orderItemsIds = this.orderItemOrderService.SelectByOrderId(connection, orders.First().Id);
+                IEnumerable<OrderItem> orderItems = this.orderItemService.SelectByIds(connection, orderItemsIds);
+                double firstOrderSumValue = this.orderService.SumValue(connection, orderItems);
+               
+
+                long orderIdWithMaxSumValue = orderItemsIds.First();
+                double orderMaxSumValue = firstOrderSumValue;
+
+                
+                for (int i = 1; i < orders.Count(); i++)
+                {
+                    double currentOrderSumValue = 0;
+                    IEnumerable<long> orderItemsIdsForCurrentOrder = this.orderItemOrderService.SelectByOrderId(connection, orders.First().Id);
+                    IEnumerable<OrderItem> orderItemsForCurrentOrder = this.orderItemService.SelectByIds(connection, orderItemsIdsForCurrentOrder);
+                    currentOrderSumValue = this.orderService.SumValue(connection, orderItemsForCurrentOrder);
+
+                    if (currentOrderSumValue > orderMaxSumValue)
+                    {
+                        orderIdWithMaxSumValue = i;
+                        orderMaxSumValue = currentOrderSumValue;
+                    }
+                }
+
+                return this.GetLookForOrder(orderIdWithMaxSumValue);
+            }
+        }
+
+        public OrderDto GetMinSumValueOrderForDay(DateTime day)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                IEnumerable<Order> orders = this.orderService.SelectByDay(connection, day.ToShortDateString());
+
+                IEnumerable<long> orderItemsIds = this.orderItemOrderService.SelectByOrderId(connection, orders.First().Id);
+                IEnumerable<OrderItem> orderItems = this.orderItemService.SelectByIds(connection, orderItemsIds);
+                double firstOrderSumValue = this.orderService.SumValue(connection, orderItems);
+
+
+                long orderIdWithMinSumValue = orderItemsIds.First();
+                double orderMinSumValue = firstOrderSumValue;
+
+
+                for (int i = 1; i < orders.Count(); i++)
+                {
+                    double currentOrderSumValue = 0;
+                    IEnumerable<long> orderItemsIdsForCurrentOrder = this.orderItemOrderService.SelectByOrderId(connection, orders.First().Id);
+                    IEnumerable<OrderItem> orderItemsForCurrentOrder = this.orderItemService.SelectByIds(connection, orderItemsIdsForCurrentOrder);
+                    currentOrderSumValue = this.orderService.SumValue(connection, orderItemsForCurrentOrder);
+
+                    if (currentOrderSumValue > orderMinSumValue)
+                    {
+                        orderIdWithMinSumValue = i;
+                        orderMinSumValue = currentOrderSumValue;
+                    }
+                }
+
+                return this.GetLookForOrder(orderIdWithMinSumValue);
             }
         }
 

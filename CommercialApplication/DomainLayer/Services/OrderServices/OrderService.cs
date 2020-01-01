@@ -1,6 +1,7 @@
 ﻿using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositories;
+using System.Collections.Generic;
 using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
@@ -17,6 +18,11 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         public Order SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return this.orderRepository.SelectById(connection, id);
+        }
+
+        public IEnumerable<Order> SelectByDay(IDbConnection connection, string day, IDbTransaction transaction = null)
+        {
+            return this.orderRepository.SelectByDay(connection, day);
         }
 
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
@@ -37,6 +43,16 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         public void Update(IDbConnection connection, Order order, IDbTransaction transaction = null)
         {
             this.orderRepository.Update(connection, order);
+        }
+
+        public double SumValue(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        {
+            double orderSumValue = 0;
+            foreach (OrderItem orderitem in orderItems)
+            {
+                orderSumValue = orderSumValue + orderitem.Value.Value;
+            }
+            return orderSumValue;
         }
     }
 }

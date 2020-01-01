@@ -2,6 +2,7 @@
 using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -12,6 +13,11 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
         public Order SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return connection.Query<Order>(OrderQueries.Select, new { id }).Single();
+        }
+
+        public IEnumerable<Order> SelectByDay(IDbConnection connection, string day, IDbTransaction transaction = null)
+        {
+            return connection.Query<Order>(OrderQueries.SelectByDay, new { day });
         }
 
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)

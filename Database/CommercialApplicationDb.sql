@@ -164,7 +164,8 @@ DROP TABLE IF EXISTS commercialapplication.orders CASCADE;
 CREATE TABLE commercialapplication.orders
 (
 	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."orderitem_id_seq"'::text)::regclass),
-	IsSynchronized boolean NOT NULL
+	IsSynchronized boolean NOT NULL,
+	CreationDate timestamp without time zone NOT NULL
 );
 ALTER TABLE commercialapplication.orders ADD CONSTRAINT PK_Orders
 	PRIMARY KEY (Id);
@@ -243,7 +244,8 @@ DROP TABLE IF EXISTS commercialapplication.invoices CASCADE;
 CREATE TABLE commercialapplication.invoices
 (
 	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."invoices_id_seq"'::text)::regclass),
-	SellingProgramId integer NOT NULL
+	SellingProgramId integer NOT NULL,
+	CreationDate timestamp without time zone NOT NULL
 );
 ALTER TABLE commercialapplication.invoices ADD CONSTRAINT PK_Invoices
 	PRIMARY KEY (Id);
