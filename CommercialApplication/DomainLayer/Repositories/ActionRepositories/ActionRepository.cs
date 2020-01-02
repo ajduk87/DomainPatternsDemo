@@ -10,7 +10,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositori
 {
     public class ActionRepository : IActionRepository
     {
-        public void Delete(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null)
+        public void Delete(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null)
         {
             connection.Execute(ActionQueries.Delete, new { id = actionEntity.Id });
         }
@@ -20,17 +20,17 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositori
             return connection.ExecuteScalar<bool>(ActionQueries.Exists, new { id });
         }
 
-        public IEnumerable<ActionEntity> Select(IDbConnection connection, IDbTransaction transaction = null)
+        public IEnumerable<Action> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.QueryFirst<IEnumerable<ActionEntity>>(ActionQueries.Select);
+            return connection.QueryFirst<IEnumerable<Action>>(ActionQueries.Select);
         }
 
-        public ActionEntity SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        public Action SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.QueryFirst<ActionEntity>(ActionQueries.SelectById, new { id });
+            return connection.QueryFirst<Action>(ActionQueries.SelectById, new { id });
         }
 
-        public void Insert(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null)
+        public void Insert(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null)
         {
             connection.Execute(ActionQueries.Insert, new
             {
@@ -41,16 +41,16 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositori
             });
         }
 
-        public IEnumerable<ActionEntity> SelectByCustomerId(IDbConnection connection, ActionDto actionDto, IDbTransaction transaction = null)
+        public IEnumerable<Action> SelectByCustomerId(IDbConnection connection, ActionDto actionDto, IDbTransaction transaction = null)
         {
-            return connection.Query<ActionEntity>(ActionQueries.SelectByCustomerId, new
+            return connection.Query<Action>(ActionQueries.SelectByCustomerId, new
             {
                 productId = actionDto.ProductId,
                 customerId = actionDto.CustomerId
             });
         }
 
-        public void Update(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null)
+        public void Update(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null)
         {
             connection.Execute(ActionQueries.Update, new
             {
@@ -60,7 +60,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositori
             });
         }
 
-        public void UpdateByCustomerId(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null)
+        public void UpdateByCustomerId(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null)
         {
             connection.Execute(ActionQueries.UpdateByCustomerId, new
             {
@@ -71,7 +71,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositori
             });
         }
 
-        public void UpdateBySalesChannelId(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null)
+        public void UpdateBySalesChannelId(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null)
         {
             connection.Execute(ActionQueries.UpdateBySalesChannelId, new
             {

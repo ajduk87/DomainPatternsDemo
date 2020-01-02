@@ -16,5 +16,6 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
         void InsertList(IDbConnection connection, IEnumerable<InvoiceItem> invoiceItems, IDbTransaction transaction = null);
 
         IEnumerable<InvoiceItem> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<InvoiceItem> invoiceItems, IDbTransaction transaction = null);
+        IEnumerable<InvoiceItem> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<InvoiceItem> invoiceItems, IDbTransaction transaction = null);
     }
 }

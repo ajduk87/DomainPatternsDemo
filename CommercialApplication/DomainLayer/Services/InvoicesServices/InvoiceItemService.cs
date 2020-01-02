@@ -28,11 +28,20 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
 
         private Money IncludeBasicDiscountForPayingOneItem(IDbConnection connection, InvoiceItem invoiceItem, IDbTransaction transaction = null)
         {
-            dynamic action = this.actionRepository.SelectById(connection, invoiceItem.ActionId.Content);
+            Action action = this.actionRepository.SelectById(connection, invoiceItem.ActionId.Content);
             Id id = new Id(invoiceItem.ProductId);
             double unitCost = this.productRepository.SelectById(connection, id).UnitCost
                                                                                .Value;
             return invoiceItem.Amount.Content > action.ThresholdAmount ? new Money { Value = invoiceItem.Amount * unitCost * invoiceItem.DiscountBasic } : new Money { Value = invoiceItem.Amount * unitCost };
+        }
+
+        private Money IncludeActionDiscountForPayingOneItem(IDbConnection connection, InvoiceItem invoiceItem, IDbTransaction transaction = null)
+        {
+            Action action = this.actionRepository.SelectById(connection, invoiceItem.ActionId.Content);
+            Id id = new Id(invoiceItem.ProductId);
+            double unitCost = this.productRepository.SelectById(connection, id).UnitCost
+                                                                               .Value;
+            return invoiceItem.Amount.Content > action.ThresholdAmount ? new Money { Value = invoiceItem.Amount * unitCost * action.Discount } : new Money { Value = invoiceItem.Amount * unitCost };
         }
 
         public InvoiceItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
@@ -84,6 +93,18 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
             {
                 InvoiceItem calculatedInvoiceItem = new InvoiceItem();
                 calculatedInvoiceItem.Value = this.IncludeBasicDiscountForPayingOneItem(connection, invoiceItem);
+                calculatedInvoiceItems.Add(calculatedInvoiceItem);
+            }
+            return calculatedInvoiceItems;
+        }
+
+        public IEnumerable<InvoiceItem> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<InvoiceItem> invoiceItems, IDbTransaction transaction = null)
+        {
+            List<InvoiceItem> calculatedInvoiceItems = new List<InvoiceItem>();
+            foreach (InvoiceItem invoiceItem in invoiceItems)
+            {
+                InvoiceItem calculatedInvoiceItem = new InvoiceItem();
+                calculatedInvoiceItem.Value = this.IncludeActionDiscountForPayingOneItem(connection, invoiceItem);
                 calculatedInvoiceItems.Add(calculatedInvoiceItem);
             }
             return calculatedInvoiceItems;

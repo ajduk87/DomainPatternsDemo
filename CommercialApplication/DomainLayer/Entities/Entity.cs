@@ -1,7 +1,9 @@
-﻿namespace CommercialApplicationCommand.DomainLayer.Entities
+﻿using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
+
+namespace CommercialApplicationCommand.DomainLayer.Entities
 {
     public abstract class Entity
     {
-        public long Id { get; set; }
+        public Id Id { get; set; }
     }
 }

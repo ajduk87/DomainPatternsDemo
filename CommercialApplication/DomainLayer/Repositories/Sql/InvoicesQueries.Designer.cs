@@ -91,6 +91,15 @@ namespace CommercialApplication.DomainLayer.Repositories.Sql {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM commercialapplication.invoices WHERE creationdate = @creationdate;.
+        /// </summary>
+        internal static string SelectByDay {
+            get {
+                return ResourceManager.GetString("SelectByDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT * FROM commercialapplication.invoices WHERE id = @id;.
         /// </summary>
         internal static string SelectById {

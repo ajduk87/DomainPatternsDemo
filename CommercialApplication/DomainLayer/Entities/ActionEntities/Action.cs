@@ -3,7 +3,7 @@ using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.ProductStor
 
 namespace CommercialApplicationCommand.DomainLayer.Entities.ActionEntities
 {
-    public class ActionEntity : Entity
+    public class Action : Entity
     {
         public Id ProductId { get; set; }
         public Id SalesChannelId { get; set; }

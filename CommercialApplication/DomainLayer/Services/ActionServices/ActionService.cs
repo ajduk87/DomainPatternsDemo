@@ -17,44 +17,44 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ActionServices
         }
 
 
-        public IEnumerable<ActionEntity> Select(IDbConnection connection, IDbTransaction transaction = null)
+        public IEnumerable<Action> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
             return this.actionRepository.Select(connection);
         }
 
-        public ActionEntity SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        public Action SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return this.actionRepository.SelectById(connection, id);
         }
 
 
 
-        public void Delete(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null)
+        public void Delete(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null)
         {
             this.actionRepository.Delete(connection, actionEntity);
         }
 
-        public void Insert(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null)
+        public void Insert(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null)
         {
             this.actionRepository.Insert(connection, actionEntity);
         }
 
-        public IEnumerable<ActionEntity> SelectByCustomerId(IDbConnection connection, ActionDto actionDto, IDbTransaction transaction = null)
+        public IEnumerable<Action> SelectByCustomerId(IDbConnection connection, ActionDto actionDto, IDbTransaction transaction = null)
         {
             return this.actionRepository.SelectByCustomerId(connection, actionDto);
         }
 
-        public void Update(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null)
+        public void Update(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null)
         {
             this.actionRepository.Update(connection, actionEntity);
         }
 
-        public void UpdateByCustomerId(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null)
+        public void UpdateByCustomerId(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null)
         {
             this.actionRepository.UpdateByCustomerId(connection, actionEntity);
         }
 
-        public void UpdateBySalesChannelId(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null)
+        public void UpdateBySalesChannelId(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null)
         {
             this.actionRepository.UpdateBySalesChannelId(connection, actionEntity);
         }

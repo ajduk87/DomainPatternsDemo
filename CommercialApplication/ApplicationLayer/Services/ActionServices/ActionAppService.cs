@@ -23,8 +23,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ActionServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                IEnumerable<ActionEntity> actionEntities = this.actionService.Select(connection);
-                IEnumerable<ActionDto> actionDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<ActionEntity>, IEnumerable<ActionDto>>(actionEntities);
+                IEnumerable<DomainLayer.Entities.ActionEntities.Action> actionEntities = this.actionService.Select(connection);
+                IEnumerable<ActionDto> actionDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<DomainLayer.Entities.ActionEntities.Action>, IEnumerable<ActionDto>>(actionEntities);
                 return actionDtoes;
             }
         }
@@ -33,8 +33,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ActionServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                ActionEntity actionEntity = this.actionService.SelectById(connection, id);
-                ActionDto actionDto = this.dtoToEntityMapper.MapView<ActionEntity, ActionDto>(actionEntity);
+                DomainLayer.Entities.ActionEntities.Action actionEntity = this.actionService.SelectById(connection, id);
+                ActionDto actionDto = this.dtoToEntityMapper.MapView<DomainLayer.Entities.ActionEntities.Action, ActionDto>(actionEntity);
                 return actionDto;
             }
         }
@@ -43,7 +43,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ActionServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                ActionEntity action = this.dtoToEntityMapper.Map<ActionDto, ActionEntity>(actionDto);
+                DomainLayer.Entities.ActionEntities.Action action = this.dtoToEntityMapper.Map<ActionDto, DomainLayer.Entities.ActionEntities.Action>(actionDto);
                 this.actionService.Delete(connection, action);
             }
         }
@@ -52,7 +52,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ActionServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                ActionEntity action = this.dtoToEntityMapper.Map<ActionDto, ActionEntity>(actionDto);
+                DomainLayer.Entities.ActionEntities.Action action = this.dtoToEntityMapper.Map<ActionDto, DomainLayer.Entities.ActionEntities.Action>(actionDto);
                 this.actionService.Insert(connection, action);
             }
         }
@@ -61,7 +61,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ActionServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                ActionEntity action = this.dtoToEntityMapper.Map<ActionDto, ActionEntity>(actionDto);
+                DomainLayer.Entities.ActionEntities.Action action = this.dtoToEntityMapper.Map<ActionDto, DomainLayer.Entities.ActionEntities.Action>(actionDto);
                 this.actionService.Update(connection, action);
             }
         }
@@ -70,7 +70,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ActionServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                ActionEntity action = this.dtoToEntityMapper.Map<ActionDto, ActionEntity>(actionDto);
+                DomainLayer.Entities.ActionEntities.Action action = this.dtoToEntityMapper.Map<ActionDto, DomainLayer.Entities.ActionEntities.Action>(actionDto);
                 this.actionService.UpdateByCustomerId(connection, action);
             }
         }
@@ -105,7 +105,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ActionServices
             // 2nd way: Using SalesChannelId only
             using(NpgsqlConnection connection =  this.databaseConnectionFactory.Instance.Create())
             {
-                ActionEntity action = this.dtoToEntityMapper.Map<ActionDto, ActionEntity>(actionDto);
+                DomainLayer.Entities.ActionEntities.Action action = this.dtoToEntityMapper.Map<ActionDto, DomainLayer.Entities.ActionEntities.Action>(actionDto);
                 this.actionService.UpdateBySalesChannelId(connection, action);
             }
         }

@@ -102,9 +102,10 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
                         InvoiceCustomer invoiceCustomer = this.dtoToEntityMapper.Map<InvoiceCustomerDto, InvoiceCustomer>(invoiceCustomerDto);
                         this.invoiceCustomerService.Insert(connection, invoiceCustomer);
                         IEnumerable<InvoiceItem> invoiceItems = this.dtoToEntityMapper.MapList<IEnumerable<InvoiceItemDto>, IEnumerable<InvoiceItem>>(invoiceDto.InvoiceItems);
-                        IEnumerable<InvoiceItem> calculatedInvoiceItems = this.invoiceItemService.IncludeBasicDiscountForPaying(connection, invoiceItems);
-                        this.invoiceItemService.InsertList(connection, calculatedInvoiceItems, transaction);
-                        this.invoiceItemInvoicesService.InsertList(connection, calculatedInvoiceItems, invoiceId, transaction);
+                        IEnumerable<InvoiceItem> calculatedInvoiceItemsWithBasicDiscount = this.invoiceItemService.IncludeBasicDiscountForPaying(connection, invoiceItems);
+                        IEnumerable<InvoiceItem> calculatedInvoiceItemsWithBasicAndActionDiscount = this.invoiceItemService.IncludeActionDiscountForPaying(connection, invoiceItems);
+                        this.invoiceItemService.InsertList(connection, calculatedInvoiceItemsWithBasicAndActionDiscount, transaction);
+                        this.invoiceItemInvoicesService.InsertList(connection, calculatedInvoiceItemsWithBasicDiscount, invoiceId, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -118,7 +119,14 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
 
         public InvoiceDto GetMaxSumValueInvoiceForDay(DateTime day)
         {
-            return new InvoiceDto();
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                IEnumerable<Invoice> invoices = this.invoicesService.SelectByDay(connection, day.ToShortDateString());
+
+                long orderIdWithMaxSumValue = this.invoicesService.SelectInvoiceIdWithMaxSumValueByDay(connection, invoices);
+
+                return this.GetLookForInvoice(orderIdWithMaxSumValue);
+            }
         }
 
         public InvoiceDto GetMinSumValueInvoiceForDay(DateTime day)

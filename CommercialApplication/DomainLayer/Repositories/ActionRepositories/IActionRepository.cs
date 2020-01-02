@@ -7,22 +7,22 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositori
 {
     public interface IActionRepository : IRepository
     {
-        IEnumerable<ActionEntity> Select(IDbConnection connection, IDbTransaction transaction = null);
+        IEnumerable<Action> Select(IDbConnection connection, IDbTransaction transaction = null);
 
-        ActionEntity SelectById(IDbConnection connection, long id, IDbTransaction transaction = null);
+        Action SelectById(IDbConnection connection, long id, IDbTransaction transaction = null);
 
-        void Insert(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null);
+        void Insert(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null);
 
-        void Update(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null);
+        void Update(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null);
 
-        void Delete(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null);
+        void Delete(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null);
 
         bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null);
 
-        IEnumerable<ActionEntity> SelectByCustomerId(IDbConnection connection, ActionDto actionDto, IDbTransaction transaction = null);
+        IEnumerable<Action> SelectByCustomerId(IDbConnection connection, ActionDto actionDto, IDbTransaction transaction = null);
 
-        void UpdateByCustomerId(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null);
+        void UpdateByCustomerId(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null);
 
-        void UpdateBySalesChannelId(IDbConnection connection, ActionEntity actionEntity, IDbTransaction transaction = null);
+        void UpdateBySalesChannelId(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null);
     }
 }

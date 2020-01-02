@@ -26,6 +26,22 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.productRepository = RepositoryFactory.CreateProductRepository();
         }
 
+        private Money IncludeBasicDiscountForPayingOneItem(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        {
+            Action action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
+            Id id = new Id(orderItem.ProductId);
+            double unitCost = this.productRepository.SelectById(connection, id).UnitCost.Value;
+            return orderItem.Amount.Content > action.ThresholdAmount ? new Money { Value = orderItem.Amount * unitCost * orderItem.DiscountBasic } : new Money { Value = orderItem.Amount * unitCost };
+        }
+
+        private Money IncludeActionDiscountForPayingOneItem(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        {
+            Action action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
+            Id id = new Id(orderItem.ProductId);
+            double unitCost = this.productRepository.SelectById(connection, id).UnitCost.Value;
+            return orderItem.Amount.Content > action.ThresholdAmount ? new Money { Value = orderItem.Amount * unitCost * action.Discount } : new Money { Value = orderItem.Amount * unitCost };
+        }
+
         public OrderItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return this.orderItemRepository.SelectById(connection, id);
@@ -47,9 +63,25 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             return this.orderItemRepository.Insert(connection, orderItem);
         }
 
+        public void InsertList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        {
+            foreach (OrderItem orderItem in orderItems)
+            {
+                this.orderItemRepository.Insert(connection, orderItem);
+            }
+        }
+
         public void Update(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
         {
             this.orderItemRepository.Update(connection, orderItem);
+        }
+
+        public void UpdateList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        {
+            foreach (OrderItem orderItem in orderItems)
+            {
+                this.orderItemRepository.Update(connection, orderItem);
+            }
         }
 
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
@@ -57,20 +89,37 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderItemRepository.Delete(connection, id);
         }
 
-        public Money IncludeBasicDiscountForPaying(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        public void DeleteByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null)
         {
-            ActionEntity action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
-            Id id = new Id(orderItem.ProductId);
-            double unitCost = this.productRepository.SelectById(connection, id).UnitCost.Value;
-            return orderItem.Amount.Content > action.ThresholdAmount ? new Money { Value = orderItem.Amount * unitCost * orderItem.DiscountBasic } : new Money { Value = orderItem.Amount * unitCost };
+            foreach (long id in ids)
+            {
+                this.orderItemRepository.Delete(connection, id);
+            }
         }
 
-        public Money IncludeActionDiscountForPaying(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        public IEnumerable<OrderItem> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
         {
-            ActionEntity action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
-            Id id = new Id(orderItem.ProductId);
-            double unitCost = this.productRepository.SelectById(connection, id).UnitCost.Value;
-            return orderItem.Amount.Content > action.ThresholdAmount ? new Money { Value = orderItem.Amount * unitCost * action.Discount } : new Money { Value = orderItem.Amount * unitCost };
+            List<OrderItem> calculatedOrderItems = new List<OrderItem>();
+            foreach (OrderItem orderItem in orderItems)
+            {
+                OrderItem calculatedOrderItem = new OrderItem();
+                calculatedOrderItem.Value = this.IncludeBasicDiscountForPayingOneItem(connection, orderItem);
+                calculatedOrderItems.Add(calculatedOrderItem);
+            }
+            return calculatedOrderItems;
         }
+
+        public IEnumerable<OrderItem> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        {
+            List<OrderItem> calculatedOrderItems = new List<OrderItem>();
+            foreach (OrderItem orderItem in orderItems)
+            {
+                OrderItem calculatedOrderItem = new OrderItem();
+                calculatedOrderItem.Value = this.IncludeActionDiscountForPayingOneItem(connection, orderItem);
+                calculatedOrderItems.Add(calculatedOrderItem);
+            }
+            return calculatedOrderItems;
+        }
+
     }
 }

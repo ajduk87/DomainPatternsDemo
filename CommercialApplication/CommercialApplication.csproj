@@ -228,7 +228,7 @@
     <Compile Include="ApplicationLayer\Validation\Storage\StorageCreateValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Storage\StorageDeleteValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Storage\StorageUpdateValidator.cs" />
-    <Compile Include="DomainLayer\Entities\ActionEntities\ActionEntity.cs" />
+    <Compile Include="DomainLayer\Entities\ActionEntities\Action.cs" />
     <Compile Include="DomainLayer\Entities\CommonEntities\Money.cs" />
     <Compile Include="DomainLayer\Entities\CustomerEntities\OrderCustomer.cs" />
     <Compile Include="DomainLayer\Entities\InvoicesEntities\Invoice.cs" />

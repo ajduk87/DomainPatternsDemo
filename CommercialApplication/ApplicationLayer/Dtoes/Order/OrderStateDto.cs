@@ -9,7 +9,6 @@ namespace CommercialApplication.ApplicationLayer.Dtoes.Order
 {
     public class OrderStateDto : Dto
     {
-        public long Id { get; set; }
         public string State { get; set; }
     }
 }

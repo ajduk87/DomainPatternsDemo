@@ -8,7 +8,7 @@ namespace CommercialApplicationCommand.DomainLayer.Mappings.Entities
     {
         public ActionProfile()
         {
-            CreateMap<ActionDto, ActionEntity>();
+            CreateMap<ActionDto, Action>();
         }
     }
 }

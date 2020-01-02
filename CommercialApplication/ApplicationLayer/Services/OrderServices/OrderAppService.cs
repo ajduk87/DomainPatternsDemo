@@ -92,20 +92,11 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                         };
                         OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
                         this.orderCustomerService.Insert(connection, orderCustomer);
-                        foreach (OrderItemDto orderItemDto in orderDto.OrderItems)
-                        {
-                            OrderItem orderItem = this.dtoToEntityMapper.Map<OrderItemDto, OrderItem>(orderItemDto);
-                            orderItem.Value = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItem);
-                            orderItem.Value = this.orderItemService.IncludeActionDiscountForPaying(connection, orderItem);
-                            long orderItemId = this.orderItemService.Insert(connection, orderItem);
-                            OrderItemOrderDto orderItemOrderDto = new OrderItemOrderDto
-                            {
-                                OrderId = orderId,
-                                OrderItemId = orderItemId
-                            };
-                            OrderItemOrder orderItemOrder = this.dtoToEntityMapper.Map<OrderItemOrderDto, OrderItemOrder>(orderItemOrderDto);
-                            this.orderItemOrderService.Insert(connection, orderItemOrder);
-                        }
+                        IEnumerable<OrderItem> orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItem>>(orderDto.OrderItems);
+                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems);
+                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicAndActionDiscount = this.orderItemService.IncludeActionDiscountForPaying(connection, calculatedOrderItemsWithBasicDiscount);
+                        this.orderItemService.InsertList(connection, calculatedOrderItemsWithBasicAndActionDiscount, transaction);
+                        this.orderItemOrderService.InsertList(connection, calculatedOrderItemsWithBasicAndActionDiscount, orderId, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -131,19 +122,12 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                             OrderId = orderDto.Id,
                             CustomerId = orderDto.CustomerId
                         };
-                        OrderCommercialistDto orderCommercialistDto = new OrderCommercialistDto
-                        {
-                            OrderId = orderDto.Id
-                        };
                         OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
                         this.orderCustomerService.Update(connection, orderCustomer);
-                        foreach (OrderItemDto orderItemDto in orderDto.OrderItems)
-                        {
-                            OrderItem orderItem = this.dtoToEntityMapper.Map<OrderItemDto, OrderItem>(orderItemDto);
-                            orderItem.Value = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItem);
-                            orderItem.Value = this.orderItemService.IncludeActionDiscountForPaying(connection, orderItem);
-                            this.orderItemService.Update(connection, orderItem);
-                        }
+                        IEnumerable<OrderItem> orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItem>>(orderDto.OrderItems);
+                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems);
+                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicAndActionDiscount = this.orderItemService.IncludeActionDiscountForPaying(connection, calculatedOrderItemsWithBasicDiscount);
+                        this.orderItemService.UpdateList(connection, calculatedOrderItemsWithBasicAndActionDiscount, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -167,10 +151,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                         IEnumerable<long> orderItemIds = this.orderItemOrderService.SelectByOrderId(connection, id);
                         this.orderItemOrderService.Delete(connection, id);
                         this.orderCustomerService.Delete(connection, id);
-                        foreach (long orderItemId in orderItemIds)
-                        {
-                            this.orderItemService.Delete(connection, orderItemId);
-                        }
+                        this.orderItemService.DeleteByIds(connection, orderItemIds, transaction);
                         this.orderService.Delete(connection, id);
                         transaction.Commit();
                     }

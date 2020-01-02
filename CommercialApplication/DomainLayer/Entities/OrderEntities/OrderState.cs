@@ -11,7 +11,6 @@ namespace CommercialApplication.DomainLayer.Entities.OrderEntities
 {
     public class OrderState : Entity
     {
-        public Id Id { get; set; }
         public State State { get; set; }
     }
 }
