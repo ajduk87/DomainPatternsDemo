@@ -19,7 +19,7 @@ namespace CommercialApplication.DomainLayer.Repositories.Sql {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ProductQueries {
@@ -80,8 +80,8 @@ namespace CommercialApplication.DomainLayer.Repositories.Sql {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO commercialapplication.product(name, unitcost, description, imageurl, videolink, serialnumber)
-        ///    VALUES (@name, @unitcost, @description, @imageurl, @videolink, @serialnumber).
+        ///   Looks up a localized string similar to INSERT INTO commercialapplication.product(name, unitcost, description, imageurl, videolink, serialnumber, kindofproduct)
+        ///    VALUES (@name, @unitcost, @description, @imageurl, @videolink, @serialnumber, @kindofproduct).
         /// </summary>
         internal static string Insert {
             get {
@@ -90,7 +90,7 @@ namespace CommercialApplication.DomainLayer.Repositories.Sql {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT id, name, unitcost, description, imageurl, videolink
+        ///   Looks up a localized string similar to SELECT id, name, unitCost, description, imageurl, videolink
         ///  FROM commercialapplication.product;.
         /// </summary>
         internal static string Select {
@@ -133,7 +133,7 @@ namespace CommercialApplication.DomainLayer.Repositories.Sql {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT id, name, unitcost, description, imageurl, videolink
+        ///   Looks up a localized string similar to SELECT id, name, unitcost, description, imageurl, videolink, kindofproduct, serialnumber
         ///  FROM commercialapplication.product
         ///WHERE name = @name;.
         /// </summary>

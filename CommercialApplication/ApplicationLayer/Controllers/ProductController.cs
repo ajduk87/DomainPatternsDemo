@@ -22,7 +22,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         }
 
         [HttpGet]
-        [Route("api/product")]
+        [Route("api/products")]
         public IEnumerable<ProductViewModel> GetAll()
         {
             IEnumerable<ProductDto> productDtoes = productAppService.GetAll();
@@ -32,9 +32,9 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
 
         [HttpGet]
         [Route("api/product")]
-        public ProductViewModel Get(string name)
+        public ProductViewModel Get(ProductGetByNameModel product)
         {
-            ProductDto productDto = productAppService.Get(name);
+            ProductDto productDto = productAppService.Get(product.Name);
             ProductViewModel customerViewModel = this.mapper.Map<ProductViewModel>(productDto);
             return customerViewModel;
         }

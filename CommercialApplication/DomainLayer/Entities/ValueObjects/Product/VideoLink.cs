@@ -18,5 +18,10 @@
         {
             return videoLink.Content;
         }
+
+        public override string ToString()
+        {
+            return this.Content;
+        }
     }
 }

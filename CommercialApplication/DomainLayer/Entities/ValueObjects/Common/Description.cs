@@ -18,5 +18,10 @@
         {
             return description.Content;
         }
+
+        public override string ToString()
+        {
+            return this.Content;
+        }
     }
 }

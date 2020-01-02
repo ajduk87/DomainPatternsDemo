@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="btn-group" dropdown>
+        <button dropdownToggle type="button" class="btn btn-dark dropdown-toggle">
+          <span class="caret" [textContent] = 'selection'></span>
+        </button>
+        <ul (click)= "select($event)" *dropdownMenu class="dropdown-menu" role="menu">
+          <li role="menuitem"><div class="dropdown-item" href="#">Products</div></li>
+          <li role="menuitem"><div class="dropdown-item" href="#">Storages</div></li>
+          <li role="menuitem"><div class="dropdown-item" href="#">Orders</div></li>
+          <li role="menuitem"><div class="dropdown-item" href="#">Invoices</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <app-display [endpoint] = "selection"></app-display>
+    </div>
+  </div>
+</div>

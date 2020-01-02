@@ -91,8 +91,14 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.Owin, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.7\lib\net45\System.Web.Http.Owin.dll</HintPath>
@@ -176,6 +182,7 @@
     <Compile Include="ApplicationLayer\Models\Product\DecreaseVegetablesUnitCostModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\ProductCreateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\ProductDeleteModel.cs" />
+    <Compile Include="ApplicationLayer\Models\Product\ProductGetByNameModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\ProductStateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\ProductUpdateModel.cs" />
     <Compile Include="ApplicationLayer\Models\Product\ProductViewModel.cs" />
@@ -244,6 +251,15 @@
     <Compile Include="DomainLayer\Entities\ProductEntities\DecreaseVegetablesUnitCost.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\ProductState.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\UnitCost.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\TypeHandlers\DescriptionTypeHandler.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\TypeHandlers\ImageUrlTypeHandler.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\TypeHandlers\KindOfProductTypeHandler.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\TypeHandlers\NameTypeHandler.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\TypeHandlers\SerialNumberTypeHandler.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\TypeHandlers\StateTypeHandler.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\TypeHandlers\TypeHandlerInitializer.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\TypeHandlers\UnitCostTypeHandler.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\TypeHandlers\VideoLinkTypeHandler.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Amount.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\CreationDate.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Currency.cs" />

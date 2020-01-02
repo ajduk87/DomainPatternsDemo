@@ -25,5 +25,10 @@ namespace CommercialApplication.DomainLayer.Entities.ValueObjects.Product
         {
             return kindOfProduct.Content;
         }
+
+        public override string ToString()
+        {
+            return this.Content;
+        }
     }
 }

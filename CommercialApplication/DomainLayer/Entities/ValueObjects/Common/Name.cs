@@ -18,5 +18,9 @@
         {
             return name.Content;
         }
+        public override string ToString()
+        {
+            return this.Content;
+        }
     }
 }
