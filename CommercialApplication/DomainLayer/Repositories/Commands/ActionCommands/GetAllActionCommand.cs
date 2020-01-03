@@ -11,12 +11,13 @@ using Action = CommercialApplicationCommand.DomainLayer.Entities.ActionEntities.
 
 namespace CommercialApplication.DomainLayer.Repositories.Commands.ActionCommands
 {
-    public class GetAllActionCommand : IActionCommand
+    public class GetAllActionCommand : CommandBase, IActionCommand
     {
-        public IEnumerable<Action> Execute(NpgsqlConnection connection, IDbTransaction transaction = null)
+        public IEnumerable<Action> Execute(IDbConnection conn, IDbTransaction transaction = null)
         {
             List<Action> actions = new List<Action>();
 
+            this.connection = (NpgsqlConnection)conn;
             connection.Open();
             NpgsqlCommand command = new NpgsqlCommand("select_action", connection);
             command.CommandType = CommandType.StoredProcedure;

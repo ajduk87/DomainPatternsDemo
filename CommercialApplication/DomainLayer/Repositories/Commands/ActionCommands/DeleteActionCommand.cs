@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace CommercialApplication.DomainLayer.Repositories.Commands.ActionCommands
 {
-    public class DeleteActionCommand : IActionCommand
+    public class DeleteActionCommand : CommandBase, IActionCommand
     {
-        public void Execute(NpgsqlConnection connection, Action actionEntity, IDbTransaction transaction = null)
+        public void Execute(IDbConnection conn, Action actionEntity, IDbTransaction transaction = null)
         {
+            this.connection = (NpgsqlConnection)conn;
             connection.Open();
             NpgsqlCommand command = new NpgsqlCommand("delete_action", connection);
             command.CommandType = CommandType.StoredProcedure;

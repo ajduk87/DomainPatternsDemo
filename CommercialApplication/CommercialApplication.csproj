@@ -306,6 +306,7 @@
     <Compile Include="DomainLayer\Entities\ValueObjects\Storage\LocationOfStorage.cs" />
     <Compile Include="DomainLayer\Repositories\ActionRepositories\ActionRepository.cs" />
     <Compile Include="DomainLayer\Repositories\ActionRepositories\IActionRepository.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\CommandBase.cs" />
     <Compile Include="DomainLayer\Repositories\CustomerRepositories\CustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\CustomerRepositories\ICustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\InvoicesRepositories\IInvoiceCustomerRepository.cs" />

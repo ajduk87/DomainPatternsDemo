@@ -62,5 +62,14 @@ CREATE OR REPLACE FUNCTION select_action() RETURNS refcursor AS $$
       OPEN ref FOR SELECT * FROM commercialapplication.action;   -- Open a cursor
       RETURN ref;                                                       -- Return the cursor to the caller
     END;
+    $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION select_action_byid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT * FROM commercialapplication.action WHERE id = criteriaid;   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
     $$ LANGUAGE plpgsql;	
 -- ACTION --

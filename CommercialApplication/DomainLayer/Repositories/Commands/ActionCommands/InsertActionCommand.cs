@@ -4,10 +4,11 @@ using Action = CommercialApplicationCommand.DomainLayer.Entities.ActionEntities.
 
 namespace CommercialApplication.DomainLayer.Repositories.Commands.ActionCommands
 {
-    public class InsertActionCommand : IActionCommand
+    public class InsertActionCommand : CommandBase, IActionCommand
     {
-        public void Execute(NpgsqlConnection connection, Action actionEntity, IDbTransaction transaction = null)
+        public void Execute(IDbConnection conn, Action actionEntity, IDbTransaction transaction = null)
         {
+            this.connection = (NpgsqlConnection)conn;
             connection.Open();
             NpgsqlCommand command = new NpgsqlCommand("insert_action", connection);
             command.CommandType = CommandType.StoredProcedure;
