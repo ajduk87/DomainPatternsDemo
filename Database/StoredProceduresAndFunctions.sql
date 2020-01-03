@@ -73,3 +73,14 @@ CREATE OR REPLACE FUNCTION select_action_byid(criteriaid integer) RETURNS refcur
     END;
     $$ LANGUAGE plpgsql;	
 -- ACTION --
+
+
+
+
+
+-- CUSTOMER --
+
+
+
+
+-- CUSTOMER --

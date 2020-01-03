@@ -307,6 +307,12 @@
     <Compile Include="DomainLayer\Repositories\ActionRepositories\ActionRepository.cs" />
     <Compile Include="DomainLayer\Repositories\ActionRepositories\IActionRepository.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\CommandBase.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\CreateNewCustomerInfoCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\GetAllCustomerCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\GetCustomerCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\ICustomerCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\RemoveExistingCustomerInfoCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\UpdateExistingCustomerInfoCommand.cs" />
     <Compile Include="DomainLayer\Repositories\CustomerRepositories\CustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\CustomerRepositories\ICustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\InvoicesRepositories\IInvoiceCustomerRepository.cs" />
@@ -453,11 +459,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DomainLayer\Repositories\Commands\Customer\" />
-    <Folder Include="DomainLayer\Repositories\Commands\Invoice\" />
-    <Folder Include="DomainLayer\Repositories\Commands\Order\" />
-    <Folder Include="DomainLayer\Repositories\Commands\Product\" />
-    <Folder Include="DomainLayer\Repositories\Commands\Storage\" />
+    <Folder Include="DomainLayer\Repositories\Commands\InvoiceCommands\" />
+    <Folder Include="DomainLayer\Repositories\Commands\OrderCommands\" />
+    <Folder Include="DomainLayer\Repositories\Commands\ProductCommands\" />
+    <Folder Include="DomainLayer\Repositories\Commands\StorageCommands\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DomainLayer\Repositories\Sql\ActionQueries.resx">
