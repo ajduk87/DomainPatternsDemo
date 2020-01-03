@@ -48,5 +48,25 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
+
+        [HttpGet]
+        [Route("api/maxsumvalueorder")]
+        public InvoiceViewModel GetMaxSumValueInvoice(DateTime day)
+        {
+            InvoiceDto invoiceDto = this.invoicesAppService.GetMaxSumValueInvoiceForDay(day);
+            InvoiceViewModel invoiceViewModel = this.mapper.Map<InvoiceViewModel>(invoiceDto);
+
+            return invoiceViewModel;
+        }
+
+        [HttpGet]
+        [Route("api/minsumvalueorder")]
+        public InvoiceViewModel GetMinSumValueInvoice(DateTime day)
+        {
+            InvoiceDto invoiceDto = this.invoicesAppService.GetMinSumValueInvoiceForDay(day);
+            InvoiceViewModel invoiceViewModel = this.mapper.Map<InvoiceViewModel>(invoiceDto);
+
+            return invoiceViewModel;
+        }
     }
 }
