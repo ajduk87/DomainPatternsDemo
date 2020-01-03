@@ -105,6 +105,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationLayer\CommandRequests\ActionCommandRequests.cs" />
+    <Compile Include="ApplicationLayer\CommandRequests\CustomerCommandRequests.cs" />
     <Compile Include="ApplicationLayer\Controllers\ActionController.cs" />
     <Compile Include="ApplicationLayer\Controllers\CustomerController.cs" />
     <Compile Include="ApplicationLayer\Controllers\BaseController.cs" />
