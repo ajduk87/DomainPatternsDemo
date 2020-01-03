@@ -3,7 +3,6 @@ using CommercialApplicationCommand.DomainLayer.Repositories.CustomerRepositories
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using FluentValidation;
 using Npgsql;
-using System.Data;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Validation.Customer
 {
@@ -11,6 +10,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.Customer
     {
         private readonly IDatabaseConnectionFactory databaseConnectionFactory;
         private readonly ICustomerRepository customerRepository;
+
         public CustomerDeleteValidator(IDatabaseConnectionFactory databaseConnectionFactory)
         {
             this.customerRepository = RepositoryFactory.CreateCustomerRepository();
@@ -27,14 +27,6 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.Customer
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand("insertdata", connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("name","fanste");
-
-                // Execute the procedure and obtain a result set
-                NpgsqlDataReader dr = command.ExecuteReader();
-
                 return this.customerRepository.Exists(connection, id);
             }
         }

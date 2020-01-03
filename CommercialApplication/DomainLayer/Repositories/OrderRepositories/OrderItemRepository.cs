@@ -1,4 +1,5 @@
-﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+﻿using CommercialApplication.DomainLayer.Repositories.OrderRepositories;
+using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
@@ -8,8 +9,13 @@ using System.Linq;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositories
 {
-    public class OrderItemRepository : IOrderItemRepository
+    public class OrderItemRepository : OrderBaseRepository, IOrderItemRepository
     {
+
+        public OrderItemRepository()
+        {
+        }
+
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             connection.Execute(OrderItemQueries.Delete, new { id });

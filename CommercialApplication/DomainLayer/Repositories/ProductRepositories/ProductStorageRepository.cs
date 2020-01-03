@@ -1,4 +1,5 @@
-﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+﻿using CommercialApplication.DomainLayer.Repositories.ProductRepositories;
+using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
@@ -7,8 +8,12 @@ using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositories
 {
-    public class ProductStorageRepository : IProductStorageRepository
+    public class ProductStorageRepository : ProductBaseRepository, IProductStorageRepository
     {
+        public ProductStorageRepository()
+        {
+        }
+
         public IEnumerable<ProductStorage> SelectProductFromAllStorages(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return connection.Query<ProductStorage>(ProductStorageQueries.SelectByProductFromAllStorages, new { productId = id });

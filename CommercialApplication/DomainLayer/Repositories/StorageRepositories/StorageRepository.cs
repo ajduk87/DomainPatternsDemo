@@ -1,4 +1,5 @@
-﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+﻿using CommercialApplication.DomainLayer.Repositories.Commands.Callers;
+using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Storage;
 using CommercialApplicationCommand.DomainLayer.Entities.StorageEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
@@ -12,6 +13,13 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.StorageRepositor
 {
     public class StorageRepository : IStorageRepository
     {
+        private readonly CommandStorageCaller commandStorageCaller;
+
+        public StorageRepository()
+        {
+            this.commandStorageCaller = new CommandStorageCaller();
+        }
+
         public void Delete(IDbConnection connection, Storage storage, IDbTransaction transaction = null)
         {
             connection.Execute(StorageQueries.Delete, new { id = storage.Id });

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommercialApplication.ApplicationLayer.CommandRequests
+namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
 {
     public static class CustomerCommandRequests
     {

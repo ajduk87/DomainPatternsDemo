@@ -1,4 +1,5 @@
-﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+﻿using CommercialApplication.DomainLayer.Repositories.ProductRepositories;
+using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
@@ -10,8 +11,12 @@ using System.Linq;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : ProductBaseRepository, IProductRepository
     {
+
+        public ProductRepository()
+        {
+        }
         public Product SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null)
         {
             return connection.Query<Product>(ProductQueries.SelectById, new { id = id.Content }).Single();

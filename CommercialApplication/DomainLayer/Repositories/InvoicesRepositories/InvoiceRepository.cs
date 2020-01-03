@@ -1,4 +1,5 @@
-﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+﻿using CommercialApplication.DomainLayer.Repositories.InvoicesRepositories;
+using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
@@ -8,8 +9,12 @@ using System.Linq;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.InvoicesRepositories
 {
-    public class InvoiceRepository : IInvoiceRepository
+    public class InvoiceRepository : InvoiceBaseRepository, IInvoiceRepository
     {
+        public InvoiceRepository()
+        {
+        }
+
         public Invoice SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return connection.Query<Invoice>(InvoicesQueries.SelectById, new { id }).Single();

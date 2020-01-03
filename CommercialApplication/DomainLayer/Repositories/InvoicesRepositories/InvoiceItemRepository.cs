@@ -1,4 +1,5 @@
-﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+﻿using CommercialApplication.DomainLayer.Repositories.InvoicesRepositories;
+using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.DomainLayer.Entities.InvoicesEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
@@ -7,8 +8,13 @@ using System.Linq;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.InvoicesRepositories
 {
-    public class InvoiceItemRepository : IInvoiceItemRepository
+    public class InvoiceItemRepository : InvoiceBaseRepository, IInvoiceItemRepository
     {
+
+        public InvoiceItemRepository()
+        {
+        }
+
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             connection.Execute(InvoiceItemQueries.Delete, new { id });

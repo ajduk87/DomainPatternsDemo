@@ -105,8 +105,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationLayer\CommandRequests\ActionCommandRequests.cs" />
-    <Compile Include="ApplicationLayer\CommandRequests\CustomerCommandRequests.cs" />
+    <Compile Include="DomainLayer\Repositories\CommandRequests\ActionCommandRequests.cs" />
+    <Compile Include="DomainLayer\Repositories\CommandRequests\CustomerCommandRequests.cs" />
+    <Compile Include="DomainLayer\Repositories\CommandRequests\InvoiceCommandRequests.cs" />
+    <Compile Include="DomainLayer\Repositories\CommandRequests\OrderCommandRequests.cs" />
+    <Compile Include="DomainLayer\Repositories\CommandRequests\ProductCommandRequests.cs" />
+    <Compile Include="DomainLayer\Repositories\CommandRequests\StorageCommandRequests.cs" />
     <Compile Include="ApplicationLayer\Controllers\ActionController.cs" />
     <Compile Include="ApplicationLayer\Controllers\CustomerController.cs" />
     <Compile Include="ApplicationLayer\Controllers\BaseController.cs" />
@@ -230,6 +234,19 @@
     <Compile Include="ApplicationLayer\Validation\Storage\StorageCreateValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Storage\StorageDeleteValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Storage\StorageUpdateValidator.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ActionCommands\DeleteActionCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ActionCommands\GetActionCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ActionCommands\GetAllActionCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ActionCommands\IActionCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ActionCommands\InsertActionCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ActionCommands\UpdateActionCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ActionCommands\UpdateActionCommandByCustomerId.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\Callers\CommandActionCaller.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\Callers\CommandCustomerCaller.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\Callers\CommandInvoiceCaller.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\Callers\CommandOrderCaller.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\Callers\CommandProductCaller.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\Callers\CommandStorageCaller.cs" />
     <Compile Include="DomainLayer\Entities\ActionEntities\Action.cs" />
     <Compile Include="DomainLayer\Entities\CommonEntities\Money.cs" />
     <Compile Include="DomainLayer\Entities\CustomerEntities\OrderCustomer.cs" />
@@ -292,8 +309,10 @@
     <Compile Include="DomainLayer\Repositories\CustomerRepositories\CustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\CustomerRepositories\ICustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\InvoicesRepositories\IInvoiceCustomerRepository.cs" />
+    <Compile Include="DomainLayer\Repositories\InvoicesRepositories\InvoiceBaseRepository.cs" />
     <Compile Include="DomainLayer\Repositories\InvoicesRepositories\InvoiceCustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\OrderRepositories\IOrderCustomerRepository.cs" />
+    <Compile Include="DomainLayer\Repositories\OrderRepositories\OrderBaseRepository.cs" />
     <Compile Include="DomainLayer\Repositories\OrderRepositories\OrderCustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\InvoicesRepositories\IInvoiceItemRepository.cs" />
     <Compile Include="DomainLayer\Repositories\InvoicesRepositories\InvoiceItemRepository.cs" />
@@ -308,6 +327,7 @@
     <Compile Include="DomainLayer\Repositories\OrderRepositories\OrderItemRepository.cs" />
     <Compile Include="DomainLayer\Repositories\OrderRepositories\OrderRepository.cs" />
     <Compile Include="DomainLayer\Repositories\ProductRepositories\IProductStorageRepository.cs" />
+    <Compile Include="DomainLayer\Repositories\ProductRepositories\ProductBaseRepository.cs" />
     <Compile Include="DomainLayer\Repositories\Sql\ActionQueries.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -431,7 +451,13 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DomainLayer\Repositories\Commands\Customer\" />
+    <Folder Include="DomainLayer\Repositories\Commands\Invoice\" />
+    <Folder Include="DomainLayer\Repositories\Commands\Order\" />
+    <Folder Include="DomainLayer\Repositories\Commands\Product\" />
+    <Folder Include="DomainLayer\Repositories\Commands\Storage\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DomainLayer\Repositories\Sql\ActionQueries.resx">
       <Generator>ResXFileCodeGenerator</Generator>

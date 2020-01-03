@@ -1,4 +1,5 @@
-﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+﻿using CommercialApplication.DomainLayer.Repositories.Commands.Callers;
+using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Customer;
 using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
@@ -11,6 +12,14 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.CustomerReposito
 {
     public class CustomerRepository : ICustomerRepository
     {
+        private readonly CommandCustomerCaller commandCustomerCaller;
+
+        public CustomerRepository()
+        {
+            this.commandCustomerCaller = new CommandCustomerCaller();
+        }
+
+
         public IEnumerable<Customer> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
             return connection.Query<Customer>(CustomerQueries.Select);

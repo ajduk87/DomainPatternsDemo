@@ -1,4 +1,5 @@
-﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+﻿using CommercialApplication.DomainLayer.Repositories.OrderRepositories;
+using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
@@ -8,8 +9,13 @@ using System.Linq;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositories
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepository : OrderBaseRepository, IOrderRepository
     {
+
+        public OrderRepository()
+        {
+        }
+
         public Order SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return connection.Query<Order>(OrderQueries.Select, new { id }).Single();
