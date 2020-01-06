@@ -19,6 +19,7 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.CustomerComman
             connection.Open();
             NpgsqlCommand command = new NpgsqlCommand("select_customer_byid", connection);
             command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("criteriaid", id);
 
             // Execute the procedure and obtain a result set
             NpgsqlDataReader dr = command.ExecuteReader();

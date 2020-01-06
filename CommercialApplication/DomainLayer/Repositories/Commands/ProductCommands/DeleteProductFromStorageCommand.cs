@@ -9,15 +9,16 @@ using System.Threading.Tasks;
 
 namespace CommercialApplication.DomainLayer.Repositories.Commands.ProductCommands
 {
-    public class DeleteProductCommand : CommandBase, IProductCommand
+    public class DeleteProductFromStorageCommand : CommandBase, IProductCommand
     {
-        public void Execute(IDbConnection conn, Product product, IDbTransaction transaction = null)
+        public void Execute(IDbConnection conn, ProductStorage productStorage, IDbTransaction transaction = null)
         {
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("delete_product", connection);
+            NpgsqlCommand command = new NpgsqlCommand("delete_product_fromstorage", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("criteriaid", product.Id);
+            command.Parameters.AddWithValue("criteriaproductid", productStorage.ProductId);
+            command.Parameters.AddWithValue("criteriastorageid", productStorage.StorageId);
 
             // Execute the procedure and obtain a result set
             NpgsqlDataReader dr = command.ExecuteReader();

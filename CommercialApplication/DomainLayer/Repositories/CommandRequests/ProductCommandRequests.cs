@@ -12,9 +12,13 @@ namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
         public const string Get = "Get";
         public const string Insert = "Insert";
         public const string Update = "Update";
-        public const string DecreaseUnitcostFruits = "DecreaseUnitcostFruits";
-        public const string DecreaseUnitcostVegetables = "DecreaseUnitcostVegetables";
-        public const string SetState = "SetState";
+        public const string GetAllFruits = "GetAllFruits";
+        public const string GetAllVegetables = "GetAllVegetables";
+        public const string GetByName = "GetByName";
         public const string Delete = "Delete";
+        public const string GetAllProductsFromStorage = "GetAllProductsFromStorage";
+        public const string GetProductFromAllStorages = "GetProductFromAllStorages";
+        public const string InsertProductInStorage = "InsertProductInStorage";
+        public const string DeleteProductFromStorage = "DeleteProductFromStorage";
     }
 }

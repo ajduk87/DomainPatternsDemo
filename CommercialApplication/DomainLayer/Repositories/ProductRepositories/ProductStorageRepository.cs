@@ -1,4 +1,6 @@
-﻿using CommercialApplication.DomainLayer.Repositories.ProductRepositories;
+﻿using CommercialApplication.DomainLayer.Repositories.CommandRequests;
+using CommercialApplication.DomainLayer.Repositories.Commands.ProductCommands;
+using CommercialApplication.DomainLayer.Repositories.ProductRepositories;
 using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
@@ -16,31 +18,39 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
 
         public IEnumerable<ProductStorage> SelectProductFromAllStorages(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.Query<ProductStorage>(ProductStorageQueries.SelectByProductFromAllStorages, new { productId = id });
+            /*return connection.Query<ProductStorage>(ProductStorageQueries.SelectByProductFromAllStorages, new { productId = id });*/
+            GetProductFromAllStoragesCommand command = (GetProductFromAllStoragesCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.GetProductFromAllStorages];
+            return command.Execute(connection, id, transaction);
         }
 
         public IEnumerable<ProductStorage> SelectByStorageId(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.Query<ProductStorage>(ProductStorageQueries.SelectByStorageId, new { storageId = id});
+            /*return connection.Query<ProductStorage>(ProductStorageQueries.SelectByStorageId, new { storageId = id});*/
+            GetAllProductsFromStorageCommand command = (GetAllProductsFromStorageCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.GetAllProductsFromStorage];
+            return command.Execute(connection, id, transaction);
         }
 
         public void Delete(IDbConnection connection, ProductStorage productStorage, IDbTransaction transaction = null)
         {
-            connection.Execute(ProductStorageQueries.Delete, new
+            DeleteProductFromStorageCommand command = (DeleteProductFromStorageCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.DeleteProductFromStorage];
+            command.Execute(connection, productStorage, transaction);
+            /*connection.Execute(ProductStorageQueries.Delete, new
             {
                 productId = productStorage.ProductId.Content,
                 storageId = productStorage.StorageId.Content
-            });
+            });*/
         }
 
         public void Insert(IDbConnection connection, ProductStorage productStorage, IDbTransaction transaction = null)
         {
-            connection.Execute(ProductStorageQueries.Insert, new
+            InsertProductInStorageCommand command = (InsertProductInStorageCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.InsertProductInStorage];
+            command.Execute(connection, productStorage, transaction);
+            /*connection.Execute(ProductStorageQueries.Insert, new
             {
                 productId = productStorage.ProductId.Content,
                 storageId = productStorage.StorageId.Content,
                 amountOfProduct = productStorage.AmountOfProduct.Content
-            });
+            });*/
         }
     }
 }

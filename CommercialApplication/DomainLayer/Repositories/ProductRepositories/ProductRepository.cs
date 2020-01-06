@@ -1,4 +1,6 @@
-﻿using CommercialApplication.DomainLayer.Repositories.ProductRepositories;
+﻿using CommercialApplication.DomainLayer.Repositories.CommandRequests;
+using CommercialApplication.DomainLayer.Repositories.Commands.ProductCommands;
+using CommercialApplication.DomainLayer.Repositories.ProductRepositories;
 using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
@@ -14,37 +16,44 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
     public class ProductRepository : ProductBaseRepository, IProductRepository
     {
 
-        public ProductRepository()
-        {
-        }
         public Product SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null)
         {
-            return connection.Query<Product>(ProductQueries.SelectById, new { id = id.Content }).Single();
+            /*return connection.Query<Product>(ProductQueries.SelectById, new { id = id.Content }).Single();*/
+            GetProductCommand command = (GetProductCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.Get];
+            return command.Execute(connection, id, transaction);
         }
 
         public IEnumerable<Product> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query<Product>(ProductQueries.Select);
+            /*return connection.Query<Product>(ProductQueries.Select);*/
+            GetAllProductCommand command = (GetAllProductCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.GetAll];
+            return command.Execute(connection, transaction);
         }
 
         public IEnumerable<Product> SelectAllFruits(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query<Product>(ProductQueries.SelectAllFruits);
+            /*return connection.Query<Product>(ProductQueries.SelectAllFruits);*/
+            GetAllProductCommand command = (GetAllProductCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.GetAll];
+            return command.Execute(connection, transaction);
         }
 
         public IEnumerable<Product> SelectAllVegetables(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query<Product>(ProductQueries.SelectAllVegetables);
+            /*return connection.Query<Product>(ProductQueries.SelectAllVegetables);*/
+            GetAllVegetablesCommand command = (GetAllVegetablesCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.GetAllVegetables];
+            return command.Execute(connection, transaction);
         }
 
         public Product SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
         {
-            return connection.Query<Product>(ProductQueries.SelectByName, new { name = name.Content }).Single();
+            /*return connection.Query<Product>(ProductQueries.SelectByName, new { name = name.Content }).Single();*/
+            GetProductCommandByName command = (GetProductCommandByName)this.commandProductCaller.DictCommands[ProductCommandRequests.GetByName];
+            return command.Execute(connection, name, transaction);
         }
 
         public void Insert(IDbConnection connection, Product product, IDbTransaction transaction = null)
         {
-            connection.Execute(ProductQueries.Insert, new
+            /*connection.Execute(ProductQueries.Insert, new
             {
                 Name = product.Name.Content,
                 UnitCost = product.UnitCost.ToString(),
@@ -52,12 +61,14 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
                 ImageUrl = product.ImageUrl.Content,
                 VideoLink = product.VideoLink.Content,
                 SerialNumber = product.SerialNumber.Content
-            });
+            });*/
+            InsertProductCommand command = (InsertProductCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.Insert];
+            command.Execute(connection, product, transaction);
         }
 
         public void Update(IDbConnection connection, Product product, IDbTransaction transaction = null)
         {
-            connection.Execute(ProductQueries.Update, new
+            /*connection.Execute(ProductQueries.Update, new
             {
                 Name = product.Name.Content,
                 UnitCost = product.UnitCost.ToString(),
@@ -65,12 +76,16 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
                 ImageUrl = product.ImageUrl.Content,
                 VideoLink = product.VideoLink.Content,
                 id = product.Id
-            });
+            });*/
+            UpdateProductCommand command = (UpdateProductCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.Update];
+            command.Execute(connection, product, transaction);
         }
 
         public void Delete(IDbConnection connection, Product product, IDbTransaction transaction = null)
         {
-            connection.Execute(ProductQueries.Delete, new { id = product.Id });
+            /*connection.Execute(ProductQueries.Delete, new { id = product.Id });*/
+            DeleteProductCommand command = (DeleteProductCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.Delete];
+            command.Execute(connection, product, transaction);
         }
 
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)

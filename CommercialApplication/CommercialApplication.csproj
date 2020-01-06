@@ -313,6 +313,19 @@
     <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\ICustomerCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\RemoveExistingCustomerInfoCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\UpdateExistingCustomerInfoCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\DeleteProductCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\DeleteProductFromStorageCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\GetAllFruitsCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\GetAllProductCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\GetAllProductsFromStorageCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\GetAllVegetablesCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\GetProductCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\GetProductCommandByName.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\GetProductFromAllStoragesCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\InsertProductCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\InsertProductInStorageCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\IProductCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\UpdateProductCommand.cs" />
     <Compile Include="DomainLayer\Repositories\CustomerRepositories\CustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\CustomerRepositories\ICustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\InvoicesRepositories\IInvoiceCustomerRepository.cs" />
@@ -461,7 +474,6 @@
   <ItemGroup>
     <Folder Include="DomainLayer\Repositories\Commands\InvoiceCommands\" />
     <Folder Include="DomainLayer\Repositories\Commands\OrderCommands\" />
-    <Folder Include="DomainLayer\Repositories\Commands\ProductCommands\" />
     <Folder Include="DomainLayer\Repositories\Commands\StorageCommands\" />
   </ItemGroup>
   <ItemGroup>
