@@ -80,7 +80,64 @@ CREATE OR REPLACE FUNCTION select_action_byid(criteriaid integer) RETURNS refcur
 
 -- CUSTOMER --
 
+CREATE FUNCTION insert_customer(name varchar(500))
+RETURNS BOOLEAN AS $$
+BEGIN
+        INSERT INTO commercialapplication.customer(name)
+										  VALUES(name);
 
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+	
+CREATE FUNCTION update_customer(name varchar(500), criteriaId integer)
+RETURNS BOOLEAN AS $$
+BEGIN
+        UPDATE INTO commercialapplication.customer(name)
+										  VALUES(name)
+										  WHERE id = criteriaId;
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;	
+	
+CREATE FUNCTION delete_customer(criteriaid integer)
+RETURNS BOOLEAN AS $$
+BEGIN
+        DELETE FROM commercialapplication.customer WHERE id = criteriaid
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;	
+
+
+CREATE OR REPLACE FUNCTION select_customer() RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT * FROM commercialapplication.customer;   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION select_customer_byid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT * FROM commercialapplication.customer WHERE id = criteriaid;   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;
 
 
 -- CUSTOMER --

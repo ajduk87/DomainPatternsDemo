@@ -1,5 +1,4 @@
-﻿using CommercialApplication.DomainLayer.Repositories.Commands.Customer;
-using CommercialApplication.DomainLayer.Repositories.Commands.CustomerCommands;
+﻿using CommercialApplication.DomainLayer.Repositories.Commands.CustomerCommands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
