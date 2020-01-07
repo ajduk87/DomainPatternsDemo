@@ -9,12 +9,9 @@ namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
     public static class StorageCommandRequests
     {
         public const string GetAll = "GetAll";
-        public const string Get = "Get";
+        public const string GetByName = "GetByName";
         public const string Insert = "Insert";
         public const string Update = "Update";
         public const string Delete = "Delete";
-        public const string GetStorageContent = "GetStorageContent";
-        public const string AddProductToStorage = "AddProductToStorage";
-        public const string DeleteProductFromStorage = "DeleteProductFromStorage";
     }
 }

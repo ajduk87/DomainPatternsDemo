@@ -326,6 +326,12 @@
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\InsertProductInStorageCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\IProductCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\UpdateProductCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\StorageCommands\DeleteStorageCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\StorageCommands\GetAllStorageCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\StorageCommands\GetStorageByNameCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\StorageCommands\InsertStorageCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\StorageCommands\IStorageCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\StorageCommands\UpdateStorageCommand.cs" />
     <Compile Include="DomainLayer\Repositories\CustomerRepositories\CustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\CustomerRepositories\ICustomerRepository.cs" />
     <Compile Include="DomainLayer\Repositories\InvoicesRepositories\IInvoiceCustomerRepository.cs" />
@@ -474,7 +480,6 @@
   <ItemGroup>
     <Folder Include="DomainLayer\Repositories\Commands\InvoiceCommands\" />
     <Folder Include="DomainLayer\Repositories\Commands\OrderCommands\" />
-    <Folder Include="DomainLayer\Repositories\Commands\StorageCommands\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DomainLayer\Repositories\Sql\ActionQueries.resx">
