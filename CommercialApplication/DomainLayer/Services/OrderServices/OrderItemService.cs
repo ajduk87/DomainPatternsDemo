@@ -49,13 +49,14 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
 
         public IEnumerable<OrderItem> SelectByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null)
         {
-            List<OrderItem> orderItems = new List<OrderItem>();
+            return this.orderItemRepository.SelectByIds(connection, ids, transaction);
+            /*List<OrderItem> orderItems = new List<OrderItem>();
             foreach (long id in ids)
             {
                 OrderItem orderItem = this.orderItemRepository.SelectById(connection, id);
                 orderItems.Add(orderItem);
             }
-            return orderItems;
+            return orderItems;*/
         }
 
         public void Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
@@ -63,63 +64,75 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderItemRepository.Insert(connection, orderItem);
         }
 
-        public void InsertList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        public void InsertList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null) =>
+            this.orderItemRepository.InsertList(connection, orderItems, transaction);
+
+        /*public void InsertList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
         {
             foreach (OrderItem orderItem in orderItems)
             {
                 this.orderItemRepository.Insert(connection, orderItem);
             }
-        }
+        }*/
 
         public void Update(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
         {
             this.orderItemRepository.Update(connection, orderItem);
         }
 
-        public void UpdateList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        public void UpdateList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null) =>
+            this.orderItemRepository.UpdateList(connection, orderItems, transaction);
+
+        /*public void UpdateList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
         {
             foreach (OrderItem orderItem in orderItems)
             {
                 this.orderItemRepository.Update(connection, orderItem);
             }
-        }
+        }*/
 
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             this.orderItemRepository.Delete(connection, id);
         }
 
-        public void DeleteByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null)
+        public void DeleteByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null) =>
+            this.orderItemRepository.DeleteByIds(connection, ids, transaction);
+
+        /*public void DeleteByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null)
         {
             foreach (long id in ids)
             {
                 this.orderItemRepository.Delete(connection, id);
             }
-        }
+        }*/
 
-        public IEnumerable<OrderItem> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        public void IncludeDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null) =>
+            this.orderItemRepository.IncludeDiscountForPaying(connection, orderItems, transaction);
+
+        /*public IEnumerable<OrderItem> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
         {
             List<OrderItem> calculatedOrderItems = new List<OrderItem>();
-            /*foreach (OrderItem orderItem in orderItems)
+            foreach (OrderItem orderItem in orderItems)
             {
                 OrderItem calculatedOrderItem = new OrderItem();
                 calculatedOrderItem.Value = this.IncludeBasicDiscountForPayingOneItem(connection, orderItem);
                 calculatedOrderItems.Add(calculatedOrderItem);
-            }*/
+            }
             return calculatedOrderItems;
-        }
+        }*/
 
-        public IEnumerable<OrderItem> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        /*public IEnumerable<OrderItem> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
         {
             List<OrderItem> calculatedOrderItems = new List<OrderItem>();
-            /*foreach (OrderItem orderItem in orderItems)
+            foreach (OrderItem orderItem in orderItems)
             {
                 OrderItem calculatedOrderItem = new OrderItem();
                 calculatedOrderItem.Value = this.IncludeActionDiscountForPayingOneItem(connection, orderItem);
                 calculatedOrderItems.Add(calculatedOrderItem);
-            }*/
+            }
             return calculatedOrderItems;
-        }
+        }*/
 
     }
 }

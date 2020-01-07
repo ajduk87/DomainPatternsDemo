@@ -8,12 +8,15 @@ namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
 {
     public static class OrderCommandRequests
     {
-        public const string GetOrder = "GetOrder";
-        public const string GetMaxSumValueOrderForDay = "GetMaxSumValueOrderForDay";
-        public const string GetMinSumValueOrderForDay = "GetMinSumValueOrderForDay";
-        public const string Update = "Update";
-        public const string Insert = "Insert";
-        public const string Delete = "Delete";
-        public const string SetState = "SetState";
+        //OrderItem
+        public const string DeleteOrderItemById = "DeleteOrderItemById";
+        public const string DeleteOrderItemByIds = "DeleteOrderItemByIds";
+        public const string GetOrderItemById = "GetOrderItemById";
+        public const string GetOrderItemByIds = "GetOrderItemByIds";
+        public const string IncludeDiscountForPaying = "IncludeDiscountForPaying";
+        public const string InsertListOrderItem = "InsertListOrderItem";
+        public const string InsertOrderItem = "InsertOrderItem";
+        public const string UpdateListOrderItem = "UpdateListOrderItem";
+        public const string UpdateOrderItem = "UpdateOrderItem";
     }
 }

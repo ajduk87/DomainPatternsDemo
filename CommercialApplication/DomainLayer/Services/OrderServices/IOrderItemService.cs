@@ -18,7 +18,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         void Delete(IDbConnection connection, long id, IDbTransaction transaction = null);
         void DeleteByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null);
 
-        IEnumerable<OrderItem> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null);
-        IEnumerable<OrderItem> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null);
+        void IncludeDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null);
+        //void IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null);
     }
 }

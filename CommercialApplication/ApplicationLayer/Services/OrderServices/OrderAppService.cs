@@ -93,10 +93,13 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                         OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
                         this.orderCustomerService.Insert(connection, orderCustomer);
                         IEnumerable<OrderItem> orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItem>>(orderDto.OrderItems);
-                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems);
+                        /*IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems);
                         IEnumerable<OrderItem> calculatedOrderItemsWithBasicAndActionDiscount = this.orderItemService.IncludeActionDiscountForPaying(connection, calculatedOrderItemsWithBasicDiscount);
-                        this.orderItemService.InsertList(connection, calculatedOrderItemsWithBasicAndActionDiscount, transaction);
-                        this.orderItemOrderService.InsertList(connection, calculatedOrderItemsWithBasicAndActionDiscount, orderId, transaction);
+                        this.orderItemService.InsertList(connection, calculatedOrderItemsWithBasicAndActionDiscount, transaction);*/
+                        this.orderItemService.InsertList(connection, orderItems, transaction);
+                        this.orderItemService.IncludeDiscountForPaying(connection, orderItems);
+                        //this.orderItemOrderService.InsertList(connection, calculatedOrderItemsWithBasicAndActionDiscount, orderId, transaction);
+                        this.orderItemOrderService.InsertList(connection, orderItems, orderId, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -125,9 +128,11 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                         OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
                         this.orderCustomerService.Update(connection, orderCustomer);
                         IEnumerable<OrderItem> orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItem>>(orderDto.OrderItems);
-                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems);
+                        /*IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderItemService.IncludeDiscountForPaying(connection, orderItems);
                         IEnumerable<OrderItem> calculatedOrderItemsWithBasicAndActionDiscount = this.orderItemService.IncludeActionDiscountForPaying(connection, calculatedOrderItemsWithBasicDiscount);
-                        this.orderItemService.UpdateList(connection, calculatedOrderItemsWithBasicAndActionDiscount, transaction);
+                        this.orderItemService.UpdateList(connection, calculatedOrderItemsWithBasicAndActionDiscount, transaction);*/
+                        this.orderItemService.UpdateList(connection, orderItems, transaction);
+                        this.orderItemService.IncludeDiscountForPaying(connection, orderItems);
                         transaction.Commit();
                     }
                     catch (Exception ex)

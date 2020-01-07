@@ -13,7 +13,16 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.Callers
         public CommandOrderCaller()
         {
             DictCommands = new Dictionary<string, IOrderCommand>();
-            DictCommands.Add("Insert", new InsertOrderItemCommand());
+            //OrderItem
+            DictCommands.Add("DeleteOrderItemById", new DeleteOrderItemByIdCommand());
+            DictCommands.Add("DeleteOrderItemByIds", new DeleteOrderItemByIdsCommand());
+            DictCommands.Add("GetOrderItemById", new GetOrderItemByIdCommand());
+            DictCommands.Add("GetOrderItemByIds", new GetOrderItemByIdsCommand());
+            DictCommands.Add("IncludeDiscountForPaying", new IncludeDiscountForPayingCommand());
+            DictCommands.Add("InsertListOrderItem", new InsertListOrderItemCommand());
+            DictCommands.Add("InsertOrderItem", new InsertOrderItemCommand());
+            DictCommands.Add("UpdateListOrderItem", new UpdateListOrderItemCommand());
+            DictCommands.Add("UpdateOrderItem", new UpdateOrderItemCommand());
         }
     }
 }
