@@ -1,4 +1,5 @@
-﻿using CommercialApplication.DomainLayer.Repositories.CommandRequests;
+﻿using CommercialApplication.DomainLayer.Entities.ProductEntities;
+using CommercialApplication.DomainLayer.Repositories.CommandRequests;
 using CommercialApplication.DomainLayer.Repositories.Commands.ProductCommands;
 using CommercialApplication.DomainLayer.Repositories.ProductRepositories;
 using CommercialApplication.DomainLayer.Repositories.Sql;
@@ -91,6 +92,21 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return connection.ExecuteScalar<bool>(ProductQueries.Exists, new { id });
+        }
+
+        public void UpdateFruitsUnitCost(IDbConnection connection, DecreaseFruitsUnitCost decreaseFruitsUnitCost, IDbTransaction transaction = null)
+        {
+
+        }
+
+        public void UpdateVegetablesUnitCost(IDbConnection connection, DecreaseVegetablesUnitCost decreaseVegetablesUnitCost, IDbTransaction transaction = null)
+        {
+
+        }
+
+        public void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null)
+        {
+
         }
     }
 }

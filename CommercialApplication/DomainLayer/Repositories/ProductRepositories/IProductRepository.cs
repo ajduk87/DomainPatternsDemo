@@ -1,4 +1,5 @@
-﻿using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
+﻿using CommercialApplication.DomainLayer.Entities.ProductEntities;
+using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 using System.Collections.Generic;
@@ -21,5 +22,11 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
         void Delete(IDbConnection connection, Product product, IDbTransaction transaction = null);
 
         bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null);
+
+        void UpdateFruitsUnitCost(IDbConnection connection, DecreaseFruitsUnitCost decreaseFruitsUnitCost, IDbTransaction transaction = null);
+
+        void UpdateVegetablesUnitCost(IDbConnection connection, DecreaseVegetablesUnitCost decreaseVegetablesUnitCost, IDbTransaction transaction = null);
+
+        void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null);
     }
 }
