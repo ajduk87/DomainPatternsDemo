@@ -1,4 +1,5 @@
 ﻿using CommercialApplication.DomainLayer.Entities.ProductEntities;
+using CommercialApplication.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
@@ -57,7 +58,61 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
         public void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null)
         {
             Product product = this.productRepository.SelectByName(connection, productState.Name);
-            product.State = productState.State;
+            if (productState.Equals("notforsold"))
+            {
+                if (product.State.Equals("notforsold"))
+                {
+                    //stay in notforsold state
+                    product.State = new State("notforsold");
+                }
+                if (product.State.Equals("forsold"))
+                {
+                    //transit to notforsold state
+                    product.State = new State("notforsold");
+                }
+                if (product.State.Equals("outofstock"))
+                {
+                    //stay in state outofstock
+                    product.State = new State("outofstock");
+                }
+            }
+            else if (productState.Equals("forsold"))
+            {
+                if (product.State.Equals("notforsold"))
+                {
+                    //transit to forsold state
+                    product.State = new State("forsold");
+                }
+                if (product.State.Equals("forsold"))
+                {
+                    //stay in forsold state
+                    product.State = new State("forsold");
+                }
+                if (product.State.Equals("outofstock"))
+                {
+                    //stay in state outofstock
+                    product.State = new State("outofstock");
+                }
+            }
+            else if (productState.Equals("outofstock"))
+            {
+                if (product.State.Equals("notforsold"))
+                {
+                    //stay in notforsold state
+                    product.State = new State("notforsold");
+                }
+                if (product.State.Equals("forsold"))
+                {
+                    //transit to forsold state
+                    product.State = new State("outofstock");
+                }
+                if (product.State.Equals("outofstock"))
+                {
+                    //stay in state outofstock
+                    product.State = new State("outofstock");
+                }
+            }
+
             this.productRepository.Update(connection, product, transaction);
         }
 
