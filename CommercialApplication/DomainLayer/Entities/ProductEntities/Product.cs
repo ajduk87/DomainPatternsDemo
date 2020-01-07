@@ -17,5 +17,65 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.ProductEntities
         public KindOfProduct KindOfProduct { get; set; }
         public State State { get; set; }
 
+        public Product SetState(State newState)
+        {
+            if (newState.Equals("notforsold"))
+            {
+                if (this.State.Equals("notforsold"))
+                {
+                    //stay in notforsold state
+                    this.State = new State("notforsold");
+                }
+                if (this.State.Equals("forsold"))
+                {
+                    //transit to notforsold state
+                    this.State = new State("notforsold");
+                }
+                if (this.State.Equals("outofstock"))
+                {
+                    //stay in state outofstock
+                    this.State = new State("outofstock");
+                }
+            }
+            else if (newState.Equals("forsold"))
+            {
+                if (this.State.Equals("notforsold"))
+                {
+                    //transit to forsold state
+                    this.State = new State("forsold");
+                }
+                if (this.State.Equals("forsold"))
+                {
+                    //stay in forsold state
+                    this.State = new State("forsold");
+                }
+                if (this.State.Equals("outofstock"))
+                {
+                    //stay in state outofstock
+                    this.State = new State("outofstock");
+                }
+            }
+            else if (newState.Equals("outofstock"))
+            {
+                if (this.State.Equals("notforsold"))
+                {
+                    //stay in notforsold state
+                    this.State = new State("notforsold");
+                }
+                if (this.State.Equals("forsold"))
+                {
+                    //transit to forsold state
+                    this.State = new State("outofstock");
+                }
+                if (this.State.Equals("outofstock"))
+                {
+                    //stay in state outofstock
+                    this.State = new State("outofstock");
+                }
+            }
+
+            return this;
+        }
+
     }
 }
