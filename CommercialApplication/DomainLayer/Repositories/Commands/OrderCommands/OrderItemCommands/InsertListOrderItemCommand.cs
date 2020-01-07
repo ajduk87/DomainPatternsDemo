@@ -10,6 +10,8 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands
 {
     public class InsertListOrderItemCommand : CommandBase, IOrderCommand
     {
+        public string StoredFunctionName { get; } = "";
+
         public void Execute(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
         {
 

@@ -8,5 +8,6 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.StorageCommand
 {
     public interface IStorageCommand
     {
+        string StoredFunctionName { get; }
     }
 }

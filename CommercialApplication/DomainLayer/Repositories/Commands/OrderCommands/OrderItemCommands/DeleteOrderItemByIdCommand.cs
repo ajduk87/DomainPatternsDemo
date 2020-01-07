@@ -9,6 +9,7 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands
 {
     public class DeleteOrderItemByIdCommand : CommandBase, IOrderCommand
     {
+        public string StoredFunctionName { get; } = "";
         public void Execute(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
 

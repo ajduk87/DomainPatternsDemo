@@ -13,13 +13,15 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.StorageCommand
 {
     public class GetStorageByNameCommand : CommandBase, IStorageCommand
     {
+        public string StoredFunctionName { get; } = "select_storage_byname";
+
         public Storage Execute(IDbConnection conn, Name name, IDbTransaction transaction = null)
         {
             Storage storage = new Storage();
 
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("select_storage_byname", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("criterianame", name.Content);
 

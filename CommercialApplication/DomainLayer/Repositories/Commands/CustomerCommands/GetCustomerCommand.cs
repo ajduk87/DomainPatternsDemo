@@ -12,12 +12,13 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.CustomerComman
 {
     public class GetCustomerCommand : CommandBase, ICustomerCommand
     {
+        public string StoredFunctionName { get; } = "select_customer_byid";
         public Customer Execute(IDbConnection conn, long id, IDbTransaction transaction = null)
         {
             Customer customer = new Customer();
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("select_customer_byid", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("criteriaid", id);
 

@@ -10,11 +10,13 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.ActionCommands
 {
     public class UpdateActionCommand : CommandBase, IActionCommand
     {
+        public string StoredFunctionName { get; } = "update_action";
+
         public void Execute(IDbConnection conn, Action actionEntity, IDbTransaction transaction = null)
         {
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("update_action", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("criteriaid", actionEntity.Id);
             command.Parameters.AddWithValue("productid", actionEntity.ProductId);

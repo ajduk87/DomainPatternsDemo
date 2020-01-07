@@ -13,13 +13,14 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.ProductCommand
 {
     public class GetProductFromAllStoragesCommand : CommandBase, IProductCommand
     {
+        public string StoredFunctionName { get; } = "select_product_fromallstorages";
         public IEnumerable<ProductStorage> Execute(IDbConnection conn, long id, IDbTransaction transaction = null)
         {
             List<ProductStorage> storageItems = new List<ProductStorage>();
 
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("select_product_fromallstorages", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("criteriaproductid", id);
 

@@ -13,13 +13,15 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.ActionCommands
 {
     public class GetActionCommand : CommandBase, IActionCommand
     {
+        public string StoredFunctionName { get; } = "select_action_byid";
+
         public Action Execute(IDbConnection conn, long id, IDbTransaction transaction = null)
         {
             Action action = new Action();
 
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("select_action_byid", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
 
             // Execute the procedure and obtain a result set

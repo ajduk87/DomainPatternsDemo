@@ -8,5 +8,6 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.ProductCommand
 {
     public interface IProductCommand
     {
+        string StoredFunctionName { get; }
     }
 }

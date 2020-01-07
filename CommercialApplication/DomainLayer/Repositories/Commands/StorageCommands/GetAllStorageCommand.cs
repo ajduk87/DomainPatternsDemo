@@ -13,13 +13,15 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.StorageCommand
 {
     public class GetAllStorageCommand : CommandBase, IStorageCommand
     {
+        public string StoredFunctionName { get; } = "select_storage";
+
         public IEnumerable<Storage> Execute(IDbConnection conn, IDbTransaction transaction = null)
         {
             List<Storage> storages = new List<Storage>();
 
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("select_storage", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
 
             // Execute the procedure and obtain a result set

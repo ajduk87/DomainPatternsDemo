@@ -10,6 +10,8 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands
 {
     public class GetOrderItemByIdCommand : CommandBase, IOrderCommand
     {
+        public string StoredFunctionName { get; } = "";
+
         public OrderItem Execute(IDbConnection connection, long orderId, IDbTransaction transaction = null)
         {
             return new OrderItem();

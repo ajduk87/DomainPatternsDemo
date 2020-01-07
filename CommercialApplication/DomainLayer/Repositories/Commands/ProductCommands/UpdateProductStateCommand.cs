@@ -11,11 +11,13 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.ProductCommand
 {
     public class UpdateProductStateCommand : CommandBase, IProductCommand
     {
+        public string StoredFunctionName { get; } = "update_product_state";
+
         public void Execute(IDbConnection conn, ProductState productState, IDbTransaction transaction = null)
         {
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("update_product_state", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("criterianame", productState.Name.Content);
             command.Parameters.AddWithValue("newstate", productState.State.Content);

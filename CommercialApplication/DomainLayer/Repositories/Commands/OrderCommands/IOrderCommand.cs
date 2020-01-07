@@ -8,5 +8,6 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands
 {
     public interface IOrderCommand
     {
+        string StoredFunctionName { get; }
     }
 }

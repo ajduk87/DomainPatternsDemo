@@ -11,11 +11,13 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.StorageCommand
 {
     public class DeleteStorageCommand : CommandBase, IStorageCommand
     {
+        public string StoredFunctionName { get; } = "delete_storage";
+
         public void Execute(IDbConnection conn, Storage storage, IDbTransaction transaction = null)
         {
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("delete_storage", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("criteriaId", storage.Id);
 

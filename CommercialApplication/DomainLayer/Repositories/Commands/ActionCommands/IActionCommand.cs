@@ -8,5 +8,6 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.ActionCommands
 {
     public interface IActionCommand
     {
+        string StoredFunctionName { get; }
     }
 }

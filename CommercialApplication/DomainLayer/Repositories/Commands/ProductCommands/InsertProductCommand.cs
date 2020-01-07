@@ -11,11 +11,13 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.ProductCommand
 {
     public class InsertProductCommand : CommandBase, IProductCommand
     {
+        public string StoredFunctionName { get; } = "insert_product";
+
         public void Execute(IDbConnection conn, Product product, IDbTransaction transaction = null)
         {
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("insert_product", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("name", product.Name);
             command.Parameters.AddWithValue("unitcost", product.UnitCost);

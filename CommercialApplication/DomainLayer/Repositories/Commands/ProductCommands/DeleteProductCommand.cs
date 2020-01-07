@@ -11,11 +11,12 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.ProductCommand
 {
     public class DeleteProductCommand : CommandBase, IProductCommand
     {
+        public string StoredFunctionName { get; } = "delete_product";
         public void Execute(IDbConnection conn, Product product, IDbTransaction transaction = null)
         {
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("delete_product", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("criteriaid", product.Id);
 

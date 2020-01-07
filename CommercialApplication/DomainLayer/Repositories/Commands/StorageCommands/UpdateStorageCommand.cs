@@ -11,11 +11,13 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.StorageCommand
 {
     public class UpdateStorageCommand : CommandBase, IStorageCommand
     {
+        public string StoredFunctionName { get; } = "update_storage";
+
         public void Execute(IDbConnection conn, Storage storage, IDbTransaction transaction = null)
         {
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("update_storage", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("criteriaid", storage.Id);
             command.Parameters.AddWithValue("name", storage.Name);

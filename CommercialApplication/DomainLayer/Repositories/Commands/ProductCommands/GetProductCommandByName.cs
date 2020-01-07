@@ -15,13 +15,15 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.ProductCommand
 {
     public class GetProductCommandByName : CommandBase, IProductCommand
     {
+        public string StoredFunctionName { get; } = "select_product_byname";
+
         public Product Execute(IDbConnection conn, Name name, IDbTransaction transaction = null)
         {
             Product product = new Product();
 
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
-            NpgsqlCommand command = new NpgsqlCommand("select_product_byname", connection);
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("criterianame", name.Content);
 
