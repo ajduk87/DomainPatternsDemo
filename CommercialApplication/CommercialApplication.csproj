@@ -313,6 +313,8 @@
     <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\ICustomerCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\RemoveExistingCustomerInfoCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\UpdateExistingCustomerInfoCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\InsertOrderItemCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\IOrderCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\DeleteProductCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\DeleteProductFromStorageCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\GetAllFruitsCommand.cs" />
@@ -325,7 +327,10 @@
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\InsertProductCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\InsertProductInStorageCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\IProductCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\UpdateFruitsUnitCostCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\UpdateProductCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\UpdateProductStateCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\UpdateVegetablesUnitCostCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\StorageCommands\DeleteStorageCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\StorageCommands\GetAllStorageCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\StorageCommands\GetStorageByNameCommand.cs" />
@@ -479,7 +484,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DomainLayer\Repositories\Commands\InvoiceCommands\" />
-    <Folder Include="DomainLayer\Repositories\Commands\OrderCommands\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DomainLayer\Repositories\Sql\ActionQueries.resx">

@@ -20,6 +20,9 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.Callers
             DictCommands.Add("GetByName", new GetProductCommandByName());
             DictCommands.Add("InsertProduct", new InsertProductCommand());
             DictCommands.Add("UpdateProduct", new UpdateProductCommand());
+            DictCommands.Add("UpdateFruitsUnit", new UpdateFruitsUnitCostCommand());
+            DictCommands.Add("UpdateVegetablesUnitCost", new UpdateVegetablesUnitCostCommand());
+            DictCommands.Add("UpdateProductState", new UpdateProductStateCommand());
             DictCommands.Add("DeleteProduct", new DeleteProductCommand());
             DictCommands.Add("GetAllProductsFromStorage", new GetAllProductsFromStorageCommand());
             DictCommands.Add("GetProductFromAllStorages", new GetProductFromAllStoragesCommand());

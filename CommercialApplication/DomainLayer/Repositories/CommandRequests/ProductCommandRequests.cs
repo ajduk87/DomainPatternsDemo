@@ -12,6 +12,9 @@ namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
         public const string Get = "Get";
         public const string Insert = "Insert";
         public const string Update = "Update";
+        public const string UpdateState = "UpdateState";
+        public const string UpdateFruits = "UpdateFruits";
+        public const string UpdateVegetables = "UpdateVegetables";
         public const string GetAllFruits = "GetAllFruits";
         public const string GetAllVegetables = "GetAllVegetables";
         public const string GetByName = "GetByName";

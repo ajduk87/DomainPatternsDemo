@@ -10,7 +10,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
     {
         OrderItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null);
         IEnumerable<OrderItem> SelectByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null);
-        long Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null);
+        void Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null);
         void InsertList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null);
 
         void Update(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null);

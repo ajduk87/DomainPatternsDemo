@@ -96,17 +96,20 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
 
         public void UpdateFruitsUnitCost(IDbConnection connection, DecreaseFruitsUnitCost decreaseFruitsUnitCost, IDbTransaction transaction = null)
         {
-
+            UpdateFruitsUnitCostCommand command = (UpdateFruitsUnitCostCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.UpdateFruits];
+            command.Execute(connection, decreaseFruitsUnitCost, transaction);
         }
 
         public void UpdateVegetablesUnitCost(IDbConnection connection, DecreaseVegetablesUnitCost decreaseVegetablesUnitCost, IDbTransaction transaction = null)
         {
-
+            UpdateVegetablesUnitCostCommand command = (UpdateVegetablesUnitCostCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.UpdateVegetables];
+            command.Execute(connection, decreaseVegetablesUnitCost, transaction);
         }
 
         public void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null)
         {
-
+            UpdateProductStateCommand command = (UpdateProductStateCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.UpdateState];
+            command.Execute(connection, productState, transaction);
         }
     }
 }

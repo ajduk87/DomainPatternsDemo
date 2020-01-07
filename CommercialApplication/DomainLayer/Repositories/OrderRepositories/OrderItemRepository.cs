@@ -31,16 +31,16 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
             return connection.Query<OrderItem>(OrderItemQueries.SelectById, new { orderId }).Single();
         }
 
-        public long Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        public void Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
         {
-            return connection.ExecuteScalar<long>(OrderItemQueries.Insert, new
+            /*return connection.ExecuteScalar<long>(OrderItemQueries.Insert, new
             {
                 productId = orderItem.ProductId.Content,
                 amount = orderItem.Amount.Content,
                 value = orderItem.Value.Value,
                 discountBasic = orderItem.DiscountBasic.Content,
                 actionId = orderItem.ActionId.Content
-            });
+            });*/
         }
 
         public void Update(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)

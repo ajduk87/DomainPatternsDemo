@@ -263,6 +263,71 @@ $$  LANGUAGE plpgsql
     -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
     SET search_path = admin, pg_temp;
 	
+CREATE FUNCTION update_fruits(percent numeric(8,2))
+DECLARE 
+   fruit RECORD;
+   numberOfFruits integer;
+RETURNS BOOLEAN AS $$
+BEGIN
+		numberOfFruits := SELECT COUNT(*) FROM commercialapplication.product WHERE kindofproduct = 'fruit';
+        FOR fruit IN SELECT id.unitcost 
+         FROM commercialapplication.product 
+         LIMIT numberOfFruits 
+		 LOOP 
+			UPDATE commercialapplication.product
+			SET unitcost = (fruit.unitcost * percent/100)
+			WHERE id = fruit.id;
+		 END LOOP;
+       
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+	
+CREATE FUNCTION update_vegetables(percent numeric(8,2))
+DECLARE 
+   vegetable RECORD;
+   numberOfFruits integer;
+RETURNS BOOLEAN AS $$
+BEGIN
+		numberOfFruits := SELECT COUNT(*) FROM commercialapplication.product WHERE kindofproduct = 'fruit';
+        FOR vegetable IN SELECT id.unitcost 
+         FROM commercialapplication.product 
+         LIMIT numberOfFruits 
+		 LOOP 
+			UPDATE commercialapplication.product
+			SET unitcost = (vegetable.unitcost * percent/100)
+			WHERE id = vegetable.id;
+		 END LOOP;
+       
+
+        RETURN true;
+END;
+
+CREATE FUNCTION update_product_state(criterianame varchar(500), newstate varchar(500),)
+DECLARE 
+   vegetable RECORD;
+   numberOfFruits integer;
+RETURNS BOOLEAN AS $$
+BEGIN
+		numberOfFruits := SELECT COUNT(*) FROM commercialapplication.product WHERE kindofproduct = 'fruit';
+        FOR vegetable IN SELECT id.unitcost 
+         FROM commercialapplication.product 
+         LIMIT numberOfFruits 
+		 LOOP 
+			UPDATE commercialapplication.product
+			SET state = newstate
+			WHERE name = criterianame;
+		 END LOOP;
+       
+
+        RETURN true;
+END;
+	
 	
 CREATE FUNCTION insert_storageitem(productId integer, storageid integer, amountofproduct integer)
 RETURNS BOOLEAN AS $$
