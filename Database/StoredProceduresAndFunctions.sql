@@ -462,7 +462,7 @@ CREATE OR REPLACE FUNCTION select_orderitem_byids(criteriaids integer[]) RETURNS
     END;
     $$ LANGUAGE plpgsql;
 	
-CREATE TYPE OrderItem AS (ProductId integer, Amount integer, Value varchar(500), DiscountBasic numeric(8,2), ActionId integer);
+CREATE TYPE OrderItem AS (Id integer, ProductId integer, Amount integer, Value varchar(500), DiscountBasic numeric(8,2), ActionId integer);
 
 CREATE FUNCTION include_discount_for_paying(orderitems OrderItem[])
 RETURNS BOOLEAN AS $$
@@ -477,6 +477,69 @@ BEGIN
 				orderitem.Value = orderitem.Value * (discountAction/100);
 			END IF
 		END LOOP;
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+CREATE FUNCTION insert_orderitem(orderitem OrderItem)
+RETURNS BOOLEAN AS $$
+BEGIN
+        INSERT INTO commercialapplication.orderitem(productId, amount, value, discountbasic, actionId)
+										    VALUES (orderitem.ProductId, orderitem.Amount, orderitem.Value, orderitem.DiscountBasic, orderitem.ActionId)
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+CREATE FUNCTION insertlist_orderitem(orderitems OrderItem[])
+RETURNS BOOLEAN AS $$
+BEGIN
+		FOR orderitem IN orderitems 
+		LOOP 
+		    INSERT INTO commercialapplication.orderitem(productId, amount, value, discountbasic, actionId)
+			                              VALUES (orderitem.ProductId, orderitem.Amount, orderitem.Value, orderitem.DiscountBasic, orderitem.ActionId);
+		END LOOP;
+
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+CREATE FUNCTION update_orderitem(orderitem OrderItem)
+RETURNS BOOLEAN AS $$
+BEGIN
+        UPDATE commercialapplication.orderitem
+		SET productId = orderitem.ProductId, amount = orderitem.Amount, value = orderitem.Value, discountbasic = orderitem.DiscountBasic, actionId = orderitem.ActionId
+		WHERE id = orderitem.Id;
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+	
+CREATE FUNCTION updatelist_orderitem(orderitems OrderItem[])
+RETURNS BOOLEAN AS $$
+BEGIN
+		FOR orderitem IN orderitems 
+		LOOP 
+		    UPDATE commercialapplication.orderitem
+		    SET productId = orderitem.ProductId, amount = orderitem.Amount, value = orderitem.Value, discountbasic = orderitem.DiscountBasic, actionId = orderitem.ActionId
+		    WHERE id = orderitem.Id;
+		END LOOP;
+        
 
         RETURN true;
 END;
