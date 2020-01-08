@@ -411,5 +411,78 @@ $$  LANGUAGE plpgsql
 
 -- ORDER --
 
+CREATE FUNCTION delete_orderitem_byid(criteriaid integer)
+RETURNS BOOLEAN AS $$
+BEGIN
+        DELETE FROM commercialapplication.orderitem
+		WHERE id = criteriaid;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+	
+CREATE FUNCTION delete_orderitem_byids(criteriaids integer[])
+RETURNS BOOLEAN AS $$
+BEGIN
+		FOR criteriaid IN criteriaids 
+		 LOOP 
+			DELETE FROM commercialapplication.orderitem
+		    WHERE id = criteriaid;
+		 END LOOP;
+
+        
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+	
+CREATE OR REPLACE FUNCTION select_orderitem_byid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT * FROM commercialapplication.orderitem WHERE id = criteriaid;   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;
+	
+CREATE OR REPLACE FUNCTION select_orderitem_byids(criteriaids integer[]) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+	  OPEN ref FOR criteriaid IN criteriaids 
+		 LOOP 
+			SELECT * FROM commercialapplication.orderitem 
+			WHERE id = criteriaid; 
+		 END LOOP;
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;
+	
+CREATE TYPE OrderItem AS (ProductId integer, Amount integer, Value varchar(500), DiscountBasic numeric(8,2), ActionId integer);
+
+CREATE FUNCTION include_discount_for_paying(orderitems OrderItem[])
+RETURNS BOOLEAN AS $$
+BEGIN
+       FOR orderitem IN orderitems 
+		 LOOP 
+		    unitCost := (SELECT unitCost FROM commercialapplication.product WHERE id = orderitem.ProductId; );
+		    orderitem.Value = orderitem.Amount * unitCost * (orderitem.DiscountBasic/100);
+			thresholdAmount := (SELECT thresholdAmount FROM commercialapplication.action WHERE id = orderitem.ActionId; );
+			discountAction  := (SELECT discount FROM commercialapplication.action WHERE id = orderitem.ActionId; );
+			IF(orderitem.Amount >= thresholdAmount)
+				orderitem.Value = orderitem.Value * (discountAction/100);
+			END IF
+		END LOOP;
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
 
 -- ORDER --
