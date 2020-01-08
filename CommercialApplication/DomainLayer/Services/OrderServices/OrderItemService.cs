@@ -2,6 +2,7 @@
 using CommercialApplicationCommand.DomainLayer.Entities.ActionEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.CommonEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
+using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositories;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
@@ -30,16 +31,16 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         {
             Action action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
             Id id = new Id(orderItem.ProductId);
-            double unitCost = this.productRepository.SelectById(connection, id).UnitCost.Value;
-            return orderItem.Amount.Content > action.ThresholdAmount ? new Money { Value = orderItem.Amount * unitCost * orderItem.DiscountBasic } : new Money { Value = orderItem.Amount * unitCost };
+            UnitCost unitCost = this.productRepository.SelectById(connection, id).UnitCost;
+            return orderItem.Amount.Content > action.ThresholdAmount ? orderItem.ValueWithDiscountBasic(unitCost) : orderItem.ValueWithoutDiscount(unitCost);
         }
 
         private Money IncludeActionDiscountForPayingOneItem(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
         {
             Action action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
             Id id = new Id(orderItem.ProductId);
-            double unitCost = this.productRepository.SelectById(connection, id).UnitCost.Value;
-            return orderItem.Amount.Content > action.ThresholdAmount ? new Money { Value = orderItem.Amount * unitCost * action.Discount } : new Money { Value = orderItem.Amount * unitCost };
+            UnitCost unitCost = this.productRepository.SelectById(connection, id).UnitCost;
+            return orderItem.Amount.Content > action.ThresholdAmount ? orderItem.ValueWithDiscountAction(unitCost, action) : orderItem.ValueWithoutDiscount(unitCost);
         }
 
         public OrderItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)

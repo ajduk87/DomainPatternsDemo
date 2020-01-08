@@ -40,8 +40,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
             IEnumerable<Product> products = this.productRepository.SelectAllFruits(connection);
             foreach (Product product in products)
             {
-                product.UnitCost.Value = decreaseFruitsUnitCost.Percent.Content * product.UnitCost.Value;
-                this.productRepository.Update(connection, product, transaction);
+                this.productRepository.Update(connection, product.MyValue(decreaseFruitsUnitCost.Percent), transaction);
             }
         }
 
@@ -50,14 +49,13 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
             IEnumerable<Product> products = this.productRepository.SelectAllVegetables(connection);
             foreach (Product product in products)
             {
-                product.UnitCost.Value = decreaseVegetablesUnitCost.Percent.Content * product.UnitCost.Value;
-                this.productRepository.Update(connection, product, transaction);
+                this.productRepository.Update(connection, product.MyValue(decreaseVegetablesUnitCost.Percent), transaction);
             }
         }
 
         public void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null)
         {
-            Product product = this.productRepository.SelectByName(connection, productState.Name);           
+            Product product = this.productRepository.SelectByName(connection, productState.Name);
 
             this.productRepository.Update(connection, product.SetState(productState.State), transaction);
         }
