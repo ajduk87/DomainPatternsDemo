@@ -14,32 +14,5 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.OrderEntities
         public Money Value { get; set; }
         public Discount DiscountBasic { get; set; }
         public ActionId ActionId { get; set; }
-
-        public Money ValueWithoutDiscount(UnitCost unitCost)
-        {
-            return new Money
-            {
-                Value = this.Amount * unitCost.Value,
-                Currency = new Currency("dinara")
-            };
-        }
-
-        public Money ValueWithDiscountBasic(UnitCost unitCost)
-        {
-            return new Money
-            {
-                Value = this.Amount.Content * unitCost.Value * this.DiscountBasic.Content,
-                Currency = new Currency("dinara")
-            };
-        }
-
-        public Money ValueWithDiscountAction(UnitCost unitCost, Action action)
-        {
-            return new Money
-            {
-                Value = this.Amount * unitCost.Value * action.Discount,
-                Currency = new Currency("dinara")
-            };
-        }
     }
 }

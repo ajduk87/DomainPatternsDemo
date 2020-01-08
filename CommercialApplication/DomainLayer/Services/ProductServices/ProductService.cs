@@ -1,4 +1,5 @@
-﻿using CommercialApplication.DomainLayer.Entities.ProductEntities;
+﻿using CommercialApplication.DomainLayer.Entities.Extensions;
+using CommercialApplication.DomainLayer.Entities.ProductEntities;
 using CommercialApplication.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;

@@ -231,6 +231,8 @@
     <Compile Include="DomainLayer\Entities\ActionEntities\Action.cs" />
     <Compile Include="DomainLayer\Entities\CommonEntities\Money.cs" />
     <Compile Include="DomainLayer\Entities\CustomerEntities\OrderCustomer.cs" />
+    <Compile Include="DomainLayer\Entities\Extensions\OrderItemExtensions.cs" />
+    <Compile Include="DomainLayer\Entities\Extensions\ProductExtensions.cs" />
     <Compile Include="DomainLayer\Entities\InvoicesEntities\Invoice.cs" />
     <Compile Include="DomainLayer\Entities\InvoicesEntities\InvoiceCommercialist.cs" />
     <Compile Include="DomainLayer\Entities\InvoicesEntities\InvoiceCustomer.cs" />

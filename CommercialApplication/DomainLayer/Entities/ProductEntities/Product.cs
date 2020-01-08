@@ -36,11 +36,5 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.ProductEntities
             return this;
         }
 
-        public Product MyValue(Percent discount)
-        {
-            this.UnitCost.Value = discount.Content * this.UnitCost.Value;
-            return this;
-        }
-
     }
 }
