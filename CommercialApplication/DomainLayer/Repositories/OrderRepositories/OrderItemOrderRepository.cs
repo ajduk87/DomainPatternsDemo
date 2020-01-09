@@ -1,4 +1,6 @@
-﻿using CommercialApplication.DomainLayer.Repositories.OrderRepositories;
+﻿using CommercialApplication.DomainLayer.Repositories.CommandRequests;
+using CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.OrderItemOrderCommands;
+using CommercialApplication.DomainLayer.Repositories.OrderRepositories;
 using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
@@ -16,7 +18,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
 
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            connection.Execute(OrderItemOrderQueries.Delete, new { orderId = id });
+            /*connection.Execute(OrderItemOrderQueries.Delete, new { orderId = id });*/
+            DeleteOrderItemOrderCommand command = (DeleteOrderItemOrderCommand)this.commandOrderCaller.DictCommands[OrderCommandRequests.DeleteOrderItemOrder];
+            command.Execute(connection, id, transaction);
         }
 
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)
@@ -26,16 +30,20 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
 
         public IEnumerable<long> SelectByOrderId(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.Query<long>(OrderItemOrderQueries.GetOrderIds, new { orderId = id });
+            /*return connection.Query<long>(OrderItemOrderQueries.GetOrderIds, new { orderId = id });*/
+            GetOrderItemsOrderByOrderIdCommand command = (GetOrderItemsOrderByOrderIdCommand)this.commandOrderCaller.DictCommands[OrderCommandRequests.GetOrderItemsOrderByOrderId];
+            return command.Execute(connection, id, transaction);
         }
 
         public void Insert(IDbConnection connection, OrderItemOrder orderItemOrder, IDbTransaction transaction = null)
         {
-            connection.Execute(OrderItemOrderQueries.Insert, new
+            /*connection.Execute(OrderItemOrderQueries.Insert, new
             {
                 orderId = orderItemOrder.OrderId.Content,
                 orderItemId = orderItemOrder.OrderItemId.Content
-            });
+            });*/
+            InsertOrderItemOrderCommand command = (InsertOrderItemOrderCommand)this.commandOrderCaller.DictCommands[OrderCommandRequests.InsertOrderItemOrder];
+            command.Execute(connection, orderItemOrder, transaction);
         }
     }
 }
