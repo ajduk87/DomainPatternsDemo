@@ -1,4 +1,5 @@
 ﻿using CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands;
+using CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.OrderCustomerCommands;
 using CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.OrderItemOrderCommands;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,12 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.Callers
             DictCommands.Add("DeleteOrderItemOrder", new DeleteOrderItemOrderCommand());
             DictCommands.Add("InsertOrderItemOrder", new InsertOrderItemOrderCommand());
             DictCommands.Add("GetOrderItemOrderByOrderId", new GetOrderItemsOrderByOrderIdCommand());
+
+            //OrderCustomer
+            DictCommands.Add("DeleteOrderCustomer", new DeleteOrderCustomerCommand());
+            DictCommands.Add("UpdateOrderCustomer", new UpdateOrderCustomerCommand());
+            DictCommands.Add("InsertOrderCustomer", new InsertOrderCustomerCommand());
+            DictCommands.Add("GetOrderOrderByOrderId", new GetOrderItemsOrderByOrderIdCommand());
         }
     }
 }

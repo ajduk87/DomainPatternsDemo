@@ -313,6 +313,9 @@
     <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\ICustomerCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\RemoveExistingCustomerInfoCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\CustomerCommands\UpdateExistingCustomerInfoCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\OrderCustomerCommands\DeleteOrderCustomerCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\OrderCustomerCommands\GetOrderCustomerByOrderIdCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\OrderCustomerCommands\InsertOrderCustomerCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\OrderItemCommands\DeleteOrderItemByIdCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\OrderItemCommands\DeleteOrderItemByIdsCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\OrderItemCommands\GetOrderItemByIdCommand.cs" />
@@ -326,6 +329,7 @@
     <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\OrderItemOrderCommands\DeleteOrderItemOrderCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\OrderItemOrderCommands\GetOrderItemsOrderByOrderIdCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\OrderItemOrderCommands\InsertOrderItemOrderCommand.cs" />
+    <Compile Include="DomainLayer\Repositories\Commands\OrderCommands\OrderCustomerCommands\UpdateOrderCustomerCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\DeleteProductCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\DeleteProductFromStorageCommand.cs" />
     <Compile Include="DomainLayer\Repositories\Commands\ProductCommands\GetAllFruitsCommand.cs" />
