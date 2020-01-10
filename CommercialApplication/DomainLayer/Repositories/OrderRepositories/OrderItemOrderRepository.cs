@@ -12,9 +12,6 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
 {
     public class OrderItemOrderRepository : OrderBaseRepository, IOrderItemOrderRepository
     {
-        public OrderItemOrderRepository()
-        {
-        }
 
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
@@ -35,7 +32,8 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
             return command.Execute(connection, id, transaction);
         }
 
-        public void Insert(IDbConnection connection, OrderItemOrder orderItemOrder, IDbTransaction transaction = null)
+        //public void Insert(IDbConnection connection, OrderItemOrder orderItemOrder, IDbTransaction transaction = null)
+        public void Insert(IDbConnection connection, IEnumerable<OrderItemOrder> orderItemOrders, IDbTransaction transaction = null)
         {
             /*connection.Execute(OrderItemOrderQueries.Insert, new
             {
@@ -43,7 +41,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
                 orderItemId = orderItemOrder.OrderItemId.Content
             });*/
             InsertOrderItemOrderCommand command = (InsertOrderItemOrderCommand)this.commandOrderCaller.DictCommands[OrderCommandRequests.InsertOrderItemOrder];
-            command.Execute(connection, orderItemOrder, transaction);
+            command.Execute(connection, orderItemOrders, transaction);
         }
     }
 }

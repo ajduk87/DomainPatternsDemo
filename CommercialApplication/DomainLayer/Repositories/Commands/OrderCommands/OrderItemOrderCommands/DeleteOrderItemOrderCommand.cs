@@ -10,7 +10,7 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.
 {
     public class DeleteOrderItemOrderCommand : CommandBase, IOrderCommand
     {
-        public string StoredFunctionName { get; } = "";
+        public string StoredFunctionName { get; } = "delete_orderitemoder_byorderid";
         public void Execute(IDbConnection conn, long id, IDbTransaction transaction = null)
         {
             this.connection = (NpgsqlConnection)conn;

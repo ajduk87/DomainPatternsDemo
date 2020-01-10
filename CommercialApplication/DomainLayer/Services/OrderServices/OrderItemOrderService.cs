@@ -23,7 +23,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
 
         public void InsertList(IDbConnection connection, IEnumerable<OrderItem> orderItems, long orderId, IDbTransaction transaction = null)
         {
-            foreach (OrderItem orderItem in orderItems)
+            /*foreach (OrderItem orderItem in orderItems)
             {
                 OrderItemOrder orderItemOrder = new OrderItemOrder
                 {
@@ -31,7 +31,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
                     OrderId = new OrderId(orderId)
                 };
                 this.orderItemOrderRepository.Insert(connection, orderItemOrder);
-            }
+            }*/
         }
 
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)

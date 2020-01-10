@@ -547,5 +547,48 @@ $$  LANGUAGE plpgsql
     SECURITY DEFINER
     -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
     SET search_path = admin, pg_temp;
+	
+	
+CREATE FUNCTION delete_orderitemoder_byorderid(criteriaid integer)
+RETURNS BOOLEAN AS $$
+BEGIN
+		DELETE FROM commercialapplication.orderitemorders
+		WHERE orderid = criteriaid;        
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+
+
+CREATE OR REPLACE FUNCTION select_orderitemids_byorderid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT orderitemid
+					FROM commercialapplication.orderitemorders
+					WHERE orderid = @orderid   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;
+
+CREATE TYPE OrderItemOrder AS (Id integer, OrderId integer, OrderItemId integer);
+
+CREATE FUNCTION connect_orderitem_with_order(orderitemOrders OrderItemOrder[])
+RETURNS BOOLEAN AS $$
+BEGIN
+		FOR orderitemOrder IN orderitemOrders 
+		LOOP 
+		    INSERT INTO commercialapplication.orderitemorders(orderid, orderitemid)
+			VALUES (orderitemOrder.orderid, orderitemOrder.orderitemid)
+		END LOOP;
+
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
 
 -- ORDER --

@@ -1,4 +1,5 @@
 ﻿using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,11 +11,19 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.
 {
     public class InsertOrderItemOrderCommand : CommandBase, IOrderCommand
     {
-        public string StoredFunctionName { get; } = "";
+        public string StoredFunctionName { get; } = "connect_orderitem_with_order";
 
-        public void Execute(IDbConnection connection, OrderItemOrder orderItemOrder, IDbTransaction transaction = null)
+        public void Execute(IDbConnection conn, IEnumerable<OrderItemOrder> orderItemOrders, IDbTransaction transaction = null)
         {
+            this.connection = (NpgsqlConnection)conn;
+            connection.Open();
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("orderItemOrders", orderItemOrders);
 
+            // Execute the procedure and obtain a result set
+            NpgsqlDataReader dr = command.ExecuteReader();
+            connection.Close();
         }
     }
 }
