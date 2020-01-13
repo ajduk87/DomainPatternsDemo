@@ -16,11 +16,6 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderItemOrderRepository = RepositoryFactory.CreateOrderItemOrderRepository();
         }
 
-        public void Insert(IDbConnection connection, OrderItemOrder orderItemOrder, IDbTransaction transaction = null)
-        {
-            this.orderItemOrderRepository.Insert(connection, orderItemOrder);
-        }
-
         public void InsertList(IDbConnection connection, IEnumerable<OrderItem> orderItems, long orderId, IDbTransaction transaction = null)
         {
             /*foreach (OrderItem orderItem in orderItems)
@@ -32,6 +27,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
                 };
                 this.orderItemOrderRepository.Insert(connection, orderItemOrder);
             }*/
+            this.orderItemOrderRepository.Insert(connection, orderItems, orderId);
         }
 
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)

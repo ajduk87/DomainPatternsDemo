@@ -572,15 +572,15 @@ CREATE OR REPLACE FUNCTION select_orderitemids_byorderid(criteriaid integer) RET
     END;
     $$ LANGUAGE plpgsql;
 
-CREATE TYPE OrderItemOrder AS (Id integer, OrderId integer, OrderItemId integer);
+CREATE TYPE OrderItem AS (Id integer, OrderItemId integer);
 
-CREATE FUNCTION connect_orderitem_with_order(orderitemOrders OrderItemOrder[])
+CREATE FUNCTION connect_orderitem_with_order(orderitems OrderItem[], long orderId)
 RETURNS BOOLEAN AS $$
 BEGIN
-		FOR orderitemOrder IN orderitemOrders 
+		FOR orderitem IN orderitems 
 		LOOP 
 		    INSERT INTO commercialapplication.orderitemorders(orderid, orderitemid)
-			VALUES (orderitemOrder.orderid, orderitemOrder.orderitemid)
+			VALUES (orderId, orderitem.orderitemid)
 		END LOOP;
 
 

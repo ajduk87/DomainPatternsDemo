@@ -7,7 +7,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
     public interface IOrderItemOrderRepository : IRepository
     {
         //void Insert(IDbConnection connection, OrderItemOrder orderItemOrder, IDbTransaction transaction = null);
-        void Insert(IDbConnection connection, IEnumerable<OrderItemOrder> orderItemOrders, IDbTransaction transaction = null);
+        void Insert(IDbConnection connection, IEnumerable<OrderItem> orderItems, long orderId, IDbTransaction transaction = null);
         void Delete(IDbConnection connection, long id, IDbTransaction transaction = null);
         bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null);
         IEnumerable<long> SelectByOrderId(IDbConnection connection, long id, IDbTransaction transaction = null);

@@ -33,7 +33,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
         }
 
         //public void Insert(IDbConnection connection, OrderItemOrder orderItemOrder, IDbTransaction transaction = null)
-        public void Insert(IDbConnection connection, IEnumerable<OrderItemOrder> orderItemOrders, IDbTransaction transaction = null)
+        public void Insert(IDbConnection connection, IEnumerable<OrderItem> orderItems, long orderId, IDbTransaction transaction = null)
         {
             /*connection.Execute(OrderItemOrderQueries.Insert, new
             {
@@ -41,7 +41,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
                 orderItemId = orderItemOrder.OrderItemId.Content
             });*/
             InsertOrderItemOrderCommand command = (InsertOrderItemOrderCommand)this.commandOrderCaller.DictCommands[OrderCommandRequests.InsertOrderItemOrder];
-            command.Execute(connection, orderItemOrders, transaction);
+            command.Execute(connection, orderItems, orderId, transaction);
         }
     }
 }
