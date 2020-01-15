@@ -1,4 +1,5 @@
 ﻿using CommercialApplication.DomainLayer.Entities.OrderEntities;
+using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositories;
@@ -14,11 +15,19 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         private readonly IOrderItemRepository orderItemRepository;
         private readonly IOrderItemOrderRepository orderItemOrderRepository;
 
+        private readonly IOrderCustomerService orderCustomerService;
+        private readonly IOrderItemService orderItemService;
+        private readonly IOrderItemOrderService orderItemOrderService;
+
         public OrderService()
         {
             this.orderRepository = RepositoryFactory.CreateOrderRepository();
             this.orderItemRepository = RepositoryFactory.CreateOrderItemRepository();
             this.orderItemOrderRepository = RepositoryFactory.CreateOrderItemOrderRepository();
+
+            this.orderCustomerService = new OrderCustomerService();
+            this.orderItemService = new OrderItemService();
+            this.orderItemOrderService = new OrderItemOrderService();
         }
 
         private double SumValue(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
@@ -59,7 +68,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         public void Update(IDbConnection connection, Order order, IDbTransaction transaction = null)
         {
             this.orderRepository.Update(connection, order);
-        }       
+        }
 
         public long SelectOrderIdWithMaxSumValueByDay(IDbConnection connection, IEnumerable<Order> orders, IDbTransaction transaction = null)
         {
@@ -140,6 +149,66 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             Order order = this.orderRepository.SelectById(connection, orderState.Id);
             order.State = orderState.State;
             this.orderRepository.Update(connection, order, transaction);
+        }
+
+        //OrderCustomer
+        public Customer SelectOrderCustomerByOrderId(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return this.orderCustomerService.SelectByOrderId(connection, id, transaction);
+        }
+        public void InsertOrderCustomer(IDbConnection connection, OrderCustomer orderCustomer, IDbTransaction transaction = null)=>
+            this.orderCustomerService.Insert(connection, orderCustomer, transaction);
+
+        public void DeleteOrderCustomer(IDbConnection connection, long id, IDbTransaction transaction = null)=>
+            this.orderCustomerService.Delete(connection, id, transaction);
+        public void UpdateOrderCustomer(IDbConnection connection, OrderCustomer orderCustomer, IDbTransaction transaction = null)=>
+            this.orderCustomerService.Update(connection, orderCustomer, transaction);
+
+        //OrderItem
+        public OrderItem SelectOrderItemById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return this.orderItemService.SelectById(connection, id, transaction);
+        }
+        public IEnumerable<OrderItem> SelectOrderItemByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null)
+        {
+            return this.orderItemService.SelectByIds(connection, ids, transaction);
+        }
+        public long InsertOrderItem(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        {
+            return this.orderItemService.Insert(connection, orderItem, transaction);
+        }
+        public void InsertListOrderItem(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)=>
+            this.orderItemService.InsertList(connection, orderItems, transaction);
+
+        public void UpdateOrderItem(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)=>
+            this.orderItemService.Update(connection, orderItem, transaction);
+
+        public void UpdateOrderItemList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null) =>
+            this.orderItemService.UpdateList(connection, orderItems, transaction);
+        public void DeleteOrderItem(IDbConnection connection, long id, IDbTransaction transaction = null) =>
+            this.orderItemService.Delete(connection, id, transaction);
+        public void DeleteOrderItemByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null) =>
+            this.orderItemService.DeleteByIds(connection, ids, transaction);
+
+        public IEnumerable<OrderItem> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        {
+            return this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems, transaction);
+        }
+        public IEnumerable<OrderItem> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        {
+            return this.orderItemService.IncludeActionDiscountForPaying(connection, orderItems, transaction);
+        }
+
+        //OrderItemOrder
+        public void InsertOrderItemOrder(IDbConnection connection, OrderItemOrder orderItemOrder, IDbTransaction transaction = null) =>
+            this.orderItemOrderService.Insert(connection, orderItemOrder, transaction);
+        public void InsertOrderItemOrderList(IDbConnection connection, IEnumerable<OrderItem> orderItems, long orderId, IDbTransaction transaction = null) =>
+            this.orderItemOrderService.InsertList(connection, orderItems, orderId, transaction);
+        public void DeleteOrderItemOrder(IDbConnection connection, long id, IDbTransaction transaction = null) =>
+            this.orderItemOrderService.Delete(connection, id, transaction);
+        public IEnumerable<long> SelectOrderItemOrderByOrderId(IDbConnection connection, long id, IDbTransaction transaction = null)
+        {
+            return this.orderItemOrderService.SelectByOrderId(connection, id, transaction);
         }
     }
 }
