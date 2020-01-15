@@ -46,9 +46,15 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderRepository.Delete(connection, id);
         }
 
-        public long Insert(IDbConnection connection, Order order, IDbTransaction transaction = null)
+        public void Insert(IDbConnection connection, Order order, IDbTransaction transaction = null)
         {
-            return this.orderRepository.Insert(connection, order);
+            //return this.orderRepository.Insert(connection, order);
+            this.orderRepository.Insert(connection, order);
+        }
+
+        public long SelectLastOne(IDbConnection connection, Order order, IDbTransaction transaction = null)
+        {
+            return 1;
         }
 
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)
@@ -59,7 +65,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         public void Update(IDbConnection connection, Order order, IDbTransaction transaction = null)
         {
             this.orderRepository.Update(connection, order);
-        }       
+        }
 
         public long SelectOrderIdWithMaxSumValueByDay(IDbConnection connection, IEnumerable<Order> orders, IDbTransaction transaction = null)
         {

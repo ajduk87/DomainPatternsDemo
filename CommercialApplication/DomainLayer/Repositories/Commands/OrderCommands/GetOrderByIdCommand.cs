@@ -1,4 +1,5 @@
-﻿using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
+﻿using CommercialApplication.DomainLayer.Entities.ValueObjects.Common;
+using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 using Npgsql;
 using System;
@@ -8,15 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.OrderCustomerCommands
+namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands
 {
-    public class GetOrderCustomerByOrderIdCommand : CommandBase, IOrderCommand
+    public class GetOrderByIdCommand : CommandBase, IOrderCommand
     {
-        public string StoredFunctionName { get; } = "select_ordercustomer_byorderid";
+        public string StoredFunctionName { get; } = "select_order_byid";
 
-        public Customer Execute(IDbConnection conn, long id, IDbTransaction transaction = null)
+        public Order Execute(IDbConnection conn, long id, IDbTransaction transaction = null)
         {
-            Customer customer = new Customer();
+            Order order = new Order();
 
             this.connection = (NpgsqlConnection)conn;
             connection.Open();
@@ -29,16 +30,17 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.
 
             while (dr.Read())
             {
-                customer = new Customer
+                order = new Order
                 {
-                    Id = new Id(Convert.ToInt64(dr["orderitemid"].ToString())),
-                    Name = new Name(dr["name"].ToString())
+                    Id = new Id(Convert.ToInt64(dr["orderid"].ToString())),
+                    State = new State(dr["state"].ToString()),
+                    CreationDate = new CreationDate(dr["creationDate"].ToString())
                 };
             }
 
             connection.Close();
 
-            return customer;
+            return order;
         }
     }
 }

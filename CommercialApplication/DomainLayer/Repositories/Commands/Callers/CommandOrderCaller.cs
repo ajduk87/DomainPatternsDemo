@@ -36,6 +36,13 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.Callers
             DictCommands.Add("UpdateOrderCustomer", new UpdateOrderCustomerCommand());
             DictCommands.Add("InsertOrderCustomer", new InsertOrderCustomerCommand());
             DictCommands.Add("GetOrderOrderByOrderId", new GetOrderItemsOrderByOrderIdCommand());
+
+            //Order
+            DictCommands.Add("DeleteOrder", new DeleteOrderCommand());
+            DictCommands.Add("UpdateOrder", new UpdateOrderCommand());
+            DictCommands.Add("InsertOrder", new InsertOrderCommand());
+            DictCommands.Add("GetOrderById", new GetOrderByIdCommand());
+            DictCommands.Add("GetOrdersByDay", new GetOrdersByDayCommand());
         }
     }
 }

@@ -29,5 +29,12 @@ namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
         public const string DeleteOrderCustomer = "DeleteOrderItemCustomer";
         public const string InsertOrderCustomer = "InsertOrderItemCustomer";
         public const string GetOrderCustomerByOrderId = "GetOrderItemCustomerByOrderId";
+
+        //Order
+        public const string UpdateOrder = "UpdateOrder";
+        public const string DeleteOrder = "DeleteOrder";
+        public const string InsertOrder = "InsertOrder";
+        public const string GetOrderById = "GetOrderById";
+        public const string GetOrdersByDay = "GetOrdersByDay";
     }
 }

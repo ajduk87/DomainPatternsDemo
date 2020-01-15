@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.OrderCustomerCommands
+namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands
 {
-    public class DeleteOrderCustomerCommand : CommandBase, IOrderCommand
+    public class DeleteOrderCommand : CommandBase, IOrderCommand
     {
-        public string StoredFunctionName { get; } = "delete_ordercustomer";
+        public string StoredFunctionName { get; } = "delete_order";
 
         public void Execute(IDbConnection conn, long id, IDbTransaction transaction = null)
         {

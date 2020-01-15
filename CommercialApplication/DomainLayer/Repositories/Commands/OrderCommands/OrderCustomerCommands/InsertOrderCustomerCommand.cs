@@ -1,4 +1,5 @@
 ﻿using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,10 +11,18 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.
 {
     public class InsertOrderCustomerCommand : CommandBase, IOrderCommand
     {
-        public string StoredFunctionName { get; } = "";
-        public void  Execute(IDbConnection connection, OrderCustomer orderCustomer, IDbTransaction transaction = null)
+        public string StoredFunctionName { get; } = "insert_ordercustomer";
+        public void Execute(IDbConnection conn, OrderCustomer orderCustomer, IDbTransaction transaction = null)
         {
+            this.connection = (NpgsqlConnection)conn;
+            connection.Open();
+            NpgsqlCommand command = new NpgsqlCommand(this.StoredFunctionName, connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("orderCustomer", orderCustomer);
 
+            // Execute the procedure and obtain a result set
+            NpgsqlDataReader dr = command.ExecuteReader();
+            connection.Close();
         }
     }
 }

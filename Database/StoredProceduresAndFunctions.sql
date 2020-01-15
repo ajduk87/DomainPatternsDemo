@@ -590,5 +590,118 @@ $$  LANGUAGE plpgsql
     SECURITY DEFINER
     -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
     SET search_path = admin, pg_temp;
+	
+CREATE FUNCTION delete_ordercustomer(criteriaid integer)
+RETURNS BOOLEAN AS $$
+BEGIN
+        DELETE FROM commercialapplication.orderscustomer
+		WHERE orderid = criteriaid
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+CREATE TYPE OrderCustomer AS (orderId integer, customerId integer);
+	
+CREATE FUNCTION insert_ordercustomer(orderCustomer OrderCustomer)
+RETURNS BOOLEAN AS $$
+BEGIN
+        INSERT INTO commercialapplication.orderscustomer (orderid, customerid)
+												  VALUES (orderCustomer.orderid, orderCustomer.customerid)
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+CREATE FUNCTION update_ordercustomer(orderCustomer OrderCustomer)
+RETURNS BOOLEAN AS $$
+BEGIN
+        UPDATE commercialapplication.orderscustomer
+		SET customerid = orderCustomer.customerid
+		WHERE orderid = orderCustomer.orderid
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+CREATE OR REPLACE FUNCTION select_ordercustomer_byorderid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT * FROM commercialapplication.orderscustomer 
+							WHERE orderId = criteriaid;   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;
+	
+	
+CREATE TYPE Order AS (id integer, state varchar(500), creationDate varchar(500));
+
+CREATE FUNCTION delete_order(criteriaid integer)
+RETURNS BOOLEAN AS $$
+BEGIN
+        DELETE FROM commercialapplication.orders
+		WHERE id = criteriaid;
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+CREATE FUNCTION insert_order(order Order)
+RETURNS BOOLEAN AS $$
+BEGIN
+        INSERT INTO commercialapplication.orders(state, creationDate)
+		VALUES(order.state, order.creationDate);
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+CREATE FUNCTION update_order(order Order)
+RETURNS BOOLEAN AS $$
+BEGIN
+        UPDATE commercialapplication.orders
+		SET state = order.state, creationDate = order.creationDate
+		WHERE id = orderid
+
+        RETURN true;
+END;
+$$  LANGUAGE plpgsql
+    SECURITY DEFINER
+    -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
+    SET search_path = admin, pg_temp;
+	
+CREATE OR REPLACE FUNCTION select_order_byid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT * FROM commercialapplication.orders WHERE id = criteriaid;   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;
+	
+CREATE OR REPLACE FUNCTION select_orders_byday(criteriaday integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT * FROM commercialapplication.orders WHERE creationDate = criteriaday;   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;
 
 -- ORDER --
