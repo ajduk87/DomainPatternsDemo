@@ -13,5 +13,6 @@ namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
         public const string CreateNewCustomerInfo = "CreateNewCustomerInfo";
         public const string UpdateExistingCustomerInfo = "UpdateExistingCustomerInfo";
         public const string RemoveExistingCustomerInfo = "RemoveExistingCustomerInfo";
+        public const string IsCustomerExist = "IsCustomerExist";
     }
 }

@@ -91,7 +91,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
 
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.ExecuteScalar<bool>(ProductQueries.Exists, new { id });
+            /*return connection.ExecuteScalar<bool>(ProductQueries.Exists, new { id });*/
+            IsProductExistCommand command = (IsProductExistCommand)this.commandProductCaller.DictCommands[ProductCommandRequests.IsProductExist];
+            return command.Execute(connection, id, transaction);
         }
 
         public void UpdateFruitsUnitCost(IDbConnection connection, DecreaseFruitsUnitCost decreaseFruitsUnitCost, IDbTransaction transaction = null)

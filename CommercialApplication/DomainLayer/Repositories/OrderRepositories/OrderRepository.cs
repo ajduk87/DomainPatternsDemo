@@ -37,7 +37,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
 
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.ExecuteScalar<bool>(OrderQueries.Exists, new { id });
+            /*return connection.ExecuteScalar<bool>(OrderQueries.Exists, new { id });*/
+            IsOrderExistCommand command = (IsOrderExistCommand)this.commandOrderCaller.DictCommands[OrderCommandRequests.IsOrderExist];
+            return command.Execute(connection, id, transaction);
         }
 
         public void Insert(IDbConnection connection, Order order, IDbTransaction transaction = null)

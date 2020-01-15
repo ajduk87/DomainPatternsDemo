@@ -18,6 +18,7 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.Callers
             DictCommands.Add("Insert", new InsertStorageCommand());
             DictCommands.Add("Update", new UpdateStorageCommand());
             DictCommands.Add("Delete", new DeleteStorageCommand());
+            DictCommands.Add("IsStorageExist", new IsStorageExistCommand());
         }
     }
 }

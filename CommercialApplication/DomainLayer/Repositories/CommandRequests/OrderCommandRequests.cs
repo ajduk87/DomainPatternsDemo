@@ -18,11 +18,13 @@ namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
         public const string InsertOrderItem = "InsertOrderItem";
         public const string UpdateListOrderItem = "UpdateListOrderItem";
         public const string UpdateOrderItem = "UpdateOrderItem";
+        public const string IsOrderItemExist = "IsOrderItemExist";
 
         //OrderItemOrder
         public const string DeleteOrderItemOrder = "DeleteOrderItemOrder";
         public const string InsertOrderItemOrder = "InsertOrderItemOrder";
         public const string GetOrderItemsOrderByOrderId = "GetOrderItemOrderByOrderId";
+        public const string IsOrderItemOrderExist = "IsOrderItemOrderExist";
 
         //OrderItemCustomer
         public const string UpdateOrderCustomer = "UpdateOrderItemCustomer";
@@ -36,5 +38,6 @@ namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
         public const string InsertOrder = "InsertOrder";
         public const string GetOrderById = "GetOrderById";
         public const string GetOrdersByDay = "GetOrdersByDay";
+        public const string IsOrderExist = "IsOrderExist";
     }
 }

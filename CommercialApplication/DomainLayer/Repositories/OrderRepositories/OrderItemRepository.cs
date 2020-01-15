@@ -1,5 +1,7 @@
 ﻿using CommercialApplication.DomainLayer.Repositories.CommandRequests;
 using CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands;
+using CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.OrderItemCommands;
+using CommercialApplication.DomainLayer.Repositories.Commands.ProductCommands;
 using CommercialApplication.DomainLayer.Repositories.OrderRepositories;
 using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
@@ -13,7 +15,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
 {
     public class OrderItemRepository : OrderBaseRepository, IOrderItemRepository
     {
-      
+
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             /*connection.Execute(OrderItemQueries.Delete, new { id });*/
@@ -29,7 +31,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
 
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.ExecuteScalar<bool>(OrderItemQueries.Exists, new { id });
+            /*return connection.ExecuteScalar<bool>(OrderItemQueries.Exists, new { id });*/
+            IsOrderItemExistCommand command = (IsOrderItemExistCommand)this.commandOrderCaller.DictCommands[OrderCommandRequests.IsOrderItemExist];
+            return command.Execute(connection, id, transaction);
         }
 
         public OrderItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
@@ -90,6 +94,6 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
         {
             IncludeDiscountForPayingCommand command = (IncludeDiscountForPayingCommand)this.commandOrderCaller.DictCommands[OrderCommandRequests.IncludeDiscountForPaying];
             command.Execute(connection, orderItems, transaction);
-        }      
+        }
     }
 }

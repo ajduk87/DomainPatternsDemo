@@ -71,7 +71,17 @@ CREATE OR REPLACE FUNCTION select_action_byid(criteriaid integer) RETURNS refcur
       OPEN ref FOR SELECT * FROM commercialapplication.action WHERE id = criteriaid;   -- Open a cursor
       RETURN ref;                                                       -- Return the cursor to the caller
     END;
-    $$ LANGUAGE plpgsql;	
+    $$ LANGUAGE plpgsql;
+	
+
+CREATE OR REPLACE FUNCTION isexist_action_byid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT EXISTS (SELECT 1 FROM commercialapplication.action WHERE id  =criteriaid)   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;		
 -- ACTION --
 
 
@@ -138,6 +148,15 @@ CREATE OR REPLACE FUNCTION select_customer_byid(criteriaid integer) RETURNS refc
       RETURN ref;                                                       -- Return the cursor to the caller
     END;
     $$ LANGUAGE plpgsql;
+	
+CREATE OR REPLACE FUNCTION isexist_customer_byid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT EXISTS (SELECT 1 FROM commercialapplication.customer WHERE id  = criteriaid)   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;		
 
 
 -- CUSTOMER --
@@ -342,6 +361,15 @@ $$  LANGUAGE plpgsql
     -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
     SET search_path = admin, pg_temp;
 	
+CREATE OR REPLACE FUNCTION isexist_product_byid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT EXISTS (SELECT 1 FROM commercialapplication.product WHERE id  = criteriaid)   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;	
+	
 -- PRODUCT --
 
 
@@ -406,6 +434,15 @@ $$  LANGUAGE plpgsql
     SECURITY DEFINER
     -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
     SET search_path = admin, pg_temp;
+	
+CREATE OR REPLACE FUNCTION isexist_storage_byid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT EXISTS (SELECT 1 FROM commercialapplication.storage WHERE id  = criteriaid)   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;	
 
 -- STORAGE --
 
@@ -548,8 +585,18 @@ $$  LANGUAGE plpgsql
     -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
     SET search_path = admin, pg_temp;
 	
+CREATE OR REPLACE FUNCTION isexist_orderitem_byid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT EXISTS (SELECT 1 FROM commercialapplication.orderitem WHERE id  = criteriaid)   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;	
+
 	
-CREATE FUNCTION delete_orderitemoder_byorderid(criteriaid integer)
+	
+CREATE FUNCTION delete_orderitemorder_byorderid(criteriaid integer)
 RETURNS BOOLEAN AS $$
 BEGIN
 		DELETE FROM commercialapplication.orderitemorders
@@ -590,6 +637,16 @@ $$  LANGUAGE plpgsql
     SECURITY DEFINER
     -- Set a secure search_path: trusted schema(s), then 'pg_temp'.
     SET search_path = admin, pg_temp;
+	
+CREATE OR REPLACE FUNCTION isexist_orderitemorder_byid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT EXISTS (SELECT 1 FROM commercialapplication.orderitemorder WHERE id  = criteriaid)   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;	
+
 	
 CREATE FUNCTION delete_ordercustomer(criteriaid integer)
 RETURNS BOOLEAN AS $$
@@ -700,6 +757,15 @@ CREATE OR REPLACE FUNCTION select_orders_byday(criteriaday integer) RETURNS refc
       ref refcursor;                                                     -- Declare a cursor variable
     BEGIN
       OPEN ref FOR SELECT * FROM commercialapplication.orders WHERE creationDate = criteriaday;   -- Open a cursor
+      RETURN ref;                                                       -- Return the cursor to the caller
+    END;
+    $$ LANGUAGE plpgsql;
+	
+CREATE OR REPLACE FUNCTION isexist_order_byid(criteriaid integer) RETURNS refcursor AS $$
+    DECLARE
+      ref refcursor;                                                     -- Declare a cursor variable
+    BEGIN
+      OPEN ref FOR SELECT EXISTS (SELECT 1 FROM commercialapplication.order WHERE id  = criteriaid)   -- Open a cursor
       RETURN ref;                                                       -- Return the cursor to the caller
     END;
     $$ LANGUAGE plpgsql;

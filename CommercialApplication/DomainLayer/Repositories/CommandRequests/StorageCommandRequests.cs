@@ -13,5 +13,6 @@ namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
         public const string Insert = "Insert";
         public const string Update = "Update";
         public const string Delete = "Delete";
+        public const string IsStorageExist = "IsStorageExist";
     }
 }

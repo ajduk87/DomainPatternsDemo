@@ -20,6 +20,7 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.Callers
             DictCommands.Add("Update", new UpdateActionCommand());
             DictCommands.Add("UpdateActionByCustomerId", new UpdateActionCommandByCustomerId());
             DictCommands.Add("Delete", new DeleteActionCommand());
+            DictCommands.Add("IsActionExist", new IsActionExistCommand());
         }
     }
 }

@@ -22,7 +22,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
 
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.ExecuteScalar<bool>(OrderItemOrderQueries.Exists, new { id });
+            /*return connection.ExecuteScalar<bool>(OrderItemOrderQueries.Exists, new { id });*/
+            IsOrderItemOrderExistCommand command = (IsOrderItemOrderExistCommand)this.commandOrderCaller.DictCommands[OrderCommandRequests.IsOrderItemOrderExist];
+            return command.Execute(connection, id, transaction);
         }
 
         public IEnumerable<long> SelectByOrderId(IDbConnection connection, long id, IDbTransaction transaction = null)

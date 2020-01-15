@@ -59,7 +59,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.CustomerReposito
 
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.ExecuteScalar<bool>(CustomerQueries.Exists, new { id });
+            /*return connection.ExecuteScalar<bool>(CustomerQueries.Exists, new { id });*/
+            IsCustomerExistCommand command = (IsCustomerExistCommand)this.commandCustomerCaller.DictCommands[CustomerCommandRequests.IsCustomerExist];
+            return command.Execute(connection, id, transaction);
         }
     }
 }

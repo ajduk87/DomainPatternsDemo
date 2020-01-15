@@ -31,7 +31,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.StorageRepositor
 
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.ExecuteScalar<bool>(StorageQueries.Exists, new { id });
+            /*return connection.ExecuteScalar<bool>(StorageQueries.Exists, new { id });*/
+            IsStorageExistCommand command = (IsStorageExistCommand)this.commandStorageCaller.DictCommands[StorageCommandRequests.IsStorageExist];
+            return command.Execute(connection, id, transaction);
         }
 
         public void Insert(IDbConnection connection, Storage storage, IDbTransaction transaction = null)

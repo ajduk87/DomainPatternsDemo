@@ -29,7 +29,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositori
 
         public bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.ExecuteScalar<bool>(ActionQueries.Exists, new { id });
+            /*return connection.ExecuteScalar<bool>(ActionQueries.Exists, new { id });*/
+            IsActionExistCommand command = (IsActionExistCommand)this.commandActionCaller.DictCommands[ActionCommandRequests.IsActionExist];
+            return command.Execute(connection, id, transaction);
         }
 
         public IEnumerable<Action> Select(IDbConnection connection, IDbTransaction transaction = null)

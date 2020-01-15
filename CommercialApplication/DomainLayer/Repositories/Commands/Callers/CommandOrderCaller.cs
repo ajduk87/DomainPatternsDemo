@@ -1,5 +1,6 @@
 ﻿using CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands;
 using CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.OrderCustomerCommands;
+using CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.OrderItemCommands;
 using CommercialApplication.DomainLayer.Repositories.Commands.OrderCommands.OrderItemOrderCommands;
 using System;
 using System.Collections.Generic;
@@ -25,11 +26,13 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.Callers
             DictCommands.Add("InsertOrderItem", new InsertOrderItemCommand());
             DictCommands.Add("UpdateListOrderItem", new UpdateListOrderItemCommand());
             DictCommands.Add("UpdateOrderItem", new UpdateOrderItemCommand());
+            DictCommands.Add("IsOrderItemExist", new IsOrderItemExistCommand());
 
             //OrderItemOrder
             DictCommands.Add("DeleteOrderItemOrder", new DeleteOrderItemOrderCommand());
             DictCommands.Add("InsertOrderItemOrder", new InsertOrderItemOrderCommand());
             DictCommands.Add("GetOrderItemOrderByOrderId", new GetOrderItemsOrderByOrderIdCommand());
+            DictCommands.Add("IsOrderItemOrderExist", new IsOrderItemOrderExistCommand());
 
             //OrderCustomer
             DictCommands.Add("DeleteOrderCustomer", new DeleteOrderCustomerCommand());

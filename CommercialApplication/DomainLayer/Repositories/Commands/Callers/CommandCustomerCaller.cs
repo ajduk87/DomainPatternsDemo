@@ -18,6 +18,7 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.Callers
             DictCommands.Add("CreateNewCustomerInfo", new CreateNewCustomerInfoCommand());
             DictCommands.Add("UpdateExistingCustomerInfo", new UpdateExistingCustomerInfoCommand());
             DictCommands.Add("RemoveExistingCustomerInfo", new RemoveExistingCustomerInfoCommand());
+            DictCommands.Add("IsCustomerExist", new IsCustomerExistCommand());
         }
     }
 }

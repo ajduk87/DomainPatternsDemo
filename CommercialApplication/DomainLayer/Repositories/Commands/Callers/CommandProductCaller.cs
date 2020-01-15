@@ -28,6 +28,7 @@ namespace CommercialApplication.DomainLayer.Repositories.Commands.Callers
             DictCommands.Add("GetProductFromAllStorages", new GetProductFromAllStoragesCommand());
             DictCommands.Add("InsertProductInStorage", new InsertProductInStorageCommand());
             DictCommands.Add("DeleteProductFromStorage", new DeleteProductFromStorageCommand());
+            DictCommands.Add("IsProductExist", new IsProductExistCommand());
         }
     }
 }

@@ -23,5 +23,6 @@ namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
         public const string GetProductFromAllStorages = "GetProductFromAllStorages";
         public const string InsertProductInStorage = "InsertProductInStorage";
         public const string DeleteProductFromStorage = "DeleteProductFromStorage";
+        public const string IsProductExist = "IsProductExist";
     }
 }

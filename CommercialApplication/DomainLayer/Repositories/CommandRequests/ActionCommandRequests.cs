@@ -14,5 +14,6 @@ namespace CommercialApplication.DomainLayer.Repositories.CommandRequests
         public const string Update = "Update";
         public const string UpdateActionByCustomerId = "UpdateActionByCustomerId";
         public const string Delete = "Delete";
+        public const string IsActionExist = "IsActionExist";
     }
 }
