@@ -30,7 +30,7 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.ProductEntities
             }
             else if (newState.Equals("outofstock"))
             {
-                this.State = this.State.SetNotForSoldState();
+                this.State = this.State.SetOutOfStockState();
             }
 
             return this;

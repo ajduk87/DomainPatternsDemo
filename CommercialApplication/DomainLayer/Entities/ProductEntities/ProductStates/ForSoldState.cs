@@ -18,7 +18,7 @@ namespace CommercialApplication.DomainLayer.Entities.ProductEntities.ProductStat
             return this;
         }
 
-        public IProductState SetOutOfStockSoldState()
+        public IProductState SetOutOfStockState()
         {
             return this;
         }
