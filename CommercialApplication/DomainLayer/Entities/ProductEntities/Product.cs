@@ -18,7 +18,7 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.ProductEntities
         public KindOfProduct KindOfProduct { get; set; }
         public IProductState State { get; set; }
 
-        public Product SetState(State newState)
+        /*public Product SetState(State newState)
         {
             if (newState.Equals("notforsold"))
             {
@@ -34,7 +34,26 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.ProductEntities
             }
 
             return this;
+        }*/
+
+        public Product SetNotForSoldState()
+        {
+            this.State = this.State.SetNotForSoldState();
+            return this;
         }
+
+        public Product SetForSoldState()
+        {
+            this.State = this.State.SetForSoldState();
+            return this;
+        }
+
+        public Product SetOutOfStockState()
+        {
+            this.State = this.State.SetOutOfStockState();
+            return this;
+        }
+
 
     }
 }

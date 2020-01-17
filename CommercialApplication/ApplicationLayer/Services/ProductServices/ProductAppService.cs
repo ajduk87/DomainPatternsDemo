@@ -109,13 +109,34 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
             }
         }
 
-        public void SetState(ProductStateDto productStateDto)
+        /*public void SetState(ProductStateDto productStateDto)
+        {
+           
+        }*/
+
+        public void SetNotForSoldState(string productName)
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                ProductState productState = this.dtoToEntityMapper.Map<ProductStateDto, ProductState>(productStateDto);
-                this.productService.UpdateState(connection, productState);
+                this.productService.SetNotForSoldState(connection, new Name(productName));
             }
         }
+
+        public void SetForSoldState(string productName)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                this.productService.SetForSoldState(connection, new Name(productName));
+            }
+        }
+
+        public void SetOutOfStockState(string productName)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                this.productService.SetOutOfStockState(connection, new Name(productName));
+            }
+        }
+
     }
 }

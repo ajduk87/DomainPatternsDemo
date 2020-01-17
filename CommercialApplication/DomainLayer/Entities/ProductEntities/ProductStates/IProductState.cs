@@ -10,6 +10,6 @@ namespace CommercialApplication.DomainLayer.Entities.ProductEntities.ProductStat
     {
         IProductState SetNotForSoldState();
         IProductState SetForSoldState();
-        IProductState SetOutOfStockSoldState();
+        IProductState SetOutOfStockState();
     }
 }

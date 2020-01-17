@@ -55,11 +55,30 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
             }
         }
 
-        public void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null)
+        /*public void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null)
         {
             Product product = this.productRepository.SelectByName(connection, productState.Name);           
 
             this.productRepository.Update(connection, product.SetState(productState.State), transaction);
+        }*/
+
+        public void SetNotForSoldState(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        {
+            Product product = this.productRepository.SelectByName(connection, name);
+
+            this.productRepository.Update(connection, product.SetNotForSoldState(), transaction);
+        }
+        public void SetForSoldState(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        {
+            Product product = this.productRepository.SelectByName(connection, name);
+
+            this.productRepository.Update(connection, product.SetForSoldState(), transaction);
+        }
+        public void SetOutOfStockState(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        {
+            Product product = this.productRepository.SelectByName(connection, name);
+
+            this.productRepository.Update(connection, product.SetOutOfStockState(), transaction);
         }
 
         public void Delete(IDbConnection connection, Product product, IDbTransaction transaction = null) =>

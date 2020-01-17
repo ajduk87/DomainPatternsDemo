@@ -83,13 +83,40 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        [HttpPut]
+        /*[HttpPut]
         [Route("api/setproductstate")]
         [ValidateModelStateFilter]
         public HttpResponseMessage SetState(ProductStateModel productStateModel)
         {
             ProductStateDto productStateDto = this.mapper.Map<ProductStateModel, ProductStateDto>(productStateModel);
             this.productAppService.SetState(productStateDto);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }*/
+
+        [Route("api/setproductnotforsoldstate")]
+        [ValidateModelStateFilter]
+        public HttpResponseMessage SetNotForSoldState(string productName)
+        {
+            this.productAppService.SetNotForSoldState(productName);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [Route("api/setproductforsoldstate")]
+        [ValidateModelStateFilter]
+        public HttpResponseMessage SetForSoldState(string productName)
+        {
+            this.productAppService.SetForSoldState(productName);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [Route("api/setproductoutofstockstate")]
+        [ValidateModelStateFilter]
+        public HttpResponseMessage SetOutOfStockState(string productName)
+        {
+            this.productAppService.SetOutOfStockState(productName);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }

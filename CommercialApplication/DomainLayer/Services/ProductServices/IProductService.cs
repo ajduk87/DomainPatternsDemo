@@ -17,7 +17,10 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
         void Update(IDbConnection connection, Product product, IDbTransaction transaction = null);
         void UpdateFruitsUnitCost(IDbConnection connection, DecreaseFruitsUnitCost decreaseFruitsUnitCost, IDbTransaction transaction = null);
         void UpdateVegetablesUnitCost(IDbConnection connection, DecreaseVegetablesUnitCost decreaseVegetablesUnitCost, IDbTransaction transaction = null);
-        void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null);
+        //void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null);
+        void SetNotForSoldState(IDbConnection connection, Name name, IDbTransaction transaction = null);
+        void SetForSoldState(IDbConnection connection, Name name, IDbTransaction transaction = null);
+        void SetOutOfStockState(IDbConnection connection, Name name, IDbTransaction transaction = null);
 
         void Delete(IDbConnection connection, Product product, IDbTransaction transaction = null);
     }
