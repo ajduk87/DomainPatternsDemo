@@ -11,21 +11,21 @@ using System.Collections.Generic;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
 {
-    public class ProductAppService : BaseAppService, /* IProduct */ AProductAppService
+    public class ProductAppService : BaseAppService, IProductAppService
     {
-        private readonly /* IProduct */ AProductService productService;
+        private readonly IProductService productService;
 
         public ProductAppService()
         {
-            this.productService = this.registrationServices.Instance.Container.Resolve</* IProduct */ AProductService>();
+            this.productService = this.registrationServices.Instance.Container.Resolve<IProductService>();
         }
 
         public IEnumerable<ProductDto> GetAll()
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                IEnumerable</* IProduct */ AProduct> products = this.productService.Select(connection);
-                IEnumerable<ProductDto> productDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable</* IProduct */ AProduct>, IEnumerable<ProductDto>>(products);
+                IEnumerable<IProduct> products = this.productService.Select(connection);
+                IEnumerable<ProductDto> productDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<IProduct>, IEnumerable<ProductDto>>(products);
                 return productDtoes;
             }
         }
@@ -34,8 +34,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                /* IProduct */ AProduct product = this.productService.SelectByName(connection, new Name(name));
-                ProductDto productDto = this.dtoToEntityMapper.MapView</* IProduct */ AProduct, ProductDto>(product);
+                IProduct product = this.productService.SelectByName(connection, new Name(name));
+                ProductDto productDto = this.dtoToEntityMapper.MapView<IProduct, ProductDto>(product);
                 return productDto;
             }
         }
@@ -44,8 +44,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                ///* IProduct */ AProduct product = this.dtoToEntityMapper.Map<ProductDto, /* IProduct */ AProduct>(productDto);
-                AProduct product = this.dtoToEntityMapper.Map<ProductDto, AProduct>(productDto);
+                IProduct product = this.dtoToEntityMapper.Map<ProductDto, IProduct>(productDto);
                 this.productService.Insert(connection, product);
             }
         }
@@ -54,8 +53,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                ///* IProduct */ AProduct product = this.dtoToEntityMapper.Map<ProductDto, /* IProduct */ AProduct>(productDto);
-                AProduct product = this.dtoToEntityMapper.Map<ProductDto, AProduct>(productDto);
+                IProduct product = this.dtoToEntityMapper.Map<ProductDto, IProduct>(productDto);
                 this.productService.Update(connection, product);
             }
         }
@@ -64,8 +62,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                ///* IProduct */ AProduct product = this.dtoToEntityMapper.Map<ProductDto, /* IProduct */ AProduct>(productDto);
-                AProduct product = this.dtoToEntityMapper.Map<ProductDto, AProduct>(productDto);
+                IProduct product = this.dtoToEntityMapper.Map<ProductDto, IProduct>(productDto);
                 this.productService.Delete(connection, product);
             }
         }

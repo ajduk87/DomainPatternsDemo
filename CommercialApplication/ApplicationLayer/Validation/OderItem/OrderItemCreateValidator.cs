@@ -9,7 +9,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.OderItem
 {
     public class OrderItemCreateValidator : AbstractValidator<OrderItemCreateModel>
     {
-        private readonly /* IProduct */ AProductRepository productRepository;
+        private readonly IProductRepository productRepository;
         private readonly IActionRepository actionRepository;
         private readonly IDatabaseConnectionFactory databaseConnectionFactory;
 

@@ -11,17 +11,17 @@ using System.Threading.Tasks;
 
 namespace CommercialApplication.DomainLayer.Entities.ProductEntities
 {
-    public class ForSoldStateProduct : AProduct
+    public class ForSoldStateProduct: Entity, IProduct
     {
-        /*public Name Name { get; set; }
+        public Name Name { get; set; }
         public UnitCost UnitCost { get; set; }
         public Description Description { get; set; }
         public ImageUrl ImageUrl { get; set; }
         public VideoLink VideoLink { get; set; }
         public SerialNumber SerialNumber { get; set; }
-        public KindOfProduct KindOfProduct { get; set; }*/
+        public KindOfProduct KindOfProduct { get; set; }
 
-        public ForSoldStateProduct(AProduct product)
+        public ForSoldStateProduct(IProduct product)
         {
             this.Id = product.Id;
             this.Name = product.Name;

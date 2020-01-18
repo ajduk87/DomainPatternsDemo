@@ -4,7 +4,7 @@ using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
 {
-    public interface /* IProduct */ AProductStorageService
+    public interface IProductStorageService
     {
         IEnumerable<ProductStorage> SelectProductFromAllStorages(IDbConnection connection, long id, IDbTransaction transaction = null);
         IEnumerable<ProductStorage> SelectByStorageId(IDbConnection connection, long id, IDbTransaction transaction = null);

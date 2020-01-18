@@ -12,7 +12,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.Action
     public class ActionUpdateValidator : AbstractValidator<ActionUpdateModel>
     {
         private readonly IActionRepository actionRepository;
-        private readonly /* IProduct */ AProductRepository productRepository;
+        private readonly IProductRepository productRepository;
         private readonly IDatabaseConnectionFactory databaseConnectionFactory;
         public ActionUpdateValidator(IDatabaseConnectionFactory databaseConnectionFactory)
         {

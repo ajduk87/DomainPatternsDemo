@@ -9,7 +9,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.Action
 {
     public class ActionCreateValidator : AbstractValidator<ActionCreateModel>
     {
-        private readonly /* IProduct */ AProductRepository productRepository;
+        private readonly IProductRepository productRepository;
         private readonly ICustomerRepository customerRepository;
         private readonly IDatabaseConnectionFactory databaseConnectionFactory;
 
