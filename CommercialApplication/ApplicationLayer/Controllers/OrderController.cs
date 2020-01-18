@@ -72,13 +72,53 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        [HttpPut]
+        /*[HttpPut]
         [Route("api/setorderstate")]
         [ValidateModelStateFilter]
         public HttpResponseMessage SetState(OrderStateModel orderStateModel)
         {
             OrderStateDto orderStateDto = this.mapper.Map<OrderStateModel, OrderStateDto>(orderStateModel);
             this.orderAppService.SetState(orderStateDto);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }*/
+
+        [HttpPut]
+        [Route("api/setorderopenstate")]
+        [ValidateModelStateFilter]
+        public HttpResponseMessage SetOpenState(long id)
+        {
+            this.orderAppService.SetOpenState(id);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [HttpPut]
+        [Route("api/setorderpausedstate")]
+        [ValidateModelStateFilter]
+        public HttpResponseMessage SetPausedState(long id)
+        {
+            this.orderAppService.SetPausedState(id);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [HttpPut]
+        [Route("api/setorderclosedstate")]
+        [ValidateModelStateFilter]
+        public HttpResponseMessage SetClosedState(long id)
+        {
+            this.orderAppService.SetClosedState(id);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        [HttpPut]
+        [Route("api/setorderclosedandemptystate")]
+        [ValidateModelStateFilter]
+        public HttpResponseMessage SetClosedAndEmptyState(long id)
+        {
+            this.orderAppService.SetClosedAndEmptyState(id);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }

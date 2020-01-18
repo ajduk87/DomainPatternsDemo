@@ -106,8 +106,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
                         this.invoiceItemInvoicesService.InsertList(connection, calculatedInvoiceItemsWithBasicDiscount, invoiceId, transaction);
 
                         Order order = this.orderService.SelectById(connection, invoice.OrderId);
-                        State newState = new State("Close");
-                        this.orderService.Update(connection, order.SetState(newState), transaction);
+                        //State newState = new State("Close");
+                        this.orderService.Update(connection, order.SetClosedState(), transaction);
 
 
                         transaction.Commit();

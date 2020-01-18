@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 using CommercialApplication.ApplicationLayer.Dtoes.Order;
 using CommercialApplication.DomainLayer.Entities.OrderEntities;
+using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
 {
@@ -164,12 +165,41 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
             }
         }
 
-        public void SetState(OrderStateDto orderStateDto)
+        /*public void SetState(OrderStateDto orderStateDto)
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
                 OrderState orderState = this.dtoToEntityMapper.Map<OrderStateDto, OrderState>(orderStateDto);
                 this.orderService.UpdateState(connection, orderState);
+            }
+        }*/
+
+        public void SetOpenState(long id)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                this.orderService.UpdateOpenState(connection, new Id(id));
+            }
+        }
+        public void SetPausedState(long id)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                this.orderService.UpdatePausedState(connection, new Id(id));
+            }
+        }
+        public void SetClosedState(long id)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                this.orderService.UpdateClosedState(connection, new Id(id));
+            }
+        }
+        public void SetClosedAndEmptyState(long id)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                this.orderService.UpdateClosedAndEmptyState(connection, new Id(id));
             }
         }
     }

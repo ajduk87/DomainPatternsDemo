@@ -14,6 +14,10 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
         void UpdateExistingOrder(OrderDto orderDto);
 
         void DeleteExistingOrder(long id);
-        void SetState(OrderStateDto orderStateDto);
+        //void SetState(OrderStateDto orderStateDto);
+        void SetOpenState(long id);
+        void SetPausedState(long id);
+        void SetClosedState(long id);
+        void SetClosedAndEmptyState(long id);
     }
 }

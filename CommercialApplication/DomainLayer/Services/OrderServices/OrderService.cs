@@ -1,6 +1,7 @@
 ﻿using CommercialApplication.DomainLayer.Entities.OrderEntities;
 using CommercialApplication.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
+using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositories;
 using System.Collections.Generic;
@@ -136,11 +137,36 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             return orderIdWithMinSumValue;
         }
 
-        public void UpdateState(IDbConnection connection, OrderState orderState, IDbTransaction transaction = null)
+        /*public void UpdateState(IDbConnection connection, OrderState orderState, IDbTransaction transaction = null)
         {
             Order order = this.orderRepository.SelectById(connection, orderState.Id);            
 
             this.orderRepository.Update(connection, order.SetState(orderState.State), transaction);
+        }*/
+
+        public void UpdateOpenState(IDbConnection connection, Id id, IDbTransaction transaction = null)
+        {
+            Order order = this.orderRepository.SelectById(connection, id);
+
+            this.orderRepository.Update(connection, order.SetOpenState(), transaction);
+        }
+        public void UpdatePausedState(IDbConnection connection, Id id, IDbTransaction transaction = null)
+        {
+            Order order = this.orderRepository.SelectById(connection, id);
+
+            this.orderRepository.Update(connection, order.SetPausedState(), transaction);
+        }
+        public void UpdateClosedState(IDbConnection connection, Id id, IDbTransaction transaction = null)
+        {
+            Order order = this.orderRepository.SelectById(connection, id);
+
+            this.orderRepository.Update(connection, order.SetClosedState(), transaction);
+        }
+        public void UpdateClosedAndEmptyState(IDbConnection connection, Id id, IDbTransaction transaction = null)
+        {
+            Order order = this.orderRepository.SelectById(connection, id);
+
+            this.orderRepository.Update(connection, order.SetClosedAndEmptyState(), transaction);
         }
     }
 }

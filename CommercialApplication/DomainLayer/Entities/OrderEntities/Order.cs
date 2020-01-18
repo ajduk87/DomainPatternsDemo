@@ -16,7 +16,7 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.OrderEntities
             this.CreationDate = new CreationDate(DateTime.Now.ToShortDateString());
         }
 
-        public Order SetState(State newState)
+        /*public Order SetState(State newState)
         {
             if (newState.Equals("open"))
             {
@@ -34,6 +34,30 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.OrderEntities
             {
                 this.State = this.State.SetClosedAndEmptyState();
             }
+            return this;
+        }*/
+
+        public Order SetOpenState()
+        {
+            this.State = this.State.SetOpenState();
+            return this;
+        }
+
+        public Order SetPausedState()
+        {
+            this.State = this.State.SetPausedState();
+            return this;
+        }
+
+        public Order SetClosedState()
+        {
+            this.State = this.State.SetClosedState();
+            return this;
+        }
+
+        public Order SetClosedAndEmptyState()
+        {
+            this.State = this.State.SetClosedAndEmptyState();
             return this;
         }
     }
