@@ -7,7 +7,7 @@ using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositories
 {
-    public class ProductStorageRepository : /* IProduct */ AProductStorageRepository
+    public class ProductStorageRepository : IProductStorageRepository
     {
         public IEnumerable<ProductStorage> SelectProductFromAllStorages(IDbConnection connection, long id, IDbTransaction transaction = null)
         {

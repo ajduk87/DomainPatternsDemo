@@ -11,34 +11,34 @@ using System.Linq;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositories
 {
-    public class ProductRepository : /* IProduct */ AProductRepository
+    public class ProductRepository : IProductRepository
     {
-        public /* IProduct */ AProduct SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null)
+        public IProduct SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null)
         {
-            return connection.Query</* IProduct */ AProduct>(ProductQueries.SelectById, new { id = id.Content }).Single();
+            return connection.Query<IProduct>(ProductQueries.SelectById, new { id = id.Content }).Single();
         }
 
-        public IEnumerable</* IProduct */ AProduct> Select(IDbConnection connection, IDbTransaction transaction = null)
+        public IEnumerable<IProduct> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query</* IProduct */ AProduct>(ProductQueries.Select);
+            return connection.Query<IProduct>(ProductQueries.Select);
         }
 
-        public IEnumerable</* IProduct */ AProduct> SelectAllFruits(IDbConnection connection, IDbTransaction transaction = null)
+        public IEnumerable<IProduct> SelectAllFruits(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query</* IProduct */ AProduct>(ProductQueries.SelectAllFruits);
+            return connection.Query<IProduct>(ProductQueries.SelectAllFruits);
         }
 
-        public IEnumerable</* IProduct */ AProduct> SelectAllVegetables(IDbConnection connection, IDbTransaction transaction = null)
+        public IEnumerable<IProduct> SelectAllVegetables(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query</* IProduct */ AProduct>(ProductQueries.SelectAllVegetables);
+            return connection.Query<IProduct>(ProductQueries.SelectAllVegetables);
         }
 
-        public /* IProduct */ AProduct SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        public IProduct SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
         {
-            return connection.Query</* IProduct */ AProduct>(ProductQueries.SelectByName, new { name = name.Content }).Single();
+            return connection.Query<IProduct>(ProductQueries.SelectByName, new { name = name.Content }).Single();
         }
 
-        public void Insert(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null)
+        public void Insert(IDbConnection connection, IProduct product, IDbTransaction transaction = null)
         {
             connection.Execute(ProductQueries.Insert, new
             {
@@ -51,7 +51,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
             });
         }
 
-        public void Update(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null)
+        public void Update(IDbConnection connection, IProduct product, IDbTransaction transaction = null)
         {
             connection.Execute(ProductQueries.Update, new
             {
@@ -64,7 +64,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
             });
         }
 
-        public void Delete(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null)
+        public void Delete(IDbConnection connection, IProduct product, IDbTransaction transaction = null)
         {
             connection.Execute(ProductQueries.Delete, new { id = product.Id });
         }

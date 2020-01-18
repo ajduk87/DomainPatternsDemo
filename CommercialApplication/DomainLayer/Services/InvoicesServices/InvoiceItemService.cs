@@ -17,7 +17,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
     {
         private readonly IInvoiceItemRepository invoiceItemRepository;
         private readonly IActionRepository actionRepository;
-        private readonly /* IProduct */ AProductRepository productRepository;
+        private readonly IProductRepository productRepository;
 
         public InvoiceItemService()
         {

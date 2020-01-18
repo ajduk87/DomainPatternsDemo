@@ -7,14 +7,14 @@ using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
 {
-    public interface /* IProduct */ AProductService
+    public interface IProductService
     {
-        IEnumerable</* IProduct */ AProduct> Select(IDbConnection connection, IDbTransaction transaction = null);
-        /* IProduct */ AProduct SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null);
+        IEnumerable<IProduct> Select(IDbConnection connection, IDbTransaction transaction = null);
+        IProduct SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null);
 
-        void Insert(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null);
+        void Insert(IDbConnection connection, IProduct product, IDbTransaction transaction = null);
 
-        void Update(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null);
+        void Update(IDbConnection connection, IProduct product, IDbTransaction transaction = null);
         void UpdateFruitsUnitCost(IDbConnection connection, DecreaseFruitsUnitCost decreaseFruitsUnitCost, IDbTransaction transaction = null);
         void UpdateVegetablesUnitCost(IDbConnection connection, DecreaseVegetablesUnitCost decreaseVegetablesUnitCost, IDbTransaction transaction = null);
         //void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null);
@@ -22,6 +22,6 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
         void SetForSoldState(IDbConnection connection, Name name, IDbTransaction transaction = null);
         void SetOutOfStockState(IDbConnection connection, Name name, IDbTransaction transaction = null);
 
-        void Delete(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null);
+        void Delete(IDbConnection connection, IProduct product, IDbTransaction transaction = null);
     }
 }

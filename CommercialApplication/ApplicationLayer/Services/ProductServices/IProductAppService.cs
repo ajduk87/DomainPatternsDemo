@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
 {
-    public interface /* IProduct */ AProductAppService
+    public interface IProductAppService
     {
         IEnumerable<ProductDto> GetAll();
         ProductDto Get(string name);
