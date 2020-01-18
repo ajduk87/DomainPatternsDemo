@@ -49,13 +49,13 @@ namespace CommercialApplicationCommand.DomainLayer.Entities
             return this.mapper.Map<Source, Destination>(dto);
         }
 
-        public Dto Get<Source, Destination>(Source entity) where Source : Entity
+        public Dto Get<Source, Destination>(Source entity) /*where Source : Entity*/
                                                              where Destination : Dto
         {
             return this.mapper.Map<Source, Destination>(entity);
         }
 
-        public IEnumerable<Dto> GetList<Source, Destination>(Source entities) where Source : IEnumerable<Entity>
+        public IEnumerable<Dto> GetList<Source, Destination>(Source entities) /*where Source : IEnumerable<Entity>*/
                                                             where Destination : IEnumerable<Dto>
         {
             return this.mapper.Map<Source, Destination>(entities);

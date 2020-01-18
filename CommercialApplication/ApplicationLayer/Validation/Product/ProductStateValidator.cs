@@ -16,8 +16,8 @@ namespace CommercialApplication.ApplicationLayer.Validation.Product
 {
     public class ProductStateValidator : AbstractValidator<ProductStateModel>
     {
-        private readonly IProductRepository productRepository;
-        private readonly IProductStorageRepository productStorageRepository;
+        private readonly /* IProduct */ AProductRepository productRepository;
+        private readonly /* IProduct */ AProductStorageRepository productStorageRepository;
         private readonly IDatabaseConnectionFactory databaseConnectionFactory;
 
         public ProductStateValidator(IDatabaseConnectionFactory databaseConnectionFactory)

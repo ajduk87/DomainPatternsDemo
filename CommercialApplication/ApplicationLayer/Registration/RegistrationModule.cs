@@ -20,7 +20,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Registration
                         .As<IConfigurationService>();
 
             objContainer.RegisterType<ProductAppService>()
-                        .As<IProductAppService>();
+                        .As</* IProduct */ AProductAppService>();
 
             objContainer.RegisterType<StorageAppService>()
                         .As<IStorageAppService>();

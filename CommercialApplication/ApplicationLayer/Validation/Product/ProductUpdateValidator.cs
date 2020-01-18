@@ -9,7 +9,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.Product
 {
     internal class ProductUpdateValidator : AbstractValidator<ProductUpdateModel>
     {
-        private readonly IProductRepository productRepository;
+        private readonly /* IProduct */ AProductRepository productRepository;
         private readonly IDatabaseConnectionFactory databaseConnectionFactory;
 
         public ProductUpdateValidator(IDatabaseConnectionFactory databaseConnectionFactory)

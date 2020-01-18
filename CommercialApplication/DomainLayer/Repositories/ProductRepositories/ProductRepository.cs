@@ -1,4 +1,5 @@
-﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+﻿using CommercialApplication.DomainLayer.Entities.ProductEntities;
+using CommercialApplication.DomainLayer.Repositories.Sql;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
@@ -10,34 +11,34 @@ using System.Linq;
 
 namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : /* IProduct */ AProductRepository
     {
-        public Product SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null)
+        public /* IProduct */ AProduct SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null)
         {
-            return connection.Query<Product>(ProductQueries.SelectById, new { id = id.Content }).Single();
+            return connection.Query</* IProduct */ AProduct>(ProductQueries.SelectById, new { id = id.Content }).Single();
         }
 
-        public IEnumerable<Product> Select(IDbConnection connection, IDbTransaction transaction = null)
+        public IEnumerable</* IProduct */ AProduct> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query<Product>(ProductQueries.Select);
+            return connection.Query</* IProduct */ AProduct>(ProductQueries.Select);
         }
 
-        public IEnumerable<Product> SelectAllFruits(IDbConnection connection, IDbTransaction transaction = null)
+        public IEnumerable</* IProduct */ AProduct> SelectAllFruits(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query<Product>(ProductQueries.SelectAllFruits);
+            return connection.Query</* IProduct */ AProduct>(ProductQueries.SelectAllFruits);
         }
 
-        public IEnumerable<Product> SelectAllVegetables(IDbConnection connection, IDbTransaction transaction = null)
+        public IEnumerable</* IProduct */ AProduct> SelectAllVegetables(IDbConnection connection, IDbTransaction transaction = null)
         {
-            return connection.Query<Product>(ProductQueries.SelectAllVegetables);
+            return connection.Query</* IProduct */ AProduct>(ProductQueries.SelectAllVegetables);
         }
 
-        public Product SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        public /* IProduct */ AProduct SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
         {
-            return connection.Query<Product>(ProductQueries.SelectByName, new { name = name.Content }).Single();
+            return connection.Query</* IProduct */ AProduct>(ProductQueries.SelectByName, new { name = name.Content }).Single();
         }
 
-        public void Insert(IDbConnection connection, Product product, IDbTransaction transaction = null)
+        public void Insert(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null)
         {
             connection.Execute(ProductQueries.Insert, new
             {
@@ -50,7 +51,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
             });
         }
 
-        public void Update(IDbConnection connection, Product product, IDbTransaction transaction = null)
+        public void Update(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null)
         {
             connection.Execute(ProductQueries.Update, new
             {
@@ -63,7 +64,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
             });
         }
 
-        public void Delete(IDbConnection connection, Product product, IDbTransaction transaction = null)
+        public void Delete(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null)
         {
             connection.Execute(ProductQueries.Delete, new { id = product.Id });
         }

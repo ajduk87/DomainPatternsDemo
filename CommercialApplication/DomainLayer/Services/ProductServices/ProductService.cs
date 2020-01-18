@@ -10,35 +10,35 @@ using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
 {
-    public class ProductService : IProductService
+    public class ProductService : /* IProduct */ AProductService
     {
-        private readonly IProductRepository productRepository;
+        private readonly /* IProduct */ AProductRepository productRepository;
 
         public ProductService()
         {
             this.productRepository = RepositoryFactory.CreateProductRepository();
         }
 
-        public IEnumerable<Product> Select(IDbConnection connection, IDbTransaction transaction = null)
+        public IEnumerable</* IProduct */ AProduct> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
             return this.productRepository.Select(connection);
         }
 
-        public Product SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
+        public /* IProduct */ AProduct SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
         {
             return this.productRepository.SelectByName(connection, name);
         }
 
-        public void Insert(IDbConnection connection, Product product, IDbTransaction transaction = null) =>
+        public void Insert(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null) =>
             this.productRepository.Insert(connection, product);
 
-        public void Update(IDbConnection connection, Product product, IDbTransaction transaction = null) =>
+        public void Update(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null) =>
             this.productRepository.Update(connection, product);
 
         public void UpdateFruitsUnitCost(IDbConnection connection, DecreaseFruitsUnitCost decreaseFruitsUnitCost, IDbTransaction transaction = null)
         {
-            IEnumerable<Product> products = this.productRepository.SelectAllFruits(connection);
-            foreach (Product product in products)
+            IEnumerable</* IProduct */ AProduct> products = this.productRepository.SelectAllFruits(connection);
+            foreach (/* IProduct */ AProduct product in products)
             {
                 product.UnitCost.Value = decreaseFruitsUnitCost.Percent.Content * product.UnitCost.Value;
                 this.productRepository.Update(connection, product, transaction);
@@ -47,8 +47,8 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
 
         public void UpdateVegetablesUnitCost(IDbConnection connection, DecreaseVegetablesUnitCost decreaseVegetablesUnitCost, IDbTransaction transaction = null)
         {
-            IEnumerable<Product> products = this.productRepository.SelectAllVegetables(connection);
-            foreach (Product product in products)
+            IEnumerable</* IProduct */ AProduct> products = this.productRepository.SelectAllVegetables(connection);
+            foreach (/* IProduct */ AProduct product in products)
             {
                 product.UnitCost.Value = decreaseVegetablesUnitCost.Percent.Content * product.UnitCost.Value;
                 this.productRepository.Update(connection, product, transaction);
@@ -64,24 +64,25 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
 
         public void SetNotForSoldState(IDbConnection connection, Name name, IDbTransaction transaction = null)
         {
-            Product product = this.productRepository.SelectByName(connection, name);
+            /* IProduct */ AProduct product = this.productRepository.SelectByName(connection, name);
 
-            this.productRepository.Update(connection, product.SetNotForSoldState(), transaction);
+            this.productRepository.Update(connection, new NotForSoldStateProduct(product), transaction);
         }
         public void SetForSoldState(IDbConnection connection, Name name, IDbTransaction transaction = null)
         {
-            Product product = this.productRepository.SelectByName(connection, name);
+            /* IProduct */ AProduct product = this.productRepository.SelectByName(connection, name);
 
-            this.productRepository.Update(connection, product.SetForSoldState(), transaction);
+            this.productRepository.Update(connection, new ForSoldStateProduct(product), transaction);
         }
         public void SetOutOfStockState(IDbConnection connection, Name name, IDbTransaction transaction = null)
         {
-            Product product = this.productRepository.SelectByName(connection, name);
+            /* IProduct */ AProduct product = this.productRepository.SelectByName(connection, name);
+            OutOfStockStateProduct outOfStockProduct = (OutOfStockStateProduct)product;
 
-            this.productRepository.Update(connection, product.SetOutOfStockState(), transaction);
+            this.productRepository.Update(connection, new OutOfStockStateProduct(product), transaction);
         }
 
-        public void Delete(IDbConnection connection, Product product, IDbTransaction transaction = null) =>
+        public void Delete(IDbConnection connection, /* IProduct */ AProduct product, IDbTransaction transaction = null) =>
             this.productRepository.Delete(connection, product);
     }
 }

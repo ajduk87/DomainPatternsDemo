@@ -11,10 +11,10 @@ namespace CommercialApplicationCommand.DomainLayer.Mappings
         Destination MapList<Source, Destination>(Source dto) where Source : IEnumerable<Dto>
                                                         where Destination : IEnumerable<Entity>;
 
-        Destination MapView<Source, Destination>(Source entity) where Source : Entity
+        Destination MapView<Source, Destination>(Source entity)/* where Source : Entity*/
                                                         where Destination : Dto;
 
-        Destination MapViewList<Source, Destination>(Source entities) where Source : IEnumerable<Entity>
+        Destination MapViewList<Source, Destination>(Source entities) /*where Source : IEnumerable<Entity>*/
                                                         where Destination : IEnumerable<Dto>;
     }
 }

@@ -9,5 +9,6 @@
         public string VideoLink { get; set; }
         public string SerialNumber { get; set; }
         public string KindOfProduct { get; set; }
+        public string State { get; set; }
     }
 }

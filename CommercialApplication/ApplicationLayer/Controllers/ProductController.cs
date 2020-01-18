@@ -14,11 +14,11 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
 {
     public class ProductController : BaseController
     {
-        private readonly IProductAppService productAppService;
+        private readonly /* IProduct */ AProductAppService productAppService;
 
         public ProductController()
         {
-            this.productAppService = this.registrationAppServices.Instance.Container.Resolve<IProductAppService>();
+            this.productAppService = this.registrationAppServices.Instance.Container.Resolve</* IProduct */ AProductAppService>();
         }
 
         [HttpGet]

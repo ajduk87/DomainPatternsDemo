@@ -9,7 +9,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.ProductStorag
 {
     public class ProductStorageCreateValidator : AbstractValidator<ProductStorageCreateModel>
     {
-        private readonly IProductRepository productRepository;
+        private readonly /* IProduct */ AProductRepository productRepository;
         private readonly IStorageRepository storageRepository;
         private readonly IDatabaseConnectionFactory databaseConnectionFactory;
 

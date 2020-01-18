@@ -16,7 +16,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.Action
     {
         private readonly IDatabaseConnectionFactory databaseConnectionFactory;
         private readonly ICustomerRepository customerRepository;
-        private readonly IProductRepository productRepository;
+        private readonly /* IProduct */ AProductRepository productRepository;
 
         public ActionUpdateByCustomerValidator(IDatabaseConnectionFactory databaseConnectionFactory)
         {

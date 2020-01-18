@@ -6,9 +6,9 @@ using System.Data;
 
 namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
 {
-    public class ProductStorageService : IProductStorageService
+    public class ProductStorageService : /* IProduct */ AProductStorageService
     {
-        private readonly IProductStorageRepository productStorageRepository;
+        private readonly /* IProduct */ AProductStorageRepository productStorageRepository;
 
         public ProductStorageService()
         {

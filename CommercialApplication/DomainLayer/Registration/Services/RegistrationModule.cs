@@ -14,16 +14,16 @@ namespace CommercialApplicationCommand.DomainLayer.Registration.Services
         {
 
             objContainer.RegisterType<ProductService>()
-                        .Keyed<IProductService>(typeof(ProductService))
-                        .As<IProductService>();
+                        .Keyed</* IProduct */ AProductService>(typeof(ProductService))
+                        .As</* IProduct */ AProductService>();
 
             objContainer.RegisterType<StorageService>()
                         .Keyed<IStorageService>(typeof(StorageService))
                         .As<IStorageService>();
 
             objContainer.RegisterType<ProductStorageService>()
-                        .Keyed<IProductStorageService>(typeof(ProductStorageService))
-                        .As<IProductStorageService>();
+                        .Keyed</* IProduct */ AProductStorageService>(typeof(ProductStorageService))
+                        .As</* IProduct */ AProductStorageService>();
 
             objContainer.RegisterType<CustomerService>()
                         .Keyed<ICustomerService>(typeof(CustomerService))

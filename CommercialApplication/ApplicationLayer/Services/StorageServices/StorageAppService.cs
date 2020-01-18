@@ -13,13 +13,13 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.StorageServices
 {
     public class StorageAppService : BaseAppService, IStorageAppService
     {
-        private readonly IProductStorageService productStorageService;
+        private readonly /* IProduct */ AProductStorageService productStorageService;
         private readonly IStorageService storageService;
 
         public StorageAppService()
         {
             this.storageService = this.registrationServices.Instance.Container.Resolve<IStorageService>();
-            this.productStorageService = this.registrationServices.Instance.Container.Resolve<IProductStorageService>();
+            this.productStorageService = this.registrationServices.Instance.Container.Resolve</* IProduct */ AProductStorageService>();
         }
 
         public IEnumerable<StorageDto> GetAll()

@@ -8,7 +8,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.Product
 {
     public class ProductDeleteValidator : AbstractValidator<ProductDeleteModel>
     {
-        private readonly IProductRepository productRepository;
+        private readonly /* IProduct */ AProductRepository productRepository;
         private readonly IDatabaseConnectionFactory databaseConnectionFactory;
 
         public ProductDeleteValidator(IDatabaseConnectionFactory databaseConnectionFactory)

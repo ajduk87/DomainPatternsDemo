@@ -17,7 +17,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
     {
         private readonly IOrderItemRepository orderItemRepository;
         private readonly IActionRepository actionRepository;
-        private readonly IProductRepository productRepository;
+        private readonly /* IProduct */ AProductRepository productRepository;
 
         public OrderItemService()
         {

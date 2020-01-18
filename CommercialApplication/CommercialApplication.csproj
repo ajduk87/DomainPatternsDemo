@@ -244,13 +244,14 @@
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderItemOrder.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderState.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\PausedStateOrder.cs" />
+    <Compile Include="DomainLayer\Entities\ProductEntities\AProduct.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\DecreaseFruitsUnitCost.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\DecreaseVegetablesUnitCost.cs" />
+    <Compile Include="DomainLayer\Entities\ProductEntities\ForSoldStateProduct.cs" />
+    <Compile Include="DomainLayer\Entities\ProductEntities\IProduct.cs" />
+    <Compile Include="DomainLayer\Entities\ProductEntities\NotForSoldStateProduct.cs" />
+    <Compile Include="DomainLayer\Entities\ProductEntities\OutOfStockStateProduct.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\ProductState.cs" />
-    <Compile Include="DomainLayer\Entities\ProductEntities\ProductStates\ForSoldState.cs" />
-    <Compile Include="DomainLayer\Entities\ProductEntities\ProductStates\IProductState.cs" />
-    <Compile Include="DomainLayer\Entities\ProductEntities\ProductStates\NotForSoldState.cs" />
-    <Compile Include="DomainLayer\Entities\ProductEntities\ProductStates\OutOfStock.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\UnitCost.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Amount.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\CreationDate.cs" />
@@ -404,7 +405,6 @@
     <Compile Include="DatabaseConnectionFactory.cs" />
     <Compile Include="DomainLayer\Entities\Entity.cs" />
     <Compile Include="DomainLayer\Entities\EntityFactory.cs" />
-    <Compile Include="DomainLayer\Entities\ProductEntities\Product.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Description.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Product\ImageUrl.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Name.cs" />

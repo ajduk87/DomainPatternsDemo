@@ -11,7 +11,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.OderItem
     internal class OrderItemUpdateValidator : AbstractValidator<OrderItemUpdateModel>
     {
         private readonly IOrderItemRepository orderItemRepository;
-        private readonly IProductRepository productRepository;
+        private readonly /* IProduct */ AProductRepository productRepository;
         private readonly IActionRepository actionRepository;
         private readonly IDatabaseConnectionFactory databaseConnectionFactory;
 

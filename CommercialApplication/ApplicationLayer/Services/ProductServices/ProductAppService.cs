@@ -11,21 +11,21 @@ using System.Collections.Generic;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
 {
-    public class ProductAppService : BaseAppService, IProductAppService
+    public class ProductAppService : BaseAppService, /* IProduct */ AProductAppService
     {
-        private readonly IProductService productService;
+        private readonly /* IProduct */ AProductService productService;
 
         public ProductAppService()
         {
-            this.productService = this.registrationServices.Instance.Container.Resolve<IProductService>();
+            this.productService = this.registrationServices.Instance.Container.Resolve</* IProduct */ AProductService>();
         }
 
         public IEnumerable<ProductDto> GetAll()
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                IEnumerable<Product> products = this.productService.Select(connection);
-                IEnumerable<ProductDto> productDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
+                IEnumerable</* IProduct */ AProduct> products = this.productService.Select(connection);
+                IEnumerable<ProductDto> productDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable</* IProduct */ AProduct>, IEnumerable<ProductDto>>(products);
                 return productDtoes;
             }
         }
@@ -34,8 +34,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                Product product = this.productService.SelectByName(connection, new Name(name));
-                ProductDto productDto = this.dtoToEntityMapper.MapView<Product, ProductDto>(product);
+                /* IProduct */ AProduct product = this.productService.SelectByName(connection, new Name(name));
+                ProductDto productDto = this.dtoToEntityMapper.MapView</* IProduct */ AProduct, ProductDto>(product);
                 return productDto;
             }
         }
@@ -44,7 +44,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                Product product = this.dtoToEntityMapper.Map<ProductDto, Product>(productDto);
+                ///* IProduct */ AProduct product = this.dtoToEntityMapper.Map<ProductDto, /* IProduct */ AProduct>(productDto);
+                AProduct product = this.dtoToEntityMapper.Map<ProductDto, AProduct>(productDto);
                 this.productService.Insert(connection, product);
             }
         }
@@ -53,7 +54,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                Product product = this.dtoToEntityMapper.Map<ProductDto, Product>(productDto);
+                ///* IProduct */ AProduct product = this.dtoToEntityMapper.Map<ProductDto, /* IProduct */ AProduct>(productDto);
+                AProduct product = this.dtoToEntityMapper.Map<ProductDto, AProduct>(productDto);
                 this.productService.Update(connection, product);
             }
         }
@@ -62,7 +64,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                Product product = this.dtoToEntityMapper.Map<ProductDto, Product>(productDto);
+                ///* IProduct */ AProduct product = this.dtoToEntityMapper.Map<ProductDto, /* IProduct */ AProduct>(productDto);
+                AProduct product = this.dtoToEntityMapper.Map<ProductDto, AProduct>(productDto);
                 this.productService.Delete(connection, product);
             }
         }
