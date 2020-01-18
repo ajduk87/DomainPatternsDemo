@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Autofac;
+using CommercialApplication.DomainLayer.Entities.OrderEntities;
 using CommercialApplication.DomainLayer.Entities.ValueObjects.Common;
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Invoices;
 using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
@@ -39,7 +41,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
                 IEnumerable<InvoiceItemDto> invoiceItemDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<InvoiceItem>, IEnumerable<InvoiceItemDto>>(invoiceItems);
                 Customer customer = this.invoiceCustomerService.SelectByInvoiceId(connection, invoice.Id);
 
-                Order order = this.orderService.SelectById(connection, invoice.OrderId);
+                IOrder order = this.orderService.SelectById(connection, invoice.OrderId);
 
                 return new InvoiceDto
                 {
@@ -105,9 +107,17 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.InvoicesService
                         this.invoiceItemService.InsertList(connection, calculatedInvoiceItemsWithBasicAndActionDiscount, transaction);
                         this.invoiceItemInvoicesService.InsertList(connection, calculatedInvoiceItemsWithBasicDiscount, invoiceId, transaction);
 
-                        Order order = this.orderService.SelectById(connection, invoice.OrderId);
-                        //State newState = new State("Close");
-                        this.orderService.Update(connection, order.SetClosedState(), transaction);
+                        IOrder order = this.orderService.SelectById(connection, invoice.OrderId);
+                        //State newState = invoiceItems.ToList().Any() ?  new State("Close") : new State("CloseAndEmpty");
+
+                        if (invoiceItems.ToList().Any())
+                        {
+                            this.orderService.Update(connection, new ClosedStateOrder(order.Id), transaction);
+                        }
+                        else
+                        {
+                            this.orderService.Update(connection, new ClosedAndEmptyStateOrder(order.Id), transaction);
+                        }
 
 
                         transaction.Commit();

@@ -135,6 +135,26 @@ RETURNING id</value>
   <data name="SelectByDay" xml:space="preserve">
     <value>SELECT * FROM commercialapplication.orders WHERE day = @day;</value>
   </data>
+  <data name="SetClosedAndEmptyState" xml:space="preserve">
+    <value>UPDATE commercialapplication.orders
+SET state = 'closedandempty'
+WHERE id = @id</value>
+  </data>
+  <data name="SetClosedState" xml:space="preserve">
+    <value>UPDATE commercialapplication.orders
+SET state = 'closed'
+WHERE id = @id</value>
+  </data>
+  <data name="SetOpenState" xml:space="preserve">
+    <value>UPDATE commercialapplication.orders
+SET state = 'open'
+WHERE id = @id</value>
+  </data>
+  <data name="SetPausedState" xml:space="preserve">
+    <value>UPDATE commercialapplication.orders
+SET state = 'paused'
+WHERE id = @id</value>
+  </data>
   <data name="Update" xml:space="preserve">
     <value>UPDATE commercialapplication.orders
 SET issynchronized = @issynchronized

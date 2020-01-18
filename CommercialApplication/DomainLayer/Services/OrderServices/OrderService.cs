@@ -33,12 +33,12 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             return orderSumValue;
         }
 
-        public Order SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        public IOrder SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return this.orderRepository.SelectById(connection, id);
         }
 
-        public IEnumerable<Order> SelectByDay(IDbConnection connection, string day, IDbTransaction transaction = null)
+        public IEnumerable<IOrder> SelectByDay(IDbConnection connection, string day, IDbTransaction transaction = null)
         {
             return this.orderRepository.SelectByDay(connection, day);
         }
@@ -48,7 +48,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderRepository.Delete(connection, id);
         }
 
-        public long Insert(IDbConnection connection, Order order, IDbTransaction transaction = null)
+        public long Insert(IDbConnection connection, IOrder order, IDbTransaction transaction = null)
         {
             return this.orderRepository.Insert(connection, order);
         }
@@ -58,12 +58,12 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             return this.orderRepository.Exists(connection, id);
         }
 
-        public void Update(IDbConnection connection, Order order, IDbTransaction transaction = null)
+        public void Update(IDbConnection connection, IOrder order, IDbTransaction transaction = null)
         {
             this.orderRepository.Update(connection, order);
         }       
 
-        public long SelectOrderIdWithMaxSumValueByDay(IDbConnection connection, IEnumerable<Order> orders, IDbTransaction transaction = null)
+        public long SelectOrderIdWithMaxSumValueByDay(IDbConnection connection, IEnumerable<IOrder> orders, IDbTransaction transaction = null)
         {
             IEnumerable<long> orderItemsIds = this.orderItemOrderRepository.SelectByOrderId(connection, orders.First().Id);
             List<OrderItem> orderItems = new List<OrderItem>();
@@ -100,7 +100,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             return orderIdWithMaxSumValue;
         }
 
-        public long SelectOrderIdWithMinSumValueByDay(IDbConnection connection, IEnumerable<Order> orders, IDbTransaction transaction = null)
+        public long SelectOrderIdWithMinSumValueByDay(IDbConnection connection, IEnumerable<IOrder> orders, IDbTransaction transaction = null)
         {
             IEnumerable<long> orderItemsIds = this.orderItemOrderRepository.SelectByOrderId(connection, orders.First().Id);
             List<OrderItem> orderItems = new List<OrderItem>();
@@ -146,27 +146,27 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
 
         public void UpdateOpenState(IDbConnection connection, Id id, IDbTransaction transaction = null)
         {
-            Order order = this.orderRepository.SelectById(connection, id);
+            IOrder order = this.orderRepository.SelectById(connection, id);
 
-            this.orderRepository.Update(connection, order.SetOpenState(), transaction);
+            this.orderRepository.Update(connection, new OpenStateOrder(id), transaction);
         }
         public void UpdatePausedState(IDbConnection connection, Id id, IDbTransaction transaction = null)
         {
-            Order order = this.orderRepository.SelectById(connection, id);
+            IOrder order = this.orderRepository.SelectById(connection, id);
 
-            this.orderRepository.Update(connection, order.SetPausedState(), transaction);
+            this.orderRepository.Update(connection, new PausedStateOrder(id), transaction);
         }
         public void UpdateClosedState(IDbConnection connection, Id id, IDbTransaction transaction = null)
         {
-            Order order = this.orderRepository.SelectById(connection, id);
+            IOrder order = this.orderRepository.SelectById(connection, id);
 
-            this.orderRepository.Update(connection, order.SetClosedState(), transaction);
+            this.orderRepository.Update(connection, new ClosedStateOrder(id), transaction);
         }
         public void UpdateClosedAndEmptyState(IDbConnection connection, Id id, IDbTransaction transaction = null)
         {
-            Order order = this.orderRepository.SelectById(connection, id);
+            IOrder order = this.orderRepository.SelectById(connection, id);
 
-            this.orderRepository.Update(connection, order.SetClosedAndEmptyState(), transaction);
+            this.orderRepository.Update(connection, new ClosedAndEmptyStateOrder(id), transaction);
         }
     }
 }

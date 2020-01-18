@@ -32,7 +32,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                Order order = this.orderService.SelectById(connection, id);
+                IOrder order = this.orderService.SelectById(connection, id);
                 IEnumerable<long> orderItemsIds = this.orderItemOrderService.SelectByOrderId(connection, order.Id);
                 List<OrderItem> orderItems = this.orderItemService.SelectByIds(connection, orderItemsIds).ToList();
                 IEnumerable<OrderItemDto> orderItemDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<OrderItem>, IEnumerable< OrderItemDto>>(orderItems);
@@ -55,7 +55,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                IEnumerable<Order> orders = this.orderService.SelectByDay(connection, day.ToShortDateString());
+                IEnumerable<IOrder> orders = this.orderService.SelectByDay(connection, day.ToShortDateString());
 
                 long orderIdWithMaxSumValue = this.orderService.SelectOrderIdWithMaxSumValueByDay(connection, orders);
 
@@ -67,7 +67,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                IEnumerable<Order> orders = this.orderService.SelectByDay(connection, day.ToShortDateString());
+                IEnumerable<IOrder> orders = this.orderService.SelectByDay(connection, day.ToShortDateString());
 
                 long orderIdWithMinSumValue = this.orderService.SelectOrderIdWithMinSumValueByDay(connection, orders);
 
@@ -84,7 +84,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                 {
                     try
                     {
-                        Order order = this.dtoToEntityMapper.Map<OrderDto, Order>(orderDto);
+                        IOrder order = this.dtoToEntityMapper.Map<OrderDto, OpenStateOrder>(orderDto);
                         long orderId = this.orderService.Insert(connection, order);
                         OrderCustomerDto orderCustomerDto = new OrderCustomerDto
                         {

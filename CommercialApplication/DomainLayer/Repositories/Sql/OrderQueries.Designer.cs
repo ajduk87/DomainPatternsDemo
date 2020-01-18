@@ -110,6 +110,50 @@ namespace CommercialApplication.DomainLayer.Repositories.Sql {
         
         /// <summary>
         ///   Looks up a localized string similar to UPDATE commercialapplication.orders
+        ///SET state = &apos;closedandempty&apos;
+        ///WHERE id = @id.
+        /// </summary>
+        internal static string SetClosedAndEmptyState {
+            get {
+                return ResourceManager.GetString("SetClosedAndEmptyState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE commercialapplication.orders
+        ///SET state = &apos;closed&apos;
+        ///WHERE id = @id.
+        /// </summary>
+        internal static string SetClosedState {
+            get {
+                return ResourceManager.GetString("SetClosedState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE commercialapplication.orders
+        ///SET state = &apos;open&apos;
+        ///WHERE id = @id.
+        /// </summary>
+        internal static string SetOpenState {
+            get {
+                return ResourceManager.GetString("SetOpenState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE commercialapplication.orders
+        ///SET state = &apos;paused&apos;
+        ///WHERE id = @id.
+        /// </summary>
+        internal static string SetPausedState {
+            get {
+                return ResourceManager.GetString("SetPausedState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE commercialapplication.orders
         ///SET issynchronized = @issynchronized
         ///WHERE id = @id.
         /// </summary>
