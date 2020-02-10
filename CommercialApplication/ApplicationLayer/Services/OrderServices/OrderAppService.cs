@@ -90,13 +90,18 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                             CustomerId = orderDto.CustomerId,
                             OrderId = orderId
                         };
-                        OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
-                        this.orderService.InsertOrderCustomer(connection, orderCustomer);
-                        IEnumerable<OrderItem> orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItem>>(orderDto.OrderItems);
-                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderService.IncludeBasicDiscountForPaying(connection, orderItems);
+                        //OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
+                        order.orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
+                        //this.orderService.InsertOrderCustomer(connection, orderCustomer);
+                        this.orderService.InsertOrderCustomer(connection, order.orderCustomer);
+                        //IEnumerable<OrderItem> orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItem>>(orderDto.OrderItems);
+                        order.orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItem>>(orderDto.OrderItems);
+                        //IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderService.IncludeBasicDiscountForPaying(connection, orderItems);
+                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderService.IncludeBasicDiscountForPaying(connection, order.orderItems);
                         IEnumerable<OrderItem> calculatedOrderItemsWithBasicAndActionDiscount = this.orderService.IncludeActionDiscountForPaying(connection, calculatedOrderItemsWithBasicDiscount);
                         this.orderService.InsertListOrderItem(connection, calculatedOrderItemsWithBasicAndActionDiscount, transaction);
-                        this.orderService.InsertOrderItemOrderList(connection, calculatedOrderItemsWithBasicAndActionDiscount, orderId, transaction);
+                        //this.orderService.InsertOrderItemOrderList(connection, calculatedOrderItemsWithBasicAndActionDiscount, orderId, transaction);
+                        this.orderService.InsertOrderItemOrderList(connection, calculatedOrderItemsWithBasicAndActionDiscount, order.Id, transaction);
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -117,15 +122,20 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                 {
                     try
                     {
+                        Order order = this.orderService.SelectById(connection, orderDto.Id);
+
                         OrderCustomerDto orderCustomerDto = new OrderCustomerDto
                         {
                             OrderId = orderDto.Id,
                             CustomerId = orderDto.CustomerId
                         };
-                        OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
-                        this.orderService.UpdateOrderCustomer(connection, orderCustomer);
-                        IEnumerable<OrderItem> orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItem>>(orderDto.OrderItems);
-                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderService.IncludeBasicDiscountForPaying(connection, orderItems);
+                        //OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
+                        order.orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
+                        //this.orderService.UpdateOrderCustomer(connection, orderCustomer);
+                        this.orderService.UpdateOrderCustomer(connection, order.orderCustomer);
+                        order.orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItem>>(orderDto.OrderItems);
+                        //IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderService.IncludeBasicDiscountForPaying(connection, orderItems);
+                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderService.IncludeBasicDiscountForPaying(connection, order.orderItems);
                         IEnumerable<OrderItem> calculatedOrderItemsWithBasicAndActionDiscount = this.orderService.IncludeActionDiscountForPaying(connection, calculatedOrderItemsWithBasicDiscount);
                         this.orderService.UpdateOrderItemList(connection, calculatedOrderItemsWithBasicAndActionDiscount, transaction);
                         transaction.Commit();
@@ -148,11 +158,17 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                 {
                     try
                     {
-                        IEnumerable<long> orderItemIds = this.orderService.SelectOrderItemOrderByOrderId(connection, id);
-                        this.orderService.DeleteOrderItemOrder(connection, id);
-                        this.orderService.DeleteOrderCustomer(connection, id);
+                        Order order = this.orderService.SelectById(connection, id);
+
+                        //IEnumerable<long> orderItemIds = this.orderService.SelectOrderItemOrderByOrderId(connection, id);
+                        IEnumerable<long> orderItemIds = this.orderService.SelectOrderItemOrderByOrderId(connection, order.Id);
+                        //this.orderService.DeleteOrderItemOrder(connection, id);
+                        this.orderService.DeleteOrderItemOrder(connection, order.Id);
+                        //this.orderService.DeleteOrderCustomer(connection, id);
+                        this.orderService.DeleteOrderCustomer(connection, order.Id);
                         this.orderService.DeleteOrderItemByIds(connection, orderItemIds, transaction);
-                        this.orderService.Delete(connection, id);
+                        //this.orderService.Delete(connection, id);
+                        this.orderService.Delete(connection, order.Id);
                         transaction.Commit();
                     }
                     catch (Exception ex)
