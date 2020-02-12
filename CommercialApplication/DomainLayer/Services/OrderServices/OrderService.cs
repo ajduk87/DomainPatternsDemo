@@ -1,8 +1,14 @@
 ﻿using CommercialApplication.DomainLayer.Entities.OrderEntities;
+using CommercialApplicationCommand.DomainLayer.Entities.ActionEntities;
+using CommercialApplicationCommand.DomainLayer.Entities.CommonEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.CustomerEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.OrderEntities;
+using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
+using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.OrderItemOrder;
+using CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositories;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositories;
+using CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositories;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -14,6 +20,10 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         private readonly IOrderRepository orderRepository;
         private readonly IOrderItemRepository orderItemRepository;
         private readonly IOrderItemOrderRepository orderItemOrderRepository;
+        private readonly IOrderCustomerRepository orderCustomerRepository;
+
+        private readonly IActionRepository actionRepository;
+        private readonly IProductRepository productRepository;
 
         private readonly IOrderCustomerService orderCustomerService;
         private readonly IOrderItemService orderItemService;
@@ -24,6 +34,10 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderRepository = RepositoryFactory.CreateOrderRepository();
             this.orderItemRepository = RepositoryFactory.CreateOrderItemRepository();
             this.orderItemOrderRepository = RepositoryFactory.CreateOrderItemOrderRepository();
+            this.orderCustomerRepository = RepositoryFactory.CreateOrderCustomerRepository();
+
+            this.actionRepository = RepositoryFactory.CreateActionRepository();
+            this.productRepository = RepositoryFactory.CreateProductRepository();
 
             this.orderCustomerService = new OrderCustomerService();
             this.orderItemService = new OrderItemService();
@@ -39,6 +53,23 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             }
             return orderSumValue;
         }
+
+        private Money IncludeBasicDiscountForPayingOneItem(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        {
+            Action action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
+            Id id = new Id(orderItem.ProductId);
+            double unitCost = this.productRepository.SelectById(connection, id).UnitCost.Value;
+            return orderItem.Amount.Content > action.ThresholdAmount ? new Money { Value = orderItem.Amount * unitCost * orderItem.DiscountBasic } : new Money { Value = orderItem.Amount * unitCost };
+        }
+
+        private Money IncludeActionDiscountForPayingOneItem(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        {
+            Action action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
+            Id id = new Id(orderItem.ProductId);
+            double unitCost = this.productRepository.SelectById(connection, id).UnitCost.Value;
+            return orderItem.Amount.Content > action.ThresholdAmount ? new Money { Value = orderItem.Amount * unitCost * action.Discount } : new Money { Value = orderItem.Amount * unitCost };
+        }
+
 
         public Order SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
@@ -154,61 +185,129 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         //OrderCustomer
         public Customer SelectOrderCustomerByOrderId(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return this.orderCustomerService.SelectByOrderId(connection, id, transaction);
+            //return this.orderCustomerService.SelectByOrderId(connection, id, transaction);
+            return this.orderCustomerRepository.SelectByOrderId(connection, id);
         }
-        public void InsertOrderCustomer(IDbConnection connection, OrderCustomer orderCustomer, IDbTransaction transaction = null)=>
-            this.orderCustomerService.Insert(connection, orderCustomer, transaction);
+        public void InsertOrderCustomer(IDbConnection connection, OrderCustomer orderCustomer, IDbTransaction transaction = null) =>
+            //this.orderCustomerService.Insert(connection, orderCustomer, transaction);
+            this.orderCustomerRepository.Insert(connection, orderCustomer);
 
-        public void DeleteOrderCustomer(IDbConnection connection, long id, IDbTransaction transaction = null)=>
-            this.orderCustomerService.Delete(connection, id, transaction);
-        public void UpdateOrderCustomer(IDbConnection connection, OrderCustomer orderCustomer, IDbTransaction transaction = null)=>
-            this.orderCustomerService.Update(connection, orderCustomer, transaction);
+        public void DeleteOrderCustomer(IDbConnection connection, long id, IDbTransaction transaction = null) =>
+            //this.orderCustomerService.Delete(connection, id, transaction);
+            this.orderCustomerRepository.Delete(connection, id);
+
+        public void UpdateOrderCustomer(IDbConnection connection, OrderCustomer orderCustomer, IDbTransaction transaction = null) =>
+            //this.orderCustomerService.Update(connection, orderCustomer, transaction);
+            this.orderCustomerRepository.Update(connection, orderCustomer);
 
         //OrderItem
         public OrderItem SelectOrderItemById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return this.orderItemService.SelectById(connection, id, transaction);
+            //return this.orderItemService.SelectById(connection, id, transaction);
+            return this.orderItemRepository.SelectById(connection, id);
         }
         public IEnumerable<OrderItem> SelectOrderItemByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null)
         {
-            return this.orderItemService.SelectByIds(connection, ids, transaction);
+            //return this.orderItemService.SelectByIds(connection, ids, transaction);
+            List<OrderItem> orderItems = new List<OrderItem>();
+            foreach (long id in ids)
+            {
+                OrderItem orderItem = this.orderItemRepository.SelectById(connection, id);
+                orderItems.Add(orderItem);
+            }
+            return orderItems;
         }
         public long InsertOrderItem(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
         {
-            return this.orderItemService.Insert(connection, orderItem, transaction);
+            //return this.orderItemService.Insert(connection, orderItem, transaction);
+            return this.orderItemRepository.Insert(connection, orderItem);
         }
-        public void InsertListOrderItem(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)=>
-            this.orderItemService.InsertList(connection, orderItems, transaction);
+        public void InsertListOrderItem(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null) /*=>*/
+            //this.orderItemService.InsertList(connection, orderItems, transaction);
+        {
+            foreach (OrderItem orderItem in orderItems)
+            {
+                this.orderItemRepository.Insert(connection, orderItem);
+            }
+        }
 
         public void UpdateOrderItem(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)=>
-            this.orderItemService.Update(connection, orderItem, transaction);
+            //this.orderItemService.Update(connection, orderItem, transaction);
+            this.orderItemRepository.Update(connection, orderItem);
 
-        public void UpdateOrderItemList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null) =>
-            this.orderItemService.UpdateList(connection, orderItems, transaction);
+        public void UpdateOrderItemList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null) //=>
+           //this.orderItemService.UpdateList(connection, orderItems, transaction);
+        {
+            foreach (OrderItem orderItem in orderItems)
+            {
+                this.orderItemRepository.Update(connection, orderItem);
+            }
+        }
+
         public void DeleteOrderItem(IDbConnection connection, long id, IDbTransaction transaction = null) =>
-            this.orderItemService.Delete(connection, id, transaction);
-        public void DeleteOrderItemByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null) =>
-            this.orderItemService.DeleteByIds(connection, ids, transaction);
+           //this.orderItemService.Delete(connection, id, transaction);
+           this.orderItemRepository.Delete(connection, id);
+
+        public void DeleteOrderItemByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null) //=>
+           //this.orderItemService.DeleteByIds(connection, ids, transaction);
+        {
+            foreach (long id in ids)
+            {
+                this.orderItemRepository.Delete(connection, id);
+            }
+        }
 
         public IEnumerable<OrderItem> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
         {
-            return this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems, transaction);
+            //return this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems, transaction);
+            List<OrderItem> calculatedOrderItems = new List<OrderItem>();
+            foreach (OrderItem orderItem in orderItems)
+            {
+                OrderItem calculatedOrderItem = new OrderItem();
+                calculatedOrderItem.Value = this.IncludeBasicDiscountForPayingOneItem(connection, orderItem);
+                calculatedOrderItems.Add(calculatedOrderItem);
+            }
+            return calculatedOrderItems;
         }
         public IEnumerable<OrderItem> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
         {
-            return this.orderItemService.IncludeActionDiscountForPaying(connection, orderItems, transaction);
+            //return this.orderItemService.IncludeActionDiscountForPaying(connection, orderItems, transaction);
+            List<OrderItem> calculatedOrderItems = new List<OrderItem>();
+            foreach (OrderItem orderItem in orderItems)
+            {
+                OrderItem calculatedOrderItem = new OrderItem();
+                calculatedOrderItem.Value = this.IncludeActionDiscountForPayingOneItem(connection, orderItem);
+                calculatedOrderItems.Add(calculatedOrderItem);
+            }
+            return calculatedOrderItems;
         }
 
         //OrderItemOrder
         public void InsertOrderItemOrder(IDbConnection connection, OrderItemOrder orderItemOrder, IDbTransaction transaction = null) =>
-            this.orderItemOrderService.Insert(connection, orderItemOrder, transaction);
-        public void InsertOrderItemOrderList(IDbConnection connection, IEnumerable<OrderItem> orderItems, long orderId, IDbTransaction transaction = null) =>
-            this.orderItemOrderService.InsertList(connection, orderItems, orderId, transaction);
+            //this.orderItemOrderService.Insert(connection, orderItemOrder, transaction);
+            this.orderItemOrderRepository.Insert(connection, orderItemOrder);
+
+        public void InsertOrderItemOrderList(IDbConnection connection, IEnumerable<OrderItem> orderItems, long orderId, IDbTransaction transaction = null) //=>
+            //this.orderItemOrderService.InsertList(connection, orderItems, orderId, transaction);
+        {
+            foreach (OrderItem orderItem in orderItems)
+            {
+                OrderItemOrder orderItemOrder = new OrderItemOrder
+                {
+                    OrderItemId = new OrderItemId(orderItem.Id),
+                    OrderId = new OrderId(orderId)
+                };
+                this.orderItemOrderRepository.Insert(connection, orderItemOrder);
+            }
+        }
         public void DeleteOrderItemOrder(IDbConnection connection, long id, IDbTransaction transaction = null) =>
-            this.orderItemOrderService.Delete(connection, id, transaction);
+            //this.orderItemOrderService.Delete(connection, id, transaction);
+            this.orderItemOrderRepository.Delete(connection, id);
+
         public IEnumerable<long> SelectOrderItemOrderByOrderId(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return this.orderItemOrderService.SelectByOrderId(connection, id, transaction);
+            //return this.orderItemOrderService.SelectByOrderId(connection, id, transaction);
+            return this.orderItemOrderRepository.SelectByOrderId(connection, id);
         }
     }
 }
