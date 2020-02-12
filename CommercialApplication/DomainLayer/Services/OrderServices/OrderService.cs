@@ -25,9 +25,9 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
         private readonly IActionRepository actionRepository;
         private readonly IProductRepository productRepository;
 
-        private readonly IOrderCustomerService orderCustomerService;
-        private readonly IOrderItemService orderItemService;
-        private readonly IOrderItemOrderService orderItemOrderService;
+        //private readonly IOrderCustomerService orderCustomerService;
+        //private readonly IOrderItemService orderItemService;
+        //private readonly IOrderItemOrderService orderItemOrderService;
 
         public OrderService()
         {
@@ -39,9 +39,9 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.actionRepository = RepositoryFactory.CreateActionRepository();
             this.productRepository = RepositoryFactory.CreateProductRepository();
 
-            this.orderCustomerService = new OrderCustomerService();
-            this.orderItemService = new OrderItemService();
-            this.orderItemOrderService = new OrderItemOrderService();
+            //this.orderCustomerService = new OrderCustomerService();
+            //this.orderItemService = new OrderItemService();
+            //this.orderItemOrderService = new OrderItemOrderService();
         }
 
         private double SumValue(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
