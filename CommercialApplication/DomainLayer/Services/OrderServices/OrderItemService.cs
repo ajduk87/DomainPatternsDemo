@@ -28,7 +28,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.productRepository = RepositoryFactory.CreateProductRepository();
         }
 
-        private Money IncludeBasicDiscountForPayingOneItem(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        private Money IncludeBasicDiscountForPayingOneItem(IDbConnection connection, OrderItemHighPriority orderItem, IDbTransaction transaction = null)
         {
             Action action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
             Id id = new Id(orderItem.ProductId);
@@ -36,7 +36,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             return orderItem.Amount.Content > action.ThresholdAmount ? orderItem.ValueWithDiscountBasic(unitCost) : orderItem.ValueWithoutDiscount(unitCost);
         }
 
-        private Money IncludeActionDiscountForPayingOneItem(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        private Money IncludeActionDiscountForPayingOneItem(IDbConnection connection, OrderItemHighPriority orderItem, IDbTransaction transaction = null)
         {
             Action action = this.actionRepository.SelectById(connection, orderItem.ActionId.Content);
             Id id = new Id(orderItem.ProductId);
@@ -44,43 +44,43 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             return orderItem.Amount.Content > action.ThresholdAmount ? orderItem.ValueWithDiscountAction(unitCost, action) : orderItem.ValueWithoutDiscount(unitCost);
         }
 
-        public OrderItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
+        public OrderItemHighPriority SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
             return this.orderItemRepository.SelectById(connection, id);
         }
 
-        public IEnumerable<OrderItem> SelectByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null)
+        public IEnumerable<OrderItemHighPriority> SelectByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null)
         {
-            List<OrderItem> orderItems = new List<OrderItem>();
+            List<OrderItemHighPriority> orderItems = new List<OrderItemHighPriority>();
             foreach (long id in ids)
             {
-                OrderItem orderItem = this.orderItemRepository.SelectById(connection, id);
+                OrderItemHighPriority orderItem = this.orderItemRepository.SelectById(connection, id);
                 orderItems.Add(orderItem);
             }
             return orderItems;
         }
 
-        public long Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        public long Insert(IDbConnection connection, OrderItemHighPriority orderItem, IDbTransaction transaction = null)
         {
             return this.orderItemRepository.Insert(connection, orderItem);
         }
 
-        public void InsertList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        public void InsertList(IDbConnection connection, IEnumerable<OrderItemHighPriority> orderItems, IDbTransaction transaction = null)
         {
-            foreach (OrderItem orderItem in orderItems)
+            foreach (OrderItemHighPriority orderItem in orderItems)
             {
                 this.orderItemRepository.Insert(connection, orderItem);
             }
         }
 
-        public void Update(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        public void Update(IDbConnection connection, OrderItemHighPriority orderItem, IDbTransaction transaction = null)
         {
             this.orderItemRepository.Update(connection, orderItem);
         }
 
-        public void UpdateList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        public void UpdateList(IDbConnection connection, IEnumerable<OrderItemHighPriority> orderItems, IDbTransaction transaction = null)
         {
-            foreach (OrderItem orderItem in orderItems)
+            foreach (OrderItemHighPriority orderItem in orderItems)
             {
                 this.orderItemRepository.Update(connection, orderItem);
             }
@@ -99,24 +99,24 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             }
         }
 
-        public IEnumerable<OrderItem> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        public IEnumerable<OrderItemHighPriority> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<OrderItemHighPriority> orderItems, IDbTransaction transaction = null)
         {
-            List<OrderItem> calculatedOrderItems = new List<OrderItem>();
-            foreach (OrderItem orderItem in orderItems)
+            List<OrderItemHighPriority> calculatedOrderItems = new List<OrderItemHighPriority>();
+            foreach (OrderItemHighPriority orderItem in orderItems)
             {
-                OrderItem calculatedOrderItem = new OrderItem();
+                OrderItemHighPriority calculatedOrderItem = new OrderItemHighPriority();
                 calculatedOrderItem.Value = this.IncludeBasicDiscountForPayingOneItem(connection, orderItem);
                 calculatedOrderItems.Add(calculatedOrderItem);
             }
             return calculatedOrderItems;
         }
 
-        public IEnumerable<OrderItem> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null)
+        public IEnumerable<OrderItemHighPriority> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<OrderItemHighPriority> orderItems, IDbTransaction transaction = null)
         {
-            List<OrderItem> calculatedOrderItems = new List<OrderItem>();
-            foreach (OrderItem orderItem in orderItems)
+            List<OrderItemHighPriority> calculatedOrderItems = new List<OrderItemHighPriority>();
+            foreach (OrderItemHighPriority orderItem in orderItems)
             {
-                OrderItem calculatedOrderItem = new OrderItem();
+                OrderItemHighPriority calculatedOrderItem = new OrderItemHighPriority();
                 calculatedOrderItem.Value = this.IncludeActionDiscountForPayingOneItem(connection, orderItem);
                 calculatedOrderItems.Add(calculatedOrderItem);
             }

@@ -33,8 +33,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
             {
                 Order order = this.orderService.SelectById(connection, id);
                 IEnumerable<long> orderItemsIds = this.orderItemOrderService.SelectByOrderId(connection, order.Id);
-                List<OrderItem> orderItems = this.orderItemService.SelectByIds(connection, orderItemsIds).ToList();
-                IEnumerable<OrderItemDto> orderItemDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<OrderItem>, IEnumerable< OrderItemDto>>(orderItems);
+                List<OrderItemHighPriority> orderItems = this.orderItemService.SelectByIds(connection, orderItemsIds).ToList();
+                IEnumerable<OrderItemDto> orderItemDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<OrderItemHighPriority>, IEnumerable< OrderItemDto>>(orderItems);
                 Customer customer = this.orderCustomerService.SelectByOrderId(connection, order.Id);
 
                 return new OrderDto
@@ -92,9 +92,9 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                         };
                         OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
                         this.orderCustomerService.Insert(connection, orderCustomer);
-                        IEnumerable<OrderItem> orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItem>>(orderDto.OrderItems);
-                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems);
-                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicAndActionDiscount = this.orderItemService.IncludeActionDiscountForPaying(connection, calculatedOrderItemsWithBasicDiscount);
+                        IEnumerable<OrderItemHighPriority> orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItemHighPriority>>(orderDto.OrderItems);
+                        IEnumerable<OrderItemHighPriority> calculatedOrderItemsWithBasicDiscount = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems);
+                        IEnumerable<OrderItemHighPriority> calculatedOrderItemsWithBasicAndActionDiscount = this.orderItemService.IncludeActionDiscountForPaying(connection, calculatedOrderItemsWithBasicDiscount);
                         this.orderItemService.InsertList(connection, calculatedOrderItemsWithBasicAndActionDiscount, transaction);
                         this.orderItemOrderService.InsertList(connection, calculatedOrderItemsWithBasicAndActionDiscount, orderId, transaction);
                         transaction.Commit();
@@ -124,9 +124,9 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                         };
                         OrderCustomer orderCustomer = this.dtoToEntityMapper.Map<OrderCustomerDto, OrderCustomer>(orderCustomerDto);
                         this.orderCustomerService.Update(connection, orderCustomer);
-                        IEnumerable<OrderItem> orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItem>>(orderDto.OrderItems);
-                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicDiscount = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems);
-                        IEnumerable<OrderItem> calculatedOrderItemsWithBasicAndActionDiscount = this.orderItemService.IncludeActionDiscountForPaying(connection, calculatedOrderItemsWithBasicDiscount);
+                        IEnumerable<OrderItemHighPriority> orderItems = this.dtoToEntityMapper.MapList<IEnumerable<OrderItemDto>, IEnumerable<OrderItemHighPriority>>(orderDto.OrderItems);
+                        IEnumerable<OrderItemHighPriority> calculatedOrderItemsWithBasicDiscount = this.orderItemService.IncludeBasicDiscountForPaying(connection, orderItems);
+                        IEnumerable<OrderItemHighPriority> calculatedOrderItemsWithBasicAndActionDiscount = this.orderItemService.IncludeActionDiscountForPaying(connection, calculatedOrderItemsWithBasicDiscount);
                         this.orderItemService.UpdateList(connection, calculatedOrderItemsWithBasicAndActionDiscount, transaction);
                         transaction.Commit();
                     }

@@ -32,7 +32,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
             Id id = new Id(invoiceItem.ProductId);
             double unitCost = this.productRepository.SelectById(connection, id).UnitCost
                                                                                .Value;
-            return invoiceItem.Amount.Content > action.ThresholdAmount ? new Money { Value = invoiceItem.Amount * unitCost * invoiceItem.DiscountBasic } : new Money { Value = invoiceItem.Amount * unitCost };
+            return invoiceItem.Amount.Content > action.ThresholdAmount ? new Money(invoiceItem.Amount * unitCost * invoiceItem.DiscountBasic, new Currency("dinara")) : new Money(invoiceItem.Amount * unitCost, new Currency("dinara"));
         }
 
         private Money IncludeActionDiscountForPayingOneItem(IDbConnection connection, InvoiceItem invoiceItem, IDbTransaction transaction = null)
@@ -41,7 +41,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.InvoicesServices
             Id id = new Id(invoiceItem.ProductId);
             double unitCost = this.productRepository.SelectById(connection, id).UnitCost
                                                                                .Value;
-            return invoiceItem.Amount.Content > action.ThresholdAmount ? new Money { Value = invoiceItem.Amount * unitCost * action.Discount } : new Money { Value = invoiceItem.Amount * unitCost };
+            return invoiceItem.Amount.Content > action.ThresholdAmount ? new Money(invoiceItem.Amount * unitCost * action.Discount, new Currency("dinara")) : new Money(invoiceItem.Amount * unitCost, new Currency("dinara"));
         }
 
         public InvoiceItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)

@@ -20,12 +20,12 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
             return connection.ExecuteScalar<bool>(OrderItemQueries.Exists, new { id });
         }
 
-        public OrderItem SelectById(IDbConnection connection, long orderId, IDbTransaction transaction = null)
+        public OrderItemHighPriority SelectById(IDbConnection connection, long orderId, IDbTransaction transaction = null)
         {
-            return connection.Query<OrderItem>(OrderItemQueries.SelectById, new { orderId }).Single();
+            return connection.Query<OrderItemHighPriority>(OrderItemQueries.SelectById, new { orderId }).Single();
         }
 
-        public long Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        public long Insert(IDbConnection connection, OrderItemHighPriority orderItem, IDbTransaction transaction = null)
         {
             return connection.ExecuteScalar<long>(OrderItemQueries.Insert, new
             {
@@ -37,7 +37,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
             });
         }
 
-        public void Update(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        public void Update(IDbConnection connection, OrderItemHighPriority orderItem, IDbTransaction transaction = null)
         {
             connection.Execute(OrderItemQueries.Update, new
             {

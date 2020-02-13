@@ -6,12 +6,12 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
 {
     public interface IOrderItemRepository : IRepository
     {
-        OrderItem SelectById(IDbConnection connection, long orderId, IDbTransaction transaction = null);
-        long Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null);
+        OrderItemHighPriority SelectById(IDbConnection connection, long orderId, IDbTransaction transaction = null);
+        long Insert(IDbConnection connection, OrderItemHighPriority orderItem, IDbTransaction transaction = null);
 
         void Delete(IDbConnection connection, long id, IDbTransaction transaction = null);
 
-        void Update(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null);
+        void Update(IDbConnection connection, OrderItemHighPriority orderItem, IDbTransaction transaction = null);
 
         bool Exists(IDbConnection connection, long id, IDbTransaction transaction = null);
     }

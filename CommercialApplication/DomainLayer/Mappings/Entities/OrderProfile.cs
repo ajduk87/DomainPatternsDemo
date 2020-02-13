@@ -11,7 +11,7 @@ namespace CommercialApplicationCommand.DomainLayer.Mappings.Entities
         public OrderProfile()
         {
             CreateMap<OrderDto, Order>();
-            CreateMap<OrderItemDto, OrderItem>();
+            CreateMap<OrderItemDto, OrderItemHighPriority>();
             CreateMap<OrderItemOrderDto, OrderItemOrder> ();
             CreateMap<OrderStateDto, OrderState>();
         }

@@ -21,9 +21,9 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderItemOrderRepository.Insert(connection, orderItemOrder);
         }
 
-        public void InsertList(IDbConnection connection, IEnumerable<OrderItem> orderItems, long orderId, IDbTransaction transaction = null)
+        public void InsertList(IDbConnection connection, IEnumerable<OrderItemHighPriority> orderItems, long orderId, IDbTransaction transaction = null)
         {
-            foreach (OrderItem orderItem in orderItems)
+            foreach (OrderItemHighPriority orderItem in orderItems)
             {
                 OrderItemOrder orderItemOrder = new OrderItemOrder
                 {

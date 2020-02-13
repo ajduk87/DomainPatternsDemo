@@ -8,7 +8,7 @@ namespace CommercialApplicationCommand.DomainLayer.Mappings.Entities
     {
         public OrderItemProfile()
         {
-            CreateMap<OrderItemDto, OrderItem>();
+            CreateMap<OrderItemDto, OrderItemHighPriority>();
         }
     }
 }

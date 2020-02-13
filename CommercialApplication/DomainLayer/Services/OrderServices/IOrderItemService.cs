@@ -8,17 +8,17 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
 {
     public interface IOrderItemService
     {
-        OrderItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null);
-        IEnumerable<OrderItem> SelectByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null);
-        long Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null);
-        void InsertList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null);
+        OrderItemHighPriority SelectById(IDbConnection connection, long id, IDbTransaction transaction = null);
+        IEnumerable<OrderItemHighPriority> SelectByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null);
+        long Insert(IDbConnection connection, OrderItemHighPriority orderItem, IDbTransaction transaction = null);
+        void InsertList(IDbConnection connection, IEnumerable<OrderItemHighPriority> orderItems, IDbTransaction transaction = null);
 
-        void Update(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null);
-        void UpdateList(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null);
+        void Update(IDbConnection connection, OrderItemHighPriority orderItem, IDbTransaction transaction = null);
+        void UpdateList(IDbConnection connection, IEnumerable<OrderItemHighPriority> orderItems, IDbTransaction transaction = null);
         void Delete(IDbConnection connection, long id, IDbTransaction transaction = null);
         void DeleteByIds(IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null);
 
-        IEnumerable<OrderItem> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null);
-        IEnumerable<OrderItem> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<OrderItem> orderItems, IDbTransaction transaction = null);
+        IEnumerable<OrderItemHighPriority> IncludeBasicDiscountForPaying(IDbConnection connection, IEnumerable<OrderItemHighPriority> orderItems, IDbTransaction transaction = null);
+        IEnumerable<OrderItemHighPriority> IncludeActionDiscountForPaying(IDbConnection connection, IEnumerable<OrderItemHighPriority> orderItems, IDbTransaction transaction = null);
     }
 }

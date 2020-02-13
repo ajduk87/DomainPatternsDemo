@@ -7,12 +7,18 @@ using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.ProductStor
 
 namespace CommercialApplicationCommand.DomainLayer.Entities.OrderEntities
 {
-    public class OrderItem : Entity
+    public class OrderItemNormalPriority : Entity
     {
         public ProductId ProductId { get; set; }
         public Amount Amount { get; set; }
         public Money Value { get; set; }
         public Discount DiscountBasic { get; set; }
         public ActionId ActionId { get; set; }
+
+        public Money MyValue(Money money, Money money2, Money money3)
+        {
+            return money.Add(money2)
+                        .Add(money3);
+        }
     }
 }
