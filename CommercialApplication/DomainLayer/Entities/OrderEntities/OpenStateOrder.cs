@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CommercialApplication.DomainLayer.Entities.OrderEntities
 {
-    public class OpenStateOrder : Entity, IOrder
+    public class OpenStateOrder : AOrder
     {
         //public State State { get; set; }
         public CreationDate CreationDate { get; set; }

@@ -9,16 +9,9 @@ using System.Threading.Tasks;
 
 namespace CommercialApplication.DomainLayer.Entities.OrderEntities
 {
-    public class ClosedAndEmptyStateOrder : AOrder
+    public abstract class AOrder : Entity
     {
-        //public State State { get; set; }
-        public CreationDate CreationDate { get; set; }
-
-        public ClosedAndEmptyStateOrder(long id)
-        {
-            this.Id = new Id(id);
-            //this.State = new State("closedandempty");
-            this.CreationDate = new CreationDate(DateTime.Now.ToShortDateString());
-        }
+        Id Id { get; set; }
+        CreationDate CreationDate { get; set; }
     }
 }
