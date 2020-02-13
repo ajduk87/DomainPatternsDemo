@@ -33,7 +33,7 @@ namespace CommercialApplication.DomainLayer.Entities.ProductEntities
             this.KindOfProduct = product.KindOfProduct;
         }
 
-        public ForSoldStateProduct SetNotForSoldStateProduct()
+        public ForSoldStateProduct SetForSoldStateProduct()
         {
             return new ForSoldStateProduct(this);
         }
