@@ -19,9 +19,9 @@ namespace CommercialApplicationCommand.DomainLayer.Entities.CommonEntities
             this.Currency = Currency;
         }
 
-        public Money Add(Money money)
+        /*public Money Add(Money money)
         {
             return new Money(this.Value + money.Value, new Currency("dinara"));
-        }
+        }*/
     }
 }

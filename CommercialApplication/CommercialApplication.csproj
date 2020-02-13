@@ -239,7 +239,9 @@
     <Compile Include="DomainLayer\Entities\InvoicesEntities\InvoiceItem.cs" />
     <Compile Include="DomainLayer\Entities\InvoicesEntities\InvoiceItemInvoice.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\Order.cs" />
-    <Compile Include="DomainLayer\Entities\OrderEntities\OrderItem.cs" />
+    <Compile Include="DomainLayer\Entities\OrderEntities\OrderItemHighPriority.cs" />
+    <Compile Include="DomainLayer\Entities\OrderEntities\OrderItemLowPriority.cs" />
+    <Compile Include="DomainLayer\Entities\OrderEntities\OrderItemNormalPriority.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderItemOrder.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderState.cs" />
     <Compile Include="DomainLayer\Entities\OrderEntities\OrderStates\ClosedAndEmptyState.cs" />
