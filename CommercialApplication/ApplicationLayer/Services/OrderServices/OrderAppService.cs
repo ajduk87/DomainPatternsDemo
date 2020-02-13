@@ -43,6 +43,17 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                     OrderItems = orderItemDtoes
                 };
             }
+
+
+        }
+
+        private OrderDto GetLookForOrderQuery(long id)
+        {
+            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
+            {
+                //return this.orderDtoRepository.SelectById(connection, id);
+                return new OrderDto();
+            }
         }
 
         public OrderDto GetOrder(long id)
