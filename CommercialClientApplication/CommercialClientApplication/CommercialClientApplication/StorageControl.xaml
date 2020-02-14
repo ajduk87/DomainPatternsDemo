@@ -64,7 +64,7 @@
 
         <Button Name = "btnGetStorageState" Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="2" Width="200" Height="25" Content="get storage state"/>
 
-        <DataGrid Grid.Column="1" Height="Auto" Name="dgSimple" Grid.ColumnSpan="6" Grid.Row="8"></DataGrid>
+        <DataGrid Grid.Column="1" Height="Auto" Name="dgStorageState" Grid.ColumnSpan="6" Grid.Row="8"></DataGrid>
 
     </Grid>
 </UserControl>
