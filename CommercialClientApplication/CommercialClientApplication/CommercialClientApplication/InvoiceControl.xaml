@@ -6,7 +6,32 @@
              xmlns:local="clr-namespace:CommercialClientApplication"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Background="{StaticResource Gradient5}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <Label  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="order id : "/>
+        <TextBox Grid.Column="0" Name="tfgetorderid" Grid.Row="1" Width="140" Height="20"  HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+
+        <Button Name = "btnGetOrder" Grid.Column="0" Grid.Row="2"  Width="150" Height="25" Content="get order"/>
+
+        <Button Name = "btnMakeInvoice" Grid.Column="0" Grid.Row="3"  Width="150" Height="25" Content="make invoice"/>
+
+        <DataGrid Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="7" Height="Auto" Name="dgOrderinfo" Grid.Row="1"></DataGrid>
+
+
     </Grid>
 </UserControl>
