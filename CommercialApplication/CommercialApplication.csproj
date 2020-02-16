@@ -135,6 +135,7 @@
     <Compile Include="ApplicationLayer\Dtoes\Product\ProductDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Product\ProductStateDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Product\ProductStorageDto.cs" />
+    <Compile Include="ApplicationLayer\Dtoes\Product\UnitCostDto.cs" />
     <Compile Include="ApplicationLayer\Dtoes\Storage\StorageDto.cs" />
     <Compile Include="ApplicationLayer\Mappings\ActionProfile.cs" />
     <Compile Include="ApplicationLayer\Mappings\CustomerProfile.cs" />

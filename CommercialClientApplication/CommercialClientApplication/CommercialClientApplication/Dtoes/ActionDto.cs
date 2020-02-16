@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommercialClientApplication.Models
+namespace CommercialClientApplication.Dtoes
 {
-    public class Action
+    public class ActionDto
     {
         public string ProductName { get; set; }
         public double Discount { get; set; }

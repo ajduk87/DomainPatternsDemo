@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommercialClientApplication.Models
+namespace CommercialClientApplication.Dtoes
 {
-    public class Invoice
+    public class OrderInfoDto
     {
         public string CustomerName { get; set; }
-        public ObservableCollection<InvoiceItem> InvoiceItems { get; set; }
+        public ObservableCollection<DataGridModels.OrderItem> OrderItems { get; set; }
+        public double Total { get; set; }
     }
 }

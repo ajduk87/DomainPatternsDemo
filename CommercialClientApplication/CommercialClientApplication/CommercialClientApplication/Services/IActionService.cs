@@ -1,4 +1,4 @@
-﻿using CommercialClientApplication.Models;
+﻿using CommercialClientApplication.Dtoes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +8,8 @@ namespace CommercialClientApplication.Services
 {
     public interface IActionService
     {
-        void Insert(Action action);
-        void Update(Action action);
-        Action Get(string productName);
+        void Insert(ActionDto action);
+        void Update(ActionDto action);
+        ActionDto Get(string productName);
     }
 }

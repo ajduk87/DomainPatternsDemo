@@ -1,5 +1,5 @@
 ﻿using CommercialClientApplication.DataGridModels;
-using CommercialClientApplication.Models;
+using CommercialClientApplication.Dtoes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,9 +11,9 @@ namespace CommercialClientApplication.Services
 {
     public interface IStorageService
     {
-        void Insert(Storage storage);
-        void Update(Storage storage);
-        Storage Get(string name);
+        void Insert(StorageDto storage);
+        void Update(StorageDto storage);
+        StorageDto Get(string name);
         ObservableCollection<StorehouseItem> GetState(string name);
     }
 }

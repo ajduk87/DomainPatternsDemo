@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommercialClientApplication.Models
+namespace CommercialClientApplication.Dtoes
 {
-    public class Order
+    public class InvoiceDto
     {
         public string CustomerName { get; set; }
-        public ObservableCollection<OrderItem> OrderItems { get; set; }
+        public ObservableCollection<InvoiceItemDto> InvoiceItems { get; set; }
     }
 }

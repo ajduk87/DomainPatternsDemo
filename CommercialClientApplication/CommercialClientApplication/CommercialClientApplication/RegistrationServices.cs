@@ -29,6 +29,9 @@ namespace CommercialClientApplication
         {
             objContainer = new ContainerBuilder();
 
+            objContainer.RegisterType<ApiCaller>()
+                     .As<IApiCaller>();
+
             objContainer.RegisterType<ProductService>()
                       .As<IProductService>();
 

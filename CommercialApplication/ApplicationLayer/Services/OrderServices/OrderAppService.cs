@@ -34,7 +34,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                 Order order = this.orderService.SelectById(connection, id);
                 IEnumerable<long> orderItemsIds = this.orderItemOrderService.SelectByOrderId(connection, order.Id);
                 List<OrderItem> orderItems = this.orderItemService.SelectByIds(connection, orderItemsIds).ToList();
-                IEnumerable<OrderItemDto> orderItemDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<OrderItem>, IEnumerable< OrderItemDto>>(orderItems);
+                IEnumerable<OrderItemDto> orderItemDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<OrderItem>, IEnumerable<OrderItemDto>>(orderItems);
                 Customer customer = this.orderCustomerService.SelectByOrderId(connection, order.Id);
 
                 return new OrderDto
@@ -42,6 +42,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                     CustomerId = customer.Id,
                     OrderItems = orderItemDtoes
                 };
+
+                //return this.orderDtoRepository.Selectbyid(connection, id);
             }
 
 

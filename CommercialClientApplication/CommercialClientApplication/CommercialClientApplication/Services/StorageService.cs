@@ -1,5 +1,5 @@
 ﻿using CommercialClientApplication.DataGridModels;
-using CommercialClientApplication.Models;
+using CommercialClientApplication.Dtoes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,15 +11,15 @@ namespace CommercialClientApplication.Services
 {
     public class StorageService : IStorageService
     {
-        public void Insert(Storage storage)
+        public void Insert(StorageDto storage)
         {
         }
-        public void Update(Storage storage)
+        public void Update(StorageDto storage)
         {
         }
-        public Storage Get(string name)
+        public StorageDto Get(string name)
         {
-            return new Storage();
+            return new StorageDto();
         }
         public ObservableCollection<StorehouseItem> GetState(string name)
         {

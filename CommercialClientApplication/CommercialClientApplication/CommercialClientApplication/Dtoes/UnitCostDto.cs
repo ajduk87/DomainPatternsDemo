@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommercialClientApplication.Models
+namespace CommercialClientApplication.Dtoes
 {
-    public class InvoiceItem
+    public class UnitCostDto
     {
-        public string ProductName { get; set; }
-        public int Amount { get; set; }
         public double Value { get; set; }
+        public string Currency { get; set; }
     }
 }

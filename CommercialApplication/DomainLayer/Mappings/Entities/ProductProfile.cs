@@ -11,6 +11,7 @@ namespace CommercialApplicationCommand.DomainLayer.Mappings.Entities
     {
         public ProductProfile()
         {
+            CreateMap<UnitCostDto, UnitCost>();
             CreateMap<ProductDto, Product>();
             CreateMap<ProductStateDto, ProductState>();
             CreateMap<ProductStorageDto, ProductStorage>();

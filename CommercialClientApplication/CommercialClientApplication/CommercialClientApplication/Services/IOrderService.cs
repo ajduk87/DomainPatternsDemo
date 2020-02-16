@@ -1,4 +1,4 @@
-﻿using CommercialClientApplication.Models;
+﻿using CommercialClientApplication.Dtoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace CommercialClientApplication.Services
 {
     public interface IOrderService
     {
-        void CreateNewOrder(Order order);
-        OrderInfo GetOrderInfo(long id);
+        void CreateNewOrder(OrderDto order);
+        OrderInfoDto GetOrderInfo(long id);
     }
 }

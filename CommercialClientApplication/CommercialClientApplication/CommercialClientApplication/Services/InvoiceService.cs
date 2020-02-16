@@ -1,4 +1,4 @@
-﻿using CommercialClientApplication.Models;
+﻿using CommercialClientApplication.Dtoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace CommercialClientApplication.Services
 {
     public class InvoiceService : IInvoiceService
     {
-        public void MakeInvoice(Invoice invoice)
+        public void MakeInvoice(InvoiceDto invoice)
         {
 
         }

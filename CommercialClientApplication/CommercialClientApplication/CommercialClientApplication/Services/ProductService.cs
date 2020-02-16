@@ -1,4 +1,4 @@
-﻿using CommercialClientApplication.Models;
+﻿using CommercialClientApplication.Dtoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +9,17 @@ namespace CommercialClientApplication.Services
 {
     public class ProductService : IProductService
     {
-        public void Insert(Product product)
+        public void Insert(ProductDto product)
         {
         }
 
-        public void Update(Product product)
+        public void Update(ProductDto product)
         {
         }
 
-        public Product Get(string name)
+        public ProductDto Get(string name)
         {
-            return new Product();
+            return new ProductDto();
         }
     }
 }

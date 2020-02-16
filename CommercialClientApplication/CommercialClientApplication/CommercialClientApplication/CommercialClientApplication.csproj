@@ -84,18 +84,19 @@
     <Compile Include="DataGridModels\Customer.cs" />
     <Compile Include="DataGridModels\OrderItem.cs" />
     <Compile Include="DataGridModels\StorehouseItem.cs" />
+    <Compile Include="Dtoes\UnitCostDto.cs" />
     <Compile Include="InvoiceControl.xaml.cs">
       <DependentUpon>InvoiceControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Action.cs" />
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Invoice.cs" />
-    <Compile Include="Models\InvoiceItem.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OrderInfo.cs" />
-    <Compile Include="Models\OrderItem.cs" />
-    <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\Storage.cs" />
+    <Compile Include="Dtoes\ActionDto.cs" />
+    <Compile Include="Dtoes\CustomerDto.cs" />
+    <Compile Include="Dtoes\InvoiceDto.cs" />
+    <Compile Include="Dtoes\InvoiceItemDto.cs" />
+    <Compile Include="Dtoes\OrderDto.cs" />
+    <Compile Include="Dtoes\OrderInfoDto.cs" />
+    <Compile Include="Dtoes\OrderItemDto.cs" />
+    <Compile Include="Dtoes\ProductDto.cs" />
+    <Compile Include="Dtoes\StorageDto.cs" />
     <Compile Include="OrderControl.xaml.cs">
       <DependentUpon>OrderControl.xaml</DependentUpon>
     </Compile>
@@ -115,6 +116,8 @@
     <Compile Include="StorageControl.xaml.cs">
       <DependentUpon>StorageControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Urls\ProductUrls.cs" />
+    <Compile Include="Urls\Urls.cs" />
     <Page Include="ActionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

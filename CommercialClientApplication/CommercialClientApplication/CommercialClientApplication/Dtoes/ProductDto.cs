@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommercialClientApplication.Models
+namespace CommercialClientApplication.Dtoes
 {
-    public class Product
+    public class ProductDto
     {
         public string Name { get; set; }
-        public string UnitCost { get; set; }
+        public UnitCostDto UnitCost { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public string VideoLink { get; set; }

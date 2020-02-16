@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommercialClientApplication.Models
+namespace CommercialClientApplication.Dtoes
 {
-    public class Storage
+    public class StorageDto
     {
         public string Name { get; set; }
         public string Location { get; set; }

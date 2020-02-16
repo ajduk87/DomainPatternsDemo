@@ -46,7 +46,8 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
                 Description = product.Description.Content,
                 ImageUrl = product.ImageUrl.Content,
                 VideoLink = product.VideoLink.Content,
-                SerialNumber = product.SerialNumber.Content
+                SerialNumber = product.SerialNumber.Content,
+                KindOfProduct = product.KindOfProduct.Content
             });
         }
 
