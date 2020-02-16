@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CommercialClientApplication"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800">
     <Grid Background="{StaticResource Gradient5}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -30,7 +30,47 @@
 
         <Button Name = "btnMakeInvoice" Grid.Column="0" Grid.Row="3"  Width="150" Height="25" Content="make invoice"/>
 
-        <DataGrid Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="7" Height="Auto" Name="dgOrderinfo" Grid.Row="1"></DataGrid>
+        
+        <Label  Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="total : "/>
+        <TextBox Grid.Column="2" Name="tfgettotalorder" Grid.Row="1" Width="140" Height="20" IsReadOnly="True" Foreground="Red" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+
+
+
+        <DataGrid Grid.Column="3" 
+                  Grid.ColumnSpan="2" 
+                  Grid.RowSpan="7" 
+                  Height="Auto" 
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding OrderItems}"
+                  CanUserAddRows="False"
+                  SelectionMode="Single"
+                  Name="dgOrderinfo" 
+                  Grid.Row="2">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="FontSize"
+                                    Value="12" />
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+            </DataGrid.ColumnHeaderStyle>
+
+
+            <DataGrid.Columns>
+                <DataGridTextColumn   Header="Id" Width="*" FontSize="12" IsReadOnly="True" Binding="{Binding Path= Id}"/>
+                <DataGridTextColumn   Header="Product name" Width="*" FontSize="12" IsReadOnly="True" Binding="{Binding Path= ProductName}"/>
+                <DataGridTextColumn   Header="Amount" Width="*" FontSize="12" IsReadOnly="True" Binding="{Binding Path= Amount}"/>
+                <DataGridTextColumn   Header="Value" Width="*" FontSize="12" IsReadOnly="True" Binding="{Binding Path= Value}"/>
+            </DataGrid.Columns>
+
+
+        </DataGrid>
 
 
     </Grid>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CommercialClientApplication"
         xmlns:uc="clr-namespace:CommercialClientApplication"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1000">
+        Title="MainWindow" Height="600" Width="1000">
     <Grid>
         <TabControl>
             <TabItem Header="Product">

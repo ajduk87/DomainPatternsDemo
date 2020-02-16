@@ -68,6 +68,9 @@
     <Compile Include="CustomerControl.xaml.cs">
       <DependentUpon>CustomerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataGridModels\Customer.cs" />
+    <Compile Include="DataGridModels\OrderItem.cs" />
+    <Compile Include="DataGridModels\StorehouseItem.cs" />
     <Compile Include="InvoiceControl.xaml.cs">
       <DependentUpon>InvoiceControl.xaml</DependentUpon>
     </Compile>

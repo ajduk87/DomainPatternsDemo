@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CommercialClientApplication.DataGridModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +23,36 @@ namespace CommercialClientApplication
     /// </summary>
     public partial class StorageControl : UserControl
     {
+
+        public ObservableCollection<StorehouseItem> StorehouseItems = new ObservableCollection<StorehouseItem>();
+        public ICollectionView cvStorehouseItems;
+
+
         public StorageControl()
         {
             InitializeComponent();
+
+            StorehouseItem StorehouseItem = new StorehouseItem
+            {
+                ProductName = "kafa",
+                StorageName = "Doncafe Beograd",
+                Amount = 15
+            };
+            StorehouseItem StorehouseItem2 = new StorehouseItem
+            {
+                ProductName = "sok od jabuke",
+                StorageName = "Nectar Beograd",
+                Amount = 15
+            };
+
+            StorehouseItems.Add(StorehouseItem);
+            StorehouseItems.Add(StorehouseItem2);
+
+            cvStorehouseItems = CollectionViewSource.GetDefaultView(StorehouseItems);
+            if (cvStorehouseItems != null)
+            {
+                dgStorageState.ItemsSource = cvStorehouseItems;
+            }
         }
     }
 }
