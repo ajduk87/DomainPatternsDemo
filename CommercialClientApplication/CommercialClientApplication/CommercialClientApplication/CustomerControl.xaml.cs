@@ -1,4 +1,5 @@
 ﻿using CommercialClientApplication.DataGridModels;
+using CommercialClientApplication.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Autofac;
 
 namespace CommercialClientApplication
 {
@@ -23,12 +25,19 @@ namespace CommercialClientApplication
     /// </summary>
     public partial class CustomerControl : UserControl
     {
+
+
+        private readonly RegistrationServices registrationServices = new RegistrationServices();
+        private readonly ICustomerService customerService;
+
         public ObservableCollection<Customer> Customers = new ObservableCollection<Customer>();
         public ICollectionView cvCustomers;
 
         public CustomerControl()
         {
             InitializeComponent();
+
+            this.customerService = registrationServices.Container.Resolve<ICustomerService>();
 
             Customer customer = new Customer { Name = "Marko Ivic" };
             Customers.Add(customer);

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Autofac;
+using CommercialClientApplication.Services;
 
 namespace CommercialClientApplication
 {
@@ -20,9 +22,14 @@ namespace CommercialClientApplication
     /// </summary>
     public partial class OrderControl : UserControl
     {
+        private readonly RegistrationServices registrationServices = new RegistrationServices();
+        private readonly IOrderService orderService;
+
         public OrderControl()
         {
             InitializeComponent();
+
+            this.orderService = registrationServices.Container.Resolve<IOrderService>();
         }
     }
 }

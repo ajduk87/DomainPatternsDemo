@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Autofac;
+using CommercialClientApplication.Services;
 
 namespace CommercialClientApplication
 {
@@ -20,9 +22,15 @@ namespace CommercialClientApplication
     /// </summary>
     public partial class ActionControl : UserControl
     {
+
+        private readonly RegistrationServices registrationServices = new RegistrationServices();
+        private readonly IActionService actionService;
+
         public ActionControl()
         {
             InitializeComponent();
+
+            this.actionService = registrationServices.Container.Resolve<IActionService>();
         }
     }
 }

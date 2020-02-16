@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommercialClientApplication.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Autofac;
 
 namespace CommercialClientApplication
 {
@@ -20,9 +22,14 @@ namespace CommercialClientApplication
     /// </summary>
     public partial class ProductControl : UserControl
     {
+        private readonly RegistrationServices registrationServices = new RegistrationServices();
+        private readonly IProductService productService;
+
         public ProductControl()
         {
             InitializeComponent();
+
+            this.productService = registrationServices.Container.Resolve<IProductService>();
         }
     }
 }
