@@ -87,9 +87,31 @@
     <Compile Include="InvoiceControl.xaml.cs">
       <DependentUpon>InvoiceControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Action.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\InvoiceItem.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
+    <Compile Include="Models\OrderItem.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Storage.cs" />
     <Compile Include="OrderControl.xaml.cs">
       <DependentUpon>OrderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RegistrationServices.cs" />
+    <Compile Include="Services\ActionService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\IActionService.cs" />
+    <Compile Include="Services\ICustomerService.cs" />
+    <Compile Include="Services\IInvoiceService.cs" />
+    <Compile Include="Services\InvoiceService.cs" />
+    <Compile Include="Services\IOrderService.cs" />
+    <Compile Include="Services\IProductService.cs" />
+    <Compile Include="Services\IStorageService.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\StorageService.cs" />
     <Compile Include="StorageControl.xaml.cs">
       <DependentUpon>StorageControl.xaml</DependentUpon>
     </Compile>
@@ -162,8 +184,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
