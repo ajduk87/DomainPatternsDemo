@@ -58,7 +58,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
         public void UpdateState(IDbConnection connection, ProductState productState, IDbTransaction transaction = null)
         {
             Product product = this.productRepository.SelectByName(connection, productState.Name);
-            if (productState.Equals("notforsold"))
+            /*if (productState.Equals("notforsold"))
             {
                 if (product.State.Equals("notforsold"))
                 {
@@ -111,7 +111,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
                     //stay in state outofstock
                     product.State = new State("outofstock");
                 }
-            }
+            }*/
 
             this.productRepository.Update(connection, product, transaction);
         }

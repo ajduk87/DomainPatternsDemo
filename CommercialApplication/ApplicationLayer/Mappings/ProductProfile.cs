@@ -11,6 +11,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
     {
         public ProductProfile()
         {
+            CreateMap<UnitCostDto, UnitCostModel>();
             CreateMap<ProductDto, ProductViewModel>();
 
             CreateMap<UnitCostModel, UnitCostDto>();

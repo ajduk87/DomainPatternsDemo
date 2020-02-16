@@ -60,7 +60,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
                 Description = product.Description.Content,
                 ImageUrl = product.ImageUrl.Content,
                 VideoLink = product.VideoLink.Content,
-                id = product.Id
+                id = product.Id.Content
             });
         }
 

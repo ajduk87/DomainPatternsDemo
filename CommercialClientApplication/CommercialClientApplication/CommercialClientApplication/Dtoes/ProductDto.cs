@@ -8,6 +8,7 @@ namespace CommercialClientApplication.Dtoes
 {
     public class ProductDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public UnitCostDto UnitCost { get; set; }
         public string Description { get; set; }

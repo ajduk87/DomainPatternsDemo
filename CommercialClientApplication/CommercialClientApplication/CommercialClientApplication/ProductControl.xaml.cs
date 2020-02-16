@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using Autofac;
 using CommercialClientApplication.Urls;
 using CommercialClientApplication.Dtoes;
+using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace CommercialClientApplication
 {
@@ -64,7 +66,26 @@ namespace CommercialClientApplication
 
         private void BtnUpdateProduct_Click(object sender, RoutedEventArgs e)
         {
+            ProductDto productDto = new ProductDto
+            {
+                Name = tfupdatename.Text,
+                UnitCost = new UnitCostDto
+                {
+                    Value = Convert.ToDouble(tfupdateunitcost.Text.Split(' ')[0]),
+                    Currency = tfupdateunitcost.Text.Split(' ')[1]
+                },
+                Description = tfupdatedescription.Text,
+                ImageUrl = tfupdateimageurl.Text,
+                VideoLink = tfupdatevideolink.Text,
+                SerialNumber = tfupdateserialnumber.Text,
+                KindOfProduct = tfupdatekindofproduct.Text
+            };
 
+            string responseMessage = this.apiCaller.Get(this.urls.Product, new object[] { productDto.Name });
+            string response = Regex.Unescape(responseMessage).Trim('"');
+            productDto.Id = JsonConvert.DeserializeObject<ProductDto>(response).Id;
+
+            this.apiCaller.Put(this.urls.Product, productDto);
         }
 
         private void BtnGetProductInfo_Click(object sender, RoutedEventArgs e)

@@ -31,7 +31,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         }
 
         [HttpGet]
-        [Route("api/product")]
+        [Route("api/product/{name}")]
         public ProductViewModel Get(string name)
         {
             ProductDto productDto = productAppService.Get(name);
