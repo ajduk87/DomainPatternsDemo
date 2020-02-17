@@ -10,5 +10,10 @@ namespace CommercialClientApplication.Dtoes
     {
         public double Value { get; set; }
         public string Currency { get; set; }
+
+        public string ToString()
+        {
+            return $"{this.Value} {this.Currency}";
+        }
     }
 }

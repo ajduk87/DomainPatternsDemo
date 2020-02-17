@@ -90,7 +90,18 @@ namespace CommercialClientApplication
 
         private void BtnGetProductInfo_Click(object sender, RoutedEventArgs e)
         {
+            string name = tfgetname.Text;
 
+            string responseMessage = this.apiCaller.Get(this.urls.Product, new object[] { name });
+            string response = Regex.Unescape(responseMessage).Trim('"');
+            ProductDto productDto = JsonConvert.DeserializeObject<ProductDto>(response);
+
+            tfgetunitcost.Text = productDto.UnitCost.ToString();
+            tfgetdescription.Text = productDto.Description;
+            tfgetimageurl.Text = productDto.ImageUrl;
+            tfgetvideolink.Text = productDto.VideoLink;
+            tfgetserialnumber.Text = productDto.SerialNumber;
+            tfgetkindofproduct.Text = productDto.KindOfProduct;
         }
 
         private void BtnEnterProductInStorage_Click(object sender, RoutedEventArgs e)
