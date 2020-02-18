@@ -117,6 +117,7 @@
       <DependentUpon>StorageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Urls\ProductUrls.cs" />
+    <Compile Include="Urls\StorageUrls.cs" />
     <Compile Include="Urls\Urls.cs" />
     <Page Include="ActionControl.xaml">
       <SubType>Designer</SubType>

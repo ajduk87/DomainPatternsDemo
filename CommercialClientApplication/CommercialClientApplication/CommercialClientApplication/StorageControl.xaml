@@ -37,7 +37,7 @@
         <Label  Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="location : "/>
         <TextBox Grid.Column="1" Name="tfenterlocation" Grid.Row="2" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 
-        <Button Name = "btnEnterStorage" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="200" Height="25" Content="enter new storage"/>
+        <Button Name = "btnEnterStorage" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="200" Height="25" Content="enter new storage" Click="BtnEnterStorage_Click"/>
 
         <Label  Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Update existing storage" FontSize="20"/>
 
@@ -47,12 +47,12 @@
         <Label  Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="location : "/>
         <TextBox Grid.Column="4" Name="tfupdatelocation" Grid.Row="2" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 
-        <Button Name = "btnUpdateStorage" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2" Width="200" Height="25" Content="update storage"/>
+        <Button Name = "btnUpdateStorage" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="2" Width="200" Height="25" Content="update storage" Click="BtnUpdateStorage_Click"/>
 
         <Label  Grid.Column="6" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="name : "/>
         <TextBox Grid.Column="7" Name="tfgetname" Grid.Row="1" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 
-        <Button Name = "btnGetStorageLocation" Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" Width="200" Height="25" Content="get storage location"/>
+        <Button Name = "btnGetStorageLocation" Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" Width="200" Height="25" Content="get storage location" Click="BtnGetStorageLocation_Click"/>
 
         <Label  Grid.Column="6" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="location : "/>
         <TextBox Grid.Column="7" Name="tfgetlocation" IsReadOnly="true" Grid.Row="3" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
@@ -62,7 +62,7 @@
         <Label  Grid.Column="3" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="name : "/>
         <TextBox Grid.Column="4" Name="tfstatename" Grid.Row="6" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 
-        <Button Name = "btnGetStorageState" Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="2" Width="200" Height="25" Content="get storage state"/>
+        <Button Name = "btnGetStorageState" Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="2" Width="200" Height="25" Content="get storage state" Click="BtnGetStorageState_Click"/>
 
         <DataGrid Grid.Column="1"                   
                   AutoGenerateColumns="False"
