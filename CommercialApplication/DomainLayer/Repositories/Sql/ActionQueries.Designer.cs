@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CommercialApplicationCommand.DomainLayer.Repositories.Sql {
+namespace CommercialApplication.DomainLayer.Repositories.Sql {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.Sql {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CommercialApplicationCommand.DomainLayer.Repositories.Sql.ActionQueries", typeof(ActionQueries).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CommercialApplication.DomainLayer.Repositories.Sql.ActionQueries", typeof(ActionQueries).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
