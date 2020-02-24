@@ -18,7 +18,8 @@ namespace CommercialApplicationCommand.DomainLayer.Mappings.Entities
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description.Content))
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl.Content))
                 .ForMember(dest => dest.VideoLink, opt => opt.MapFrom(src => src.VideoLink.Content))
-                .ForMember(dest => dest.SerialNumber, opt => opt.MapFrom(src => src.SerialNumber.Content));
+                .ForMember(dest => dest.SerialNumber, opt => opt.MapFrom(src => src.SerialNumber.Content))
+                .ForMember(dest => dest.KindOfProduct, opt => opt.MapFrom(src => src.KindOfProduct.Content));
 
             CreateMap<UnitCostDto, UnitCost>();
             CreateMap<ProductDto, Product>();

@@ -17,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Autofac;
+using CommercialClientApplication.Dtoes;
+using CommercialClientApplication.Urls;
 
 namespace CommercialClientApplication
 {
@@ -32,6 +34,10 @@ namespace CommercialClientApplication
 
         public ObservableCollection<StorehouseItem> StorehouseItems = new ObservableCollection<StorehouseItem>();
         public ICollectionView cvStorehouseItems;
+
+        private readonly StorageUrls urls;
+
+        private readonly IApiCaller apiCaller;
 
 
         public StorageControl()
@@ -61,6 +67,32 @@ namespace CommercialClientApplication
             {
                 dgStorageState.ItemsSource = cvStorehouseItems;
             }
+        }
+
+        private void BtnEnterStorage_Click(object sender, RoutedEventArgs e)
+        {
+            StorageDto storage = new StorageDto
+            {
+                Name = tfentername.Text,
+                Location = tfenterlocation.Text
+            };
+
+            this.apiCaller.Post(this.urls.Product, productDto);
+        }
+
+        private void BtnUpdateStorage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnGetStorageLocation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnGetStorageState_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
