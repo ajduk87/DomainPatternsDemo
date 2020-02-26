@@ -18,6 +18,8 @@ using CommercialClientApplication.Urls;
 using CommercialClientApplication.Dtoes;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using CommercialClientApplication.DataGridModels;
 
 namespace CommercialClientApplication
 {
@@ -32,6 +34,8 @@ namespace CommercialClientApplication
         private readonly ProductUrls urls;
 
         private readonly IApiCaller apiCaller;
+
+        public StorehouseItem StorehouseItem = new StorehouseItem();
 
         public ProductControl()
         {

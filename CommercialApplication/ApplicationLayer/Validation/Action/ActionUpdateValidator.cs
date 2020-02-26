@@ -2,7 +2,6 @@
 using CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositories;
 using CommercialApplicationCommand.DomainLayer.Repositories.Factory;
 using CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositories;
-using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
 using FluentValidation;
 using Npgsql;

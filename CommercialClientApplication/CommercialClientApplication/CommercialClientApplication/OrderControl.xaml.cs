@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,8 @@ namespace CommercialClientApplication
         private readonly OrderUrls urls;
         private IApiCaller apiCaller;
 
+        private readonly ObservableCollection<OrderItemDto> orderItemDtoes;
+
         public OrderControl()
         {
             InitializeComponent();
@@ -39,19 +42,28 @@ namespace CommercialClientApplication
             this.urls = new OrderUrls();
 
             this.apiCaller = registrationServices.Container.Resolve<IApiCaller>();
+            this.orderItemDtoes = new ObservableCollection<OrderItemDto>();
         }
 
         private void BtnFinishOrder_Click(object sender, RoutedEventArgs e)
         {
             OrderDto orderDto = new OrderDto
             {
-                CustomerName = tfentercustomername.Text
+                CustomerName = tfentercustomername.Text,
+                OrderItems = this.orderItemDtoes
             };
 
             this.apiCaller.Post(this.urls.Order, orderDto);
+
+            this.orderItemDtoes.Clear();
         }
 
         private void BtnGetOrderInfo_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnEnterOrderItem_Click(object sender, RoutedEventArgs e)
         {
 
         }

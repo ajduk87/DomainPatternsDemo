@@ -1,6 +1,6 @@
-﻿using CommercialApplicationCommand.ApplicationLayer.Dtoes.Action;
+﻿using CommercialApplication.DomainLayer.Repositories.Sql;
+using CommercialApplicationCommand.ApplicationLayer.Dtoes.Action;
 using CommercialApplicationCommand.DomainLayer.Entities.ActionEntities;
-using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
 using System.Collections.Generic;
 using System.Data;

@@ -2,7 +2,6 @@
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Storage;
 using CommercialApplicationCommand.DomainLayer.Entities.StorageEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
-using CommercialApplicationCommand.DomainLayer.Repositories.Sql;
 using Dapper;
 using System.Collections.Generic;
 using System.Data;
