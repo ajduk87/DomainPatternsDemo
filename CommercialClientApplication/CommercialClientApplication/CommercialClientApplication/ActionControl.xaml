@@ -42,8 +42,15 @@
         <Label  Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="threshold amount : "/>
         <TextBox Grid.Column="1" Name="tfenterthresholdamount" Grid.Row="3" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 
-       
-        <Button Name = "btnEnterProduct" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Width="200" Height="25" Content="enter new action"/>
+
+        <Button Name = "btnEnterProduct"
+                Grid.Column="0"
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                Width="200"
+                Height="25"
+                Content="enter new action"
+                Click="BtnEnterProduct_Click_1"/>
 
 
         <Label  Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Update existing action" FontSize="20"/>
@@ -58,12 +65,12 @@
         <Label  Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="threshold amount : "/>
         <TextBox Grid.Column="4" Name="tfupdatethresholdamount" Grid.Row="3" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 
-        <Button Name = "btnUpdateAction" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Width="200" Height="25" Content="update action"/>
+        <Button Name = "btnUpdateAction" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Width="200" Height="25" Content="update action" Click="BtnUpdateAction_Click"/>
 
         <Label  Grid.Column="6" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="product name : "/>
         <TextBox Grid.Column="7" Name="tfgetproductname" Grid.Row="1" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 
-        <Button Name = "btnGetActionInfo" Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" Width="200" Height="25" Content="get action info"/>
+        <Button Name = "btnGetActionInfo" Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" Width="200" Height="25" Content="get action info" Click="BtnGetActionInfo_Click"/>
 
         <Label  Grid.Column="6" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="discount : "/>
         <TextBox Grid.Column="7" Name="tfgetdiscount" IsReadOnly="True" Grid.Row="3" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
@@ -71,7 +78,7 @@
         <Label  Grid.Column="6" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="threshold amount : "/>
         <TextBox Grid.Column="7" Name="tfgetthresholdamount" IsReadOnly="True" Grid.Row="4" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 
-      
+
 
     </Grid>
 </UserControl>

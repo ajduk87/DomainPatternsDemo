@@ -32,5 +32,15 @@ namespace CommercialClientApplication
 
             this.invoiceService = registrationServices.Container.Resolve<IInvoiceService>();
         }
+
+        private void BtnGetOrder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnMakeInvoice_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

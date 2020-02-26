@@ -17,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Autofac;
+using CommercialClientApplication.Dtoes;
+using CommercialClientApplication.Urls;
 
 namespace CommercialClientApplication
 {
@@ -33,6 +35,10 @@ namespace CommercialClientApplication
         public ObservableCollection<Customer> Customers = new ObservableCollection<Customer>();
         public ICollectionView cvCustomers;
 
+        private readonly CustomerUrls urls;
+
+        private readonly IApiCaller apiCaller;
+
         public CustomerControl()
         {
             InitializeComponent();
@@ -47,6 +53,26 @@ namespace CommercialClientApplication
             {
                 dgCustomerList.ItemsSource = cvCustomers;
             }
+        }
+
+        private void BtnEnterCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerDto customerDto = new CustomerDto
+            {
+                Name = tfentername.Text,
+            };
+
+            this.apiCaller.Post(this.urls.Customer, customerDto);
+        }
+
+        private void BtnUpdateCustomer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnGetCustomerList_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

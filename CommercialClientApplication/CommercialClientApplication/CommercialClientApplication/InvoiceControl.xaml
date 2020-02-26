@@ -26,9 +26,9 @@
         <Label  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="order id : "/>
         <TextBox Grid.Column="0" Name="tfgetorderid" Grid.Row="1" Width="140" Height="20"  HorizontalAlignment="Right" VerticalAlignment="Bottom" />
 
-        <Button Name = "btnGetOrder" Grid.Column="0" Grid.Row="2"  Width="150" Height="25" Content="get order"/>
+        <Button Name = "btnGetOrder" Grid.Column="0" Grid.Row="2"  Width="150" Height="25" Content="get order" Click="BtnGetOrder_Click"/>
 
-        <Button Name = "btnMakeInvoice" Grid.Column="0" Grid.Row="3"  Width="150" Height="25" Content="make invoice"/>
+        <Button Name = "btnMakeInvoice" Grid.Column="0" Grid.Row="3"  Width="150" Height="25" Content="make invoice" Click="BtnMakeInvoice_Click"/>
 
         
         <Label  Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="total : "/>

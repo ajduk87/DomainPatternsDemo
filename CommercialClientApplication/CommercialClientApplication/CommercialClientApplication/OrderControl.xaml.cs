@@ -13,7 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Autofac;
+using CommercialClientApplication.Dtoes;
 using CommercialClientApplication.Services;
+using CommercialClientApplication.Urls;
 
 namespace CommercialClientApplication
 {
@@ -25,11 +27,33 @@ namespace CommercialClientApplication
         private readonly RegistrationServices registrationServices = new RegistrationServices();
         private readonly IOrderService orderService;
 
+        private readonly OrderUrls urls;
+        private IApiCaller apiCaller;
+
         public OrderControl()
         {
             InitializeComponent();
 
             this.orderService = registrationServices.Container.Resolve<IOrderService>();
+
+            this.urls = new OrderUrls();
+
+            this.apiCaller = registrationServices.Container.Resolve<IApiCaller>();
+        }
+
+        private void BtnFinishOrder_Click(object sender, RoutedEventArgs e)
+        {
+            OrderDto orderDto = new OrderDto
+            {
+                CustomerName = tfentercustomername.Text
+            };
+
+            this.apiCaller.Post(this.urls.Order, orderDto);
+        }
+
+        private void BtnGetOrderInfo_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

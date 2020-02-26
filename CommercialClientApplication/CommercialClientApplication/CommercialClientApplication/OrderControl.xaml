@@ -44,7 +44,7 @@
 
         <Button Name = "btnEnterOrderItem" Grid.Column="0" Grid.Row="6" Width="150" Height="25" Content="enter new order item"/>
 
-        <Button Name = "btnFinishOrder" Grid.Column="1" Grid.Row="6" Width="150" Height="25" Content="finish order"/>
+        <Button Name = "btnFinishOrder" Grid.Column="1" Grid.Row="6" Width="150" Height="25" Content="finish order" Click="BtnFinishOrder_Click"/>
 
         <Label  Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="total : "/>
         <TextBox Grid.Column="1" Name="tfgettotalcurrorder" Grid.Row="7" Width="140" Height="20" IsReadOnly="True" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
@@ -87,7 +87,7 @@
         <Label  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="order id : "/>
         <TextBox Grid.Column="4" Name="tfgetorderid" Grid.Row="1" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 
-        <Button Name = "btnGetOrderInfo" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Width="200" Height="25" Content="get order info"/>
+        <Button Name = "btnGetOrderInfo" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Width="200" Height="25" Content="get order info" Click="BtnGetOrderInfo_Click"/>
 
         <Label  Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="total : "/>
         <TextBox Grid.Column="4" Name="tfgettotalorder" Grid.Row="3" Width="140" Height="20" IsReadOnly="True" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Bottom" />

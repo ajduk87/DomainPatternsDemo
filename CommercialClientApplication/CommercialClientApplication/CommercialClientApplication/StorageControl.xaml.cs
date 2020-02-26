@@ -19,6 +19,8 @@ using System.Windows.Shapes;
 using Autofac;
 using CommercialClientApplication.Dtoes;
 using CommercialClientApplication.Urls;
+using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace CommercialClientApplication
 {
@@ -83,6 +85,17 @@ namespace CommercialClientApplication
         private void BtnUpdateStorage_Click(object sender, RoutedEventArgs e)
         {
 
+            StorageDto storageDto = new StorageDto
+            {
+                Name = tfupdatename.Text,
+                Location = tfupdatelocation.Text
+            };
+
+            string responseMessage = this.apiCaller.Get(this.urls.Storage, new object[] { storageDto.Name });
+            string response = Regex.Unescape(responseMessage).Trim('"');
+            storageDto.Id = JsonConvert.DeserializeObject<StorageDto>(response).Id;
+
+            this.apiCaller.Put(this.urls.Storage, storageDto);
         }
 
         private void BtnGetStorageLocation_Click(object sender, RoutedEventArgs e)
