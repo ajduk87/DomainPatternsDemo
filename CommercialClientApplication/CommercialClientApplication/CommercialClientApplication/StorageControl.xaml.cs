@@ -71,13 +71,13 @@ namespace CommercialClientApplication
 
         private void BtnEnterStorage_Click(object sender, RoutedEventArgs e)
         {
-            StorageDto storage = new StorageDto
+            StorageDto storageDto = new StorageDto
             {
                 Name = tfentername.Text,
                 Location = tfenterlocation.Text
             };
 
-            this.apiCaller.Post(this.urls.Product, productDto);
+            this.apiCaller.Post(this.urls.Storage, storageDto);
         }
 
         private void BtnUpdateStorage_Click(object sender, RoutedEventArgs e)
