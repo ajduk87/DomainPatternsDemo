@@ -229,6 +229,10 @@
     <Compile Include="ApplicationLayer\Validation\Storage\StorageDeleteValidator.cs" />
     <Compile Include="ApplicationLayer\Validation\Storage\StorageUpdateValidator.cs" />
     <Compile Include="DomainLayer\Entities\ActionEntities\Action.cs" />
+    <Compile Include="DomainLayer\Entities\ActionEntities\ActionFirstQuarter.cs" />
+    <Compile Include="DomainLayer\Entities\ActionEntities\ActionForthQuarter.cs" />
+    <Compile Include="DomainLayer\Entities\ActionEntities\ActionSecondQuarter.cs" />
+    <Compile Include="DomainLayer\Entities\ActionEntities\ActionThirdQuarter.cs" />
     <Compile Include="DomainLayer\Entities\CommonEntities\Money.cs" />
     <Compile Include="DomainLayer\Entities\CustomerEntities\OrderCustomer.cs" />
     <Compile Include="DomainLayer\Entities\Extensions\OrderItemExtensions.cs" />
@@ -255,6 +259,10 @@
     <Compile Include="DomainLayer\Entities\ProductEntities\ProductStates\NotForSoldState.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\ProductStates\OutOfStock.cs" />
     <Compile Include="DomainLayer\Entities\ProductEntities\UnitCost.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\Action\ActionFirstQuarterSpecificProperty.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\Action\ActionForthQuarterSpecificProperty.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\Action\ActionSecondQuarterSpecificProperty.cs" />
+    <Compile Include="DomainLayer\Entities\ValueObjects\Action\ActionThirdQuarterSpecificProperty.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Amount.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\CreationDate.cs" />
     <Compile Include="DomainLayer\Entities\ValueObjects\Common\Currency.cs" />
