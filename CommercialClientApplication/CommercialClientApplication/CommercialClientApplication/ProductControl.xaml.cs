@@ -110,7 +110,26 @@ namespace CommercialClientApplication
 
         private void BtnEnterProductInStorage_Click(object sender, RoutedEventArgs e)
         {
+            string name = tfgetname.Text;
+            string responseMessage = this.apiCaller.Get(this.urls.Product, new object[] { name });
+            string response = Regex.Unescape(responseMessage).Trim('"');
+            ProductDto productDto = JsonConvert.DeserializeObject<ProductDto>(response);
+            int productId = productDto.Id;
 
+            string storagename = tfstoragename.Text;
+            string responseMessageStorage = this.apiCaller.Get(this.urls.Storage, new object[] { storagename });
+            string responseStorage = Regex.Unescape(responseMessageStorage).Trim('"');
+            StorageDto storageDto = JsonConvert.DeserializeObject<StorageDto>(responseStorage);
+            int storageId = storageDto.Id;
+
+            ProductStorageDto productStorageDto = new ProductStorageDto
+            {
+                ProductId = productId,
+                StorageId = storageId,
+                AmountOfProduct = Convert.ToInt32(tfproductamount.Text)
+            };
+
+            this.apiCaller.Post(this.urls.ProductInStorage, productStorageDto);
         }
     }
 }

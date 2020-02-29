@@ -34,7 +34,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         }
 
         [HttpGet]
-        [Route("api/storage")]
+        [Route("api/storage/{name}")]
         public StorageViewModel Get(string name)
         {
             StorageDto storageDto = storageAppService.Get(name);
@@ -73,8 +73,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         }
 
         [HttpGet]
-        [Route("api/storage/content")]
-        [ValidateModelStateFilter]
+        [Route("api/storage/content/{name}")]
         public IEnumerable<ProductStorageViewModel> GetStorageContent(string name)
         {
             IEnumerable<ProductStorageDto> storageItemDtoes = this.storageAppService.GetContent(name);
@@ -84,7 +83,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         }
 
         [HttpPost]
-        [Route("api/product/storage")]
+        [Route("api/addproduct/storage")]
         [ValidateModelStateFilter]
         public HttpResponseMessage AddProductToStorage(ProductStorageCreateModel productStorageCreateModel)
         {
@@ -94,7 +93,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         }
 
         [HttpDelete]
-        [Route("api/product/storage")]
+        [Route("api/deleteproduct/storage")]
         [ValidateModelStateFilter]
         public HttpResponseMessage DeleteProductFromStorage(ProductStorageDeleteModel productStorageDeleteModel)
         {

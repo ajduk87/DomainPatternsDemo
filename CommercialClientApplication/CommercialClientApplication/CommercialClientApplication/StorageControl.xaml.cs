@@ -64,6 +64,10 @@ namespace CommercialClientApplication
             //StorehouseItems.Add(StorehouseItem);
             //StorehouseItems.Add(StorehouseItem2);
 
+            this.urls = new StorageUrls();
+
+            this.apiCaller = registrationServices.Container.Resolve<IApiCaller>();
+
             cvStorehouseItems = CollectionViewSource.GetDefaultView(StorehouseItems);
             if (cvStorehouseItems != null)
             {
@@ -100,12 +104,36 @@ namespace CommercialClientApplication
 
         private void BtnGetStorageLocation_Click(object sender, RoutedEventArgs e)
         {
+            string name = tfgetname.Text;
 
+            string responseMessage = this.apiCaller.Get(this.urls.Storage, new object[] { name });
+            string response = Regex.Unescape(responseMessage).Trim('"');
+            StorageDto storageDto = JsonConvert.DeserializeObject<StorageDto>(response);
+
+            tfgetlocation.Text = storageDto.Location;
         }
 
         private void BtnGetStorageState_Click(object sender, RoutedEventArgs e)
         {
+            string name = tfstatename.Text;
 
+            string responseMessage = this.apiCaller.Get(this.urls.StorageContent, new object[] { name });
+            string response = Regex.Unescape(responseMessage).Trim('"');
+            ObservableCollection<ProductStorageDto> productStorageDtoes = JsonConvert.DeserializeObject<ObservableCollection<ProductStorageDto>>(response);
+
+            ObservableCollection<StorehouseItem> storehouseItems = new ObservableCollection<StorehouseItem>();
+            foreach (ProductStorageDto productStorageDto in productStorageDtoes)
+            {
+                StorehouseItem storehouseItem = new StorehouseItem
+                {
+                    StorageName = productStorageDto.StorageId.ToString(),
+                    ProductName = productStorageDto.ProductId.ToString(),
+                    Amount = productStorageDto.AmountOfProduct
+                };
+                storehouseItems.Add(storehouseItem);
+            }
+
+            dgStorageState.ItemsSource = storehouseItems;
         }
     }
 }

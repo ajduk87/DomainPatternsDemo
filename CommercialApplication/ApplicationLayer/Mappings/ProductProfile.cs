@@ -13,6 +13,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
         {
             CreateMap<UnitCostDto, UnitCostModel>();
             CreateMap<ProductDto, ProductViewModel>();
+                //.ForMember(dest => dest.UnitCost, opt => opt.MapFrom(src => MakeUnitCost(src.UnitCost)));
 
             CreateMap<UnitCostModel, UnitCostDto>();
 
@@ -28,9 +29,9 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
             CreateMap<ProductStateModel, ProductStateDto>();
         }
 
-        /*private string MakeUnitCost(UnitCostModel unitCostModel)
+        /*private string MakeUnitCost(UnitCostDto unitCostDto)
         {
-            return $"{unitCostModel.Value} {unitCostModel.Currency}";
+            return $"{unitCostDto.Value} {unitCostDto.Currency}";
         }*/
     }
 }

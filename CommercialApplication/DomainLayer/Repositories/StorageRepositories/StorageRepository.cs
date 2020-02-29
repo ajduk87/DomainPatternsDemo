@@ -26,7 +26,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.StorageRepositor
             connection.Execute(StorageQueries.Insert, new
             {
                 Name = storage.Name.Content,
-                Location = storage.LocationOfStorage.Content
+                Location = storage.Location.Content
             });
         }
 
@@ -44,9 +44,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.StorageRepositor
         {
             connection.Execute(StorageQueries.Update, new
             {
-                id = storage.Id,
+                id = storage.Id.Content,
                 Name = storage.Name.Content,
-                Location = storage.LocationOfStorage.Content
+                Location = storage.Location.Content
             });
         }
     }
