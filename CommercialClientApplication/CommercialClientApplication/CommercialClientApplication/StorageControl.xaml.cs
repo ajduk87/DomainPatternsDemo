@@ -124,10 +124,22 @@ namespace CommercialClientApplication
             ObservableCollection<StorehouseItem> storehouseItems = new ObservableCollection<StorehouseItem>();
             foreach (ProductStorageDto productStorageDto in productStorageDtoes)
             {
+                long storageid = productStorageDto.StorageId;
+
+                responseMessage = this.apiCaller.Get(this.urls.StorageById, new object[] { storageid });
+                response = Regex.Unescape(responseMessage).Trim('"');
+                StorageDto storageDto = JsonConvert.DeserializeObject<StorageDto>(response);
+
+                long productid = productStorageDto.ProductId;
+
+                responseMessage = this.apiCaller.Get(this.urls.ProductById, new object[] { productid });
+                response = Regex.Unescape(responseMessage).Trim('"');
+                ProductDto productDto = JsonConvert.DeserializeObject<ProductDto>(response);
+
                 StorehouseItem storehouseItem = new StorehouseItem
                 {
-                    StorageName = productStorageDto.StorageId.ToString(),
-                    ProductName = productStorageDto.ProductId.ToString(),
+                    StorageName = storageDto.Name,
+                    ProductName = productDto.Name,
                     Amount = productStorageDto.AmountOfProduct
                 };
                 storehouseItems.Add(storehouseItem);

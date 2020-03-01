@@ -34,6 +34,15 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         }
 
         [HttpGet]
+        [Route("api/storagebyid/{id}")]
+        public StorageViewModel GetById(int id)
+        {
+            StorageDto storageDto = storageAppService.GetById(id);
+            StorageViewModel storageViewModel = this.mapper.Map<StorageViewModel>(storageDto);
+            return storageViewModel;
+        }
+
+        [HttpGet]
         [Route("api/storage/{name}")]
         public StorageViewModel Get(string name)
         {

@@ -2,6 +2,7 @@
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Storage;
 using CommercialApplicationCommand.DomainLayer.Entities.StorageEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
+using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.ProductStorage;
 using Dapper;
 using System.Collections.Generic;
 using System.Data;
@@ -33,6 +34,11 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.StorageRepositor
         public IEnumerable<Storage> Select(IDbConnection connection, IDbTransaction transaction = null)
         {
             return connection.Query<Storage>(StorageQueries.Select);
+        }
+
+        public Storage SelectById(IDbConnection connection, StorageId id, IDbTransaction transaction = null)
+        {
+            return connection.Query<Storage>(StorageQueries.SelectById, new { Name = id.Content }).Single();
         }
 
         public Storage SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null)
