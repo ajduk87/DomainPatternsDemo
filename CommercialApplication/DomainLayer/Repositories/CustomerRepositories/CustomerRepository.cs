@@ -27,7 +27,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.CustomerReposito
 
         public void Update(IDbConnection connection, Customer customer, IDbTransaction transaction = null)
         {
-            connection.Execute(CustomerQueries.Update, new { id = customer.Id, Name = customer.Name.Content });
+            connection.Execute(CustomerQueries.Update, new { id = customer.Id.Content, Name = customer.Name.Content });
         }
 
         public void Delete(IDbConnection connection, Customer customer, IDbTransaction transaction = null)

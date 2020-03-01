@@ -30,12 +30,15 @@
         <Label  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="name : "/>
         <TextBox Grid.Column="1" Name="tfentername" Grid.Row="1" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 
+        <Label  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="id : "/>
+        <TextBox Grid.Column="4" Name="tfid" Grid.Row="1" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+
         <Button Name = "btnEnterCustomer" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Width="200" Height="25" Content="enter new customer" Click="BtnEnterCustomer_Click"/>
 
         <Label  Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Update existing customer" FontSize="20"/>
 
-        <Label  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="name : "/>
-        <TextBox Grid.Column="4" Name="tfupdatename" Grid.Row="1" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+        <Label  Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="name : " Margin="50,0,51,5"/>
+        <TextBox Grid.Column="4" Name="tfupdatename" Grid.Row="3" Width="140" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0,0,11" />
 
         <Button Name = "btnUpdateCustomer" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Width="200" Height="25" Content="update customer" Click="BtnUpdateCustomer_Click"/>
 
@@ -49,7 +52,7 @@
                   Width="Auto"
                   Name="dgCustomerList" 
                   Grid.ColumnSpan="2" 
-                  Grid.Row="4">
+                  Grid.Row="3" Margin="0,0,0,-163">
 
 
             <DataGrid.ColumnHeaderStyle>

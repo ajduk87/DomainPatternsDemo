@@ -19,6 +19,8 @@ using System.Windows.Shapes;
 using Autofac;
 using CommercialClientApplication.Dtoes;
 using CommercialClientApplication.Urls;
+using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace CommercialClientApplication
 {
@@ -45,8 +47,12 @@ namespace CommercialClientApplication
 
             this.customerService = registrationServices.Container.Resolve<ICustomerService>();
 
-            Customer customer = new Customer { Name = "Marko Ivic" };
-            Customers.Add(customer);
+            /*Customer customer = new Customer { Name = "Marko Ivic" };
+            Customers.Add(customer);*/
+
+            this.urls = new CustomerUrls();
+
+            this.apiCaller = registrationServices.Container.Resolve<IApiCaller>();
 
             cvCustomers = CollectionViewSource.GetDefaultView(Customers);
             if (cvCustomers != null)
@@ -67,12 +73,30 @@ namespace CommercialClientApplication
 
         private void BtnUpdateCustomer_Click(object sender, RoutedEventArgs e)
         {
+            int id = Convert.ToInt32(tfid.Text);
 
+            CustomerDto customerDto = new CustomerDto
+            {
+                Id = id,
+                Name = tfupdatename.Text
+            };
+
+            this.apiCaller.Put(this.urls.Customer, customerDto);
         }
 
         private void BtnGetCustomerList_Click(object sender, RoutedEventArgs e)
         {
+            string responseMessage = this.apiCaller.Get(this.urls.Customer);
+            string response = Regex.Unescape(responseMessage).Trim('"');
+            ObservableCollection<CustomerDto> customerDtoes = JsonConvert.DeserializeObject<ObservableCollection<CustomerDto>>(response);
 
+            foreach (CustomerDto customerDto in customerDtoes)
+            {
+                Customer customer = new Customer { Name = customerDto.Name };
+                Customers.Add(customer);
+            }
+
+            dgCustomerList.ItemsSource = Customers;
         }
     }
 }
