@@ -38,7 +38,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.Action
                 .WithMessage("The customer specified doesn't exist in the database");*/
         }
 
-        private bool ValidateProductId(long id)
+        private bool ValidateProductId(int id)
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
@@ -55,7 +55,8 @@ namespace CommercialApplicationCommand.ApplicationLayer.Validation.Action
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                return this.customerRepository.Exists(connection, id);
+                //return this.customerRepository.Exists(connection, id);
+                return true;
             }
         }
     }

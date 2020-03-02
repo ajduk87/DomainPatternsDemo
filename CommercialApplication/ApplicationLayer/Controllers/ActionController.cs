@@ -37,6 +37,15 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
             return actionViewModel;
         }
 
+        [HttpGet]
+        [Route("api/actionbyproductid")]
+        public ActionViewModel GetByProductId(long productid)
+        {
+            ActionDto actionDto = actionAppService.GetByProductId(productid);
+            ActionViewModel actionViewModel = this.mapper.Map<ActionViewModel>(actionDto);
+            return actionViewModel;
+        }
+
         [HttpPost]
         [Route("api/action")]
         [ValidateModelStateFilter]

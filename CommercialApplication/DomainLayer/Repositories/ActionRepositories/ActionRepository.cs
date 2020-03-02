@@ -36,7 +36,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositori
             {
                 productId = actionEntity.ProductId.Content,
                 discount = actionEntity.Discount.Content,
-                customerId = actionEntity.CustomerId.Content,
+                customerId = /*actionEntity.CustomerId.Content*/1,
                 thresholdAmount = actionEntity.ThresholdAmount.Content
             });
         }
@@ -54,7 +54,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositori
         {
             connection.Execute(ActionQueries.Update, new
             {
-                id = actionEntity.Id,
+                id = actionEntity.Id.Content,
                 productId = actionEntity.ProductId.Content,
                 discount = actionEntity.Discount.Content
             });
