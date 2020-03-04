@@ -39,6 +39,11 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ActionServices
             }
         }
 
+        public ActionDto GetByProductId(long productid)
+        {
+
+        }
+
         public void RemoveExistingAction(ActionDto actionDto)
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
