@@ -30,6 +30,11 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositori
             return connection.QueryFirst<Action>(ActionQueries.SelectById, new { id });
         }
 
+        public Action SelectByProductId(IDbConnection connection, long productid, IDbTransaction transaction = null)
+        {
+            return connection.QueryFirst<Action>(ActionQueries.SelectByProductId, new { productid });
+        }
+
         public void Insert(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null)
         {
             connection.Execute(ActionQueries.Insert, new

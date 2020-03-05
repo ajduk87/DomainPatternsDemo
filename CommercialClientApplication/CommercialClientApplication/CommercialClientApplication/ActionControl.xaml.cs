@@ -92,6 +92,13 @@ namespace CommercialClientApplication
             string responseMessage = this.apiCaller.Get(this.urls.Product, new object[] { name });
             string response = Regex.Unescape(responseMessage).Trim('"');
             ProductDto productDto = JsonConvert.DeserializeObject<ProductDto>(response);
+
+            responseMessage = this.apiCaller.Get(this.urls.ActionByProductId, new object[] { productDto.Id });
+            response = Regex.Unescape(responseMessage).Trim('"');
+            ActionDto actionDto = JsonConvert.DeserializeObject<ActionDto>(response);
+
+            tfgetdiscount.Text = actionDto.Discount.ToString();
+            tfgetthresholdamount.Text = actionDto.ThresholdAmount.ToString();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace CommercialApplicationCommand
             HttpConfiguration config = new HttpConfiguration();
 
             config.MapHttpAttributeRoutes();
+            config.EnableCors();
 
             app.UseWebApi(config);
         }

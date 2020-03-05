@@ -119,6 +119,15 @@ namespace CommercialApplication.DomainLayer.Repositories.Sql {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT discount, thresholdamount FROM commercialapplication.action WHERE productid = @productid.
+        /// </summary>
+        internal static string SelectByProductId {
+            get {
+                return ResourceManager.GetString("SelectByProductId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UPDATE commercialapplication.action
         ///SET productid = @productid, discount = @discount
         ///WHERE id = @id.
