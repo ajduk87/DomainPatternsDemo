@@ -29,7 +29,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         }
 
         [HttpGet]
-        [Route("api/action")]
+        [Route("api/action/{id}")]
         public ActionViewModel Get(long id)
         {
             ActionDto actionDto = actionAppService.Get(id);
@@ -38,7 +38,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         }
 
         [HttpGet]
-        [Route("api/actionbyproductid")]
+        [Route("api/actionbyproductid/{productid}")]
         public ActionViewModel GetByProductId(long productid)
         {
             ActionDto actionDto = actionAppService.GetByProductId(productid);

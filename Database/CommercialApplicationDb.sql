@@ -128,7 +128,7 @@ CREATE TABLE commercialapplication.action
 (
 	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."action_id_seq"'::text)::regclass),
 	Productid integer NOT NULL,
-	Discount numeric NOT NULL,
+	Discount  NUMERIC (5, 2) NOT NULL,
 	ThresholdAmount integer NOT NULL,
 	CustomerId integer NOT NULL
 );
