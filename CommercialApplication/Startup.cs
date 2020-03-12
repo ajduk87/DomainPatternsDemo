@@ -1,5 +1,6 @@
 ﻿using Owin;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace CommercialApplicationCommand
 {
@@ -11,7 +12,8 @@ namespace CommercialApplicationCommand
             HttpConfiguration config = new HttpConfiguration();
 
             config.MapHttpAttributeRoutes();
-            config.EnableCors();
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             app.UseWebApi(config);
         }
