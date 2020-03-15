@@ -20,6 +20,11 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.CustomerReposito
             return connection.Query<Customer>(CustomerQueries.SelectById, new { id }).Single();
         }
 
+        public Customer SelectByName(IDbConnection connection, string name, IDbTransaction transaction = null)
+        {
+            return connection.Query<Customer>(CustomerQueries.SelectByName, new { name }).Single();
+        }
+
         public void Insert(IDbConnection connection, Customer customer, IDbTransaction transaction = null)
         {
             connection.Execute(CustomerQueries.Insert, new { Name = customer.Name.Content });

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,9 +16,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Autofac;
+using CommercialClientApplication.DataGridModels;
 using CommercialClientApplication.Dtoes;
 using CommercialClientApplication.Services;
 using CommercialClientApplication.Urls;
+using Newtonsoft.Json;
 
 namespace CommercialClientApplication
 {
@@ -31,7 +35,9 @@ namespace CommercialClientApplication
         private readonly OrderUrls urls;
         private IApiCaller apiCaller;
 
-        private readonly ObservableCollection<OrderItemDto> orderItemDtoes;
+        private readonly ObservableCollection<OrderItemDto> OrderItemDtoes;
+        private readonly ObservableCollection<OrderItem> OrderItems;
+        public ICollectionView cvOrderItems;
 
         public OrderControl()
         {
@@ -42,20 +48,31 @@ namespace CommercialClientApplication
             this.urls = new OrderUrls();
 
             this.apiCaller = registrationServices.Container.Resolve<IApiCaller>();
-            this.orderItemDtoes = new ObservableCollection<OrderItemDto>();
+            this.OrderItemDtoes = new ObservableCollection<OrderItemDto>();
+            this.OrderItems = new ObservableCollection<OrderItem>();
+
+            cvOrderItems = CollectionViewSource.GetDefaultView(OrderItems);
+            if (cvOrderItems != null)
+            {
+                dgCurrentOrder.ItemsSource = cvOrderItems;
+            }
         }
 
         private void BtnFinishOrder_Click(object sender, RoutedEventArgs e)
         {
+            string responseMessage = this.apiCaller.Get(this.urls.Customer, new object[] { tfentercustomername.Text });
+            string response = Regex.Unescape(responseMessage).Trim('"');
+            long customerId = JsonConvert.DeserializeObject<CustomerDto>(response).Id;
+
             OrderDto orderDto = new OrderDto
             {
-                CustomerName = tfentercustomername.Text,
-                OrderItems = this.orderItemDtoes
+                CustomerId = customerId,
+                OrderItems = this.OrderItemDtoes
             };
 
             this.apiCaller.Post(this.urls.Order, orderDto);
 
-            this.orderItemDtoes.Clear();
+            this.OrderItemDtoes.Clear();
         }
 
         private void BtnGetOrderInfo_Click(object sender, RoutedEventArgs e)
@@ -65,6 +82,29 @@ namespace CommercialClientApplication
 
         private void BtnEnterOrderItem_Click(object sender, RoutedEventArgs e)
         {
+            string responseMessage = this.apiCaller.Get(this.urls.Product, new object[] { tfenterproductname.Text });
+            string response = Regex.Unescape(responseMessage).Trim('"');
+            long productId = JsonConvert.DeserializeObject<ProductDto>(response).Id;
+
+            OrderItemDto orderItemDto = new OrderItemDto
+            {
+                ProductId = productId,
+                Amount = Convert.ToInt32(tfenteramount.Text),
+                DiscountBasic = Convert.ToDouble(tfenterbasicdiscount.Text)
+            };
+
+            this.OrderItemDtoes.Add(orderItemDto);
+
+            OrderItem orderItem = new OrderItem
+            {
+                ProductName = tfenterproductname.Text,
+                Amount = Convert.ToInt32(tfenteramount.Text),
+                Value = Convert.ToDouble(tfenterbasicdiscount.Text) * Convert.ToDouble(tfenterbasicdiscount.Text)
+            };
+
+            this.OrderItems.Add(orderItem);
+
+            dgCurrentOrder.ItemsSource = this.OrderItems;
 
         }
     }

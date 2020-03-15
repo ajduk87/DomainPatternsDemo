@@ -9,7 +9,7 @@ namespace CommercialClientApplication.Dtoes
 {
     public class OrderDto
     {
-        public string CustomerName { get; set; }
+        public long CustomerId { get; set; }
         public ObservableCollection<OrderItemDto> OrderItems { get; set; }
     }
 }

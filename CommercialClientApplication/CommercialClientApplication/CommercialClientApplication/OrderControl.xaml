@@ -58,7 +58,7 @@
                   CanUserAddRows="False"
                   SelectionMode="Single"
                   Name="dgCurrentOrder" 
-                  Grid.Row="8">
+                  Grid.Row="8" Margin="0,0,0,-131">
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="FontSize"
@@ -76,7 +76,6 @@
 
 
             <DataGrid.Columns>
-                <DataGridTextColumn   Header="Id" Width="*" FontSize="12" IsReadOnly="True" Binding="{Binding Path= Id}"/>
                 <DataGridTextColumn   Header="Product name" Width="*" FontSize="12" IsReadOnly="True" Binding="{Binding Path= ProductName}"/>
                 <DataGridTextColumn   Header="Amount" Width="*" FontSize="12" IsReadOnly="True" Binding="{Binding Path= Amount}"/>
                 <DataGridTextColumn   Header="Value" Width="*" FontSize="12" IsReadOnly="True" Binding="{Binding Path= Value}"/>

@@ -8,7 +8,7 @@ namespace CommercialClientApplication.Dtoes
 {
     public class OrderItemDto
     {
-        public string ProductName { get; set; }
+        public long ProductId { get; set; }
         public int Amount { get; set; }
         public double DiscountBasic { get; set; }
     }
