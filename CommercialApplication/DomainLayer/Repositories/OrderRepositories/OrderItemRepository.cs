@@ -24,9 +24,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
             return connection.Query<OrderItem>(OrderItemQueries.SelectById, new { orderId }).Single();
         }
 
-        public long Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
+        public int Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)
         {
-            return connection.ExecuteScalar<long>(OrderItemQueries.Insert, new
+            return connection.ExecuteScalar<int>(OrderItemQueries.Insert, new
             {
                 productId = orderItem.ProductId.Content,
                 amount = orderItem.Amount.Content,

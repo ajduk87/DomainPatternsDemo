@@ -35,7 +35,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.ProductServices
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
-                Product product = this.productService.SelectById(connection, new Id(id));
+                Product product = this.productService.SelectById(connection, new ProductId(id));
                 ProductDto productDto = this.dtoToEntityMapper.MapView<Product, ProductDto>(product);
                 return productDto;
             }

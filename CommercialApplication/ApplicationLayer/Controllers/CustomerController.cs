@@ -39,7 +39,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         }
 
         [HttpGet]
-        [Route("api/customer/{name}")]
+        [Route("api/customerbyname/{name}")]
         public CustomerViewModel Get(string name)
         {
             CustomerDto customerDto = customerAppService.GetByName(name);

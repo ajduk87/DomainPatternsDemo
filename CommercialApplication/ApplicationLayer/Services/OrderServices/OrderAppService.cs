@@ -97,7 +97,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                     try
                     {
                         Order order = this.dtoToEntityMapper.Map<OrderDto, Order>(orderDto);
-                        long orderId = this.orderService.Insert(connection, order);
+                        int orderId = this.orderService.Insert(connection, order);
                         OrderCustomerDto orderCustomerDto = new OrderCustomerDto
                         {
                             CustomerId = orderDto.CustomerId,

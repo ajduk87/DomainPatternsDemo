@@ -13,7 +13,7 @@ namespace CommercialClientApplication.DataGridModels
 
         private string _productname;
         private int _amount;
-        private double _value;
+        private string _value;
 
 
 
@@ -27,7 +27,7 @@ namespace CommercialClientApplication.DataGridModels
             }
         }
 
-        public double Value
+        public string Value
         {
             get { return _value; }
             set

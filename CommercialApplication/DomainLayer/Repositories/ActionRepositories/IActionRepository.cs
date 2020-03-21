@@ -11,6 +11,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ActionRepositori
 
         Action SelectById(IDbConnection connection, long id, IDbTransaction transaction = null);
         Action SelectByProductId(IDbConnection connection, long productid, IDbTransaction transaction = null);
+        Action SelectByProductAndCustomerId(IDbConnection connection, int productid, int customerid, IDbTransaction transaction = null);
         void Insert(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null);
 
         void Update(IDbConnection connection, Action actionEntity, IDbTransaction transaction = null);

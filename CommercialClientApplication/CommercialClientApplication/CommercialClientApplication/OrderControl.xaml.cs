@@ -60,7 +60,7 @@ namespace CommercialClientApplication
 
         private void BtnFinishOrder_Click(object sender, RoutedEventArgs e)
         {
-            string responseMessage = this.apiCaller.Get(this.urls.Customer, new object[] { tfentercustomername.Text });
+            string responseMessage = this.apiCaller.Get(this.urls.CustomerByName, new object[] { tfentercustomername.Text });
             string response = Regex.Unescape(responseMessage).Trim('"');
             long customerId = JsonConvert.DeserializeObject<CustomerDto>(response).Id;
 
@@ -84,11 +84,11 @@ namespace CommercialClientApplication
         {
             string responseMessage = this.apiCaller.Get(this.urls.Product, new object[] { tfenterproductname.Text });
             string response = Regex.Unescape(responseMessage).Trim('"');
-            long productId = JsonConvert.DeserializeObject<ProductDto>(response).Id;
+            ProductDto productDto = JsonConvert.DeserializeObject<ProductDto>(response);
 
             OrderItemDto orderItemDto = new OrderItemDto
             {
-                ProductId = productId,
+                ProductId = productDto.Id,
                 Amount = Convert.ToInt32(tfenteramount.Text),
                 DiscountBasic = Convert.ToDouble(tfenterbasicdiscount.Text)
             };
@@ -99,7 +99,7 @@ namespace CommercialClientApplication
             {
                 ProductName = tfenterproductname.Text,
                 Amount = Convert.ToInt32(tfenteramount.Text),
-                Value = Convert.ToDouble(tfenterbasicdiscount.Text) * Convert.ToDouble(tfenterbasicdiscount.Text)
+                Value = $"{ Convert.ToDouble(tfenterbasicdiscount.Text) * 100 * productDto.UnitCost.Value } {productDto.UnitCost.Currency}"
             };
 
             this.OrderItems.Add(orderItem);

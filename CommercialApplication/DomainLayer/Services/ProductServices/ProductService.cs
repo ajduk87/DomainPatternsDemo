@@ -25,7 +25,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
             return this.productRepository.Select(connection);
         }
 
-        public Product SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null)
+        public Product SelectById(IDbConnection connection, ProductId id, IDbTransaction transaction = null)
         {
             return this.productRepository.SelectById(connection, id);
         }

@@ -47,7 +47,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.OrderServices
             this.orderRepository.Delete(connection, id);
         }
 
-        public long Insert(IDbConnection connection, Order order, IDbTransaction transaction = null)
+        public int Insert(IDbConnection connection, Order order, IDbTransaction transaction = null)
         {
             return this.orderRepository.Insert(connection, order);
         }

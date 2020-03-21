@@ -2,6 +2,7 @@
 using CommercialApplicationCommand.ApplicationLayer.Dtoes.Product;
 using CommercialApplicationCommand.DomainLayer.Entities.ProductEntities;
 using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.Common;
+using CommercialApplicationCommand.DomainLayer.Entities.ValueObjects.ProductStorage;
 using Dapper;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +12,7 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.ProductRepositor
 {
     public class ProductRepository : IProductRepository
     {
-        public Product SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null)
+        public Product SelectById(IDbConnection connection, ProductId id, IDbTransaction transaction = null)
         {
             return connection.Query<Product>(ProductQueries.SelectById, new { id = id.Content }).Single();
         }

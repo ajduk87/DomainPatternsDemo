@@ -165,7 +165,7 @@ DROP TABLE IF EXISTS commercialapplication.orders CASCADE;
 CREATE TABLE commercialapplication.orders
 (
 	Id integer NOT NULL   DEFAULT NEXTVAL(('commercialapplication."orderitem_id_seq"'::text)::regclass),
-	IsSynchronized boolean NOT NULL,
+	State varchar(500) NOT NULL,
 	CreationDate timestamp without time zone NOT NULL
 );
 ALTER TABLE commercialapplication.orders ADD CONSTRAINT PK_Orders

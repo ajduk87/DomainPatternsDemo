@@ -11,7 +11,7 @@ namespace CommercialApplicationCommand.DomainLayer.Services.ProductServices
     public interface IProductService
     {
         IEnumerable<Product> Select(IDbConnection connection, IDbTransaction transaction = null);
-        Product SelectById(IDbConnection connection, Id id, IDbTransaction transaction = null);
+        Product SelectById(IDbConnection connection, ProductId id, IDbTransaction transaction = null);
         Product SelectByName(IDbConnection connection, Name name, IDbTransaction transaction = null);
 
         void Insert(IDbConnection connection, Product product, IDbTransaction transaction = null);

@@ -15,6 +15,11 @@
             return new Discount(dis);
         }
 
+        public static explicit operator Discount(double discount)
+        {
+            return new Discount(discount);
+        }
+
         public static implicit operator double(Discount discount)
         {
             return discount.Content;
