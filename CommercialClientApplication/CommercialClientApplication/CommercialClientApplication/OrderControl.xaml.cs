@@ -82,7 +82,8 @@ namespace CommercialClientApplication
 
         private void BtnGetOrderInfo_Click(object sender, RoutedEventArgs e)
         {
-            string responseMessage = this.apiCaller.Get(this.urls.Order, Convert.ToInt32(tfgetorderid.Text));
+            string responseMessage = this.apiCaller.Get("http://localhost:12347/api/order", Convert.ToInt32(tfgetorderid.Text));
+            //string responseMessage = this.apiCaller.Get(this.urls.Order, Convert.ToInt32(tfgetorderid.Text));
             string response = Regex.Unescape(responseMessage).Trim('"');
             OrderInfoDto orderDto = JsonConvert.DeserializeObject<OrderInfoDto>(response);
 
