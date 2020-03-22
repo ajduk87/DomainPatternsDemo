@@ -36,8 +36,10 @@ namespace CommercialClientApplication
         private IApiCaller apiCaller;
 
         private readonly ObservableCollection<OrderItemDto> OrderItemDtoes;
-        private readonly ObservableCollection<OrderItem> OrderItems;
+        private ObservableCollection<OrderItem> OrderItems;
+        private ObservableCollection<OrderItem> OrderInfoItems;
         public ICollectionView cvOrderItems;
+        public ICollectionView cvOrderInfoItems;
 
         public OrderControl()
         {
@@ -50,12 +52,15 @@ namespace CommercialClientApplication
             this.apiCaller = registrationServices.Container.Resolve<IApiCaller>();
             this.OrderItemDtoes = new ObservableCollection<OrderItemDto>();
             this.OrderItems = new ObservableCollection<OrderItem>();
+            this.OrderInfoItems = new ObservableCollection<OrderItem>();
 
             cvOrderItems = CollectionViewSource.GetDefaultView(OrderItems);
             if (cvOrderItems != null)
             {
                 dgCurrentOrder.ItemsSource = cvOrderItems;
             }
+
+          
         }
 
         private void BtnFinishOrder_Click(object sender, RoutedEventArgs e)
@@ -77,6 +82,13 @@ namespace CommercialClientApplication
 
         private void BtnGetOrderInfo_Click(object sender, RoutedEventArgs e)
         {
+            string responseMessage = this.apiCaller.Get(this.urls.Order, Convert.ToInt32(tfgetorderid.Text));
+            string response = Regex.Unescape(responseMessage).Trim('"');
+            OrderInfoDto orderDto = JsonConvert.DeserializeObject<OrderInfoDto>(response);
+
+            tfgetcustomername.Text = orderDto.CustomerName;
+            this.OrderInfoItems = orderDto.OrderItems;
+            dgOrderinfo.ItemsSource = this.OrderInfoItems;
 
         }
 
@@ -104,7 +116,7 @@ namespace CommercialClientApplication
 
             this.OrderItems.Add(orderItem);
 
-            dgCurrentOrder.ItemsSource = this.OrderItems;
+            //dgCurrentOrder.ItemsSource = this.OrderItems;
 
         }
     }

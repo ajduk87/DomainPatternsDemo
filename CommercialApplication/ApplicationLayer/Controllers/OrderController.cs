@@ -21,7 +21,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Controllers
         }
 
         [HttpGet]
-        [Route("api/order")]
+        [Route("api/order/{id}")]
         public OrderViewModel GetOrder(long id)
         {
             OrderDto orderDto = this.orderAppService.GetOrder(id);

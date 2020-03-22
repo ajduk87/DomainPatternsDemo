@@ -35,11 +35,11 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                 IEnumerable<long> orderItemsIds = this.orderItemOrderService.SelectByOrderId(connection, order.Id);
                 List<OrderItem> orderItems = this.orderItemService.SelectByIds(connection, orderItemsIds).ToList();
                 IEnumerable<OrderItemDto> orderItemDtoes = this.dtoToEntityMapper.MapViewList<IEnumerable<OrderItem>, IEnumerable<OrderItemDto>>(orderItems);
-                Customer customer = this.orderCustomerService.SelectByOrderId(connection, order.Id);
+                OrderCustomer orderCustomer = this.orderCustomerService.SelectByOrderId(connection, order.Id);
 
                 return new OrderDto
                 {
-                    CustomerId = customer.Id,
+                    CustomerId = orderCustomer.CustomerId,
                     OrderItems = orderItemDtoes
                 };
 

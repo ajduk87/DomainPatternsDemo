@@ -11,6 +11,5 @@ namespace CommercialClientApplication.Dtoes
     {
         public string CustomerName { get; set; }
         public ObservableCollection<DataGridModels.OrderItem> OrderItems { get; set; }
-        public double Total { get; set; }
     }
 }

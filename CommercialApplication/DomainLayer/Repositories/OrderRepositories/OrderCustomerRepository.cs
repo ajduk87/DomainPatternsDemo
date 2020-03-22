@@ -10,9 +10,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
     public class OrderCustomerRepository : IOrderCustomerRepository
     {
 
-        public Customer SelectByOrderId(IDbConnection connection, long orderId, IDbTransaction transaction = null)
+        public OrderCustomer SelectByOrderId(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.Query<Customer>(OrderCustomerQueries.SelectByOrderId, new { orderId }).Single();
+            return connection.Query<OrderCustomer>(OrderCustomerQueries.SelectByOrderId, new { id }).Single();
         }
 
         public void Delete(IDbConnection connection, long id, IDbTransaction transaction = null)

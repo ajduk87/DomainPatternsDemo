@@ -10,6 +10,6 @@ namespace CommercialApplication.ApplicationLayer.Models.Order
     {
         public string ProductName { get; set; }
         public int Amount { get; set; }
-        public double Value { get; set; }
+        public string Value { get; set; }
     }
 }

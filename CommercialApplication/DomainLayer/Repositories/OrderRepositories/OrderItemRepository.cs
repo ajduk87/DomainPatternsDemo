@@ -19,9 +19,9 @@ namespace CommercialApplicationCommand.DomainLayer.Repositories.OrderRepositorie
             return connection.ExecuteScalar<bool>(OrderItemQueries.Exists, new { id });
         }
 
-        public OrderItem SelectById(IDbConnection connection, long orderId, IDbTransaction transaction = null)
+        public OrderItem SelectById(IDbConnection connection, long id, IDbTransaction transaction = null)
         {
-            return connection.Query<OrderItem>(OrderItemQueries.SelectById, new { orderId }).Single();
+            return connection.Query<OrderItem>(OrderItemQueries.SelectById, new { id }).Single();
         }
 
         public int Insert(IDbConnection connection, OrderItem orderItem, IDbTransaction transaction = null)

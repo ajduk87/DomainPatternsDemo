@@ -86,17 +86,42 @@
 
         <Button Name = "btnGetOrderInfo" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Width="200" Height="25" Content="get order info" Click="BtnGetOrderInfo_Click"/>
 
-        <Label  Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="total : "/>
-        <TextBox Grid.Column="4" Name="tfgettotalorder" Grid.Row="3" Width="140" Height="20" IsReadOnly="True" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+        <Label  Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="customer name : "/>
+        <TextBox Grid.Column="4" Name="tfgetcustomername" Grid.Row="3" Width="140" Height="20" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
         
         <DataGrid Grid.Column="3" 
                   Grid.ColumnSpan="2" 
                   Grid.RowSpan="5" 
                   Height="Auto" 
-                  Name="dgOrderinfo" 
-                  Grid.Row="4">
-            
-            
+                  Name="dgOrderinfo"
+                  ItemsSource="{Binding OrderInfoItems}"
+                  AutoGenerateColumns="False"
+                  Width="Auto"
+                  Grid.Row="4"
+                  CanUserAddRows="False">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="FontSize"
+                                    Value="12" />
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+            </DataGrid.ColumnHeaderStyle>
+
+
+            <DataGrid.Columns>
+                <DataGridTextColumn   Header="Product name" Width="*" FontSize="12" IsReadOnly="True" Binding="{Binding Path= ProductName}"/>
+                <DataGridTextColumn   Header="Amount" Width="*" FontSize="12" IsReadOnly="True" Binding="{Binding Path= Amount}"/>
+                <DataGridTextColumn   Header="Value" Width="*" FontSize="12" IsReadOnly="True" Binding="{Binding Path= Value}"/>
+            </DataGrid.Columns>
+
+
         </DataGrid>
 
     </Grid>
