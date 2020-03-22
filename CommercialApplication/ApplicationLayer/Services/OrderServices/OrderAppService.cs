@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 using CommercialApplication.ApplicationLayer.Dtoes.Order;
 using CommercialApplication.DomainLayer.Entities.OrderEntities;
+using CommercialApplication.Queries;
 
 namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
 {
@@ -18,6 +19,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
         private readonly IOrderItemOrderService orderItemOrderService;
         private readonly IOrderItemService orderItemService;
         private readonly IOrderService orderService;
+        private readonly IOrderDtoRepository orderDtoRepository;
 
         public OrderAppService()
         {
@@ -41,22 +43,11 @@ namespace CommercialApplicationCommand.ApplicationLayer.Services.OrderServices
                 {
                     CustomerId = orderCustomer.CustomerId,
                     OrderItems = orderItemDtoes
-                };
-
-                //return this.orderDtoRepository.Selectbyid(connection, id);
+                };                
             }
 
 
-        }
-
-        private OrderDto GetLookForOrderQuery(long id)
-        {
-            using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
-            {
-                //return this.orderDtoRepository.SelectById(connection, id);
-                return new OrderDto();
-            }
-        }
+        }    
 
         public OrderDto GetOrder(long id)
         {

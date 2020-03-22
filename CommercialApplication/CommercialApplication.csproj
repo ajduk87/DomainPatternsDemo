@@ -497,6 +497,13 @@
     <Compile Include="IDatabaseConnectionFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\IOrderDtoRepository.cs" />
+    <Compile Include="Queries\OrderDtoRepository.cs" />
+    <Compile Include="Queries\Sql\OrderQueries.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderQueries.resx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -558,6 +565,10 @@
     <EmbeddedResource Include="DomainLayer\Repositories\Sql\StorageQueries.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StorageQueries.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Queries\Sql\OrderQueries.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OrderQueries.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

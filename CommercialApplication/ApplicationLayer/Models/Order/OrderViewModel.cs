@@ -9,6 +9,6 @@ namespace CommercialApplication.ApplicationLayer.Models.Order
     public class OrderViewModel
     {
         public string CustomerName { get; set; }
-        public IEnumerable<OrderItemViewModel> orderItems { get; set; }
+        public IEnumerable<OrderItemViewModel> OrderItems { get; set; }
     }
 }

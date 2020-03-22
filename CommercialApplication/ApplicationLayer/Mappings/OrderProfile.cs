@@ -20,27 +20,27 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
 {
     public class OrderProfile : Profile
     {
-        private readonly RegistrationAppServices registrationAppServices;
+        /*private readonly RegistrationAppServices registrationAppServices;
 
         private readonly IDatabaseConnectionFactory databaseConnectionFactory;
 
         private readonly ICustomerRepository customerRepository;
         private readonly IProductRepository productRepository;
-        private readonly IOrderItemRepository orderItemRepository;
+        private readonly IOrderItemRepository orderItemRepository;*/
 
 
         public OrderProfile()
         {
-            this.registrationAppServices = new RegistrationAppServices();
+            /*this.registrationAppServices = new RegistrationAppServices();
             this.databaseConnectionFactory = this.registrationAppServices.Instance.Container.Resolve<IDatabaseConnectionFactory>();
             this.customerRepository = RepositoryFactory.CreateCustomerRepository();
             this.productRepository = RepositoryFactory.CreateProductRepository();
-            this.orderItemRepository = RepositoryFactory.CreateOrderItemRepository();
+            this.orderItemRepository = RepositoryFactory.CreateOrderItemRepository();*/
 
-            CreateMap<OrderDto, OrderViewModel>()
-                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => GetCustomerName(src.CustomerId)))
+            /* CreateMap<OrderDto, OrderViewModel>()
+               .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => GetCustomerName(src.CustomerId)))
                 .ForMember(dest => dest.orderItems, opt => opt.MapFrom(src => GetOrderItems(src.OrderItems)))
-                ;
+            ;*/
 
             CreateMap<OrderCreateModel, OrderDto>();
             CreateMap<OrderUpdateModel, OrderDto>()
@@ -57,7 +57,7 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
 
         }
 
-        private string GetCustomerName(int id)
+        /*private string GetCustomerName(int id)
         {
             using (NpgsqlConnection connection = this.databaseConnectionFactory.Instance.Create())
             {
@@ -90,6 +90,6 @@ namespace CommercialApplicationCommand.ApplicationLayer.Mappings
             }
 
             return orderItemViewModels;
-        }
+        }*/
     }
 }
