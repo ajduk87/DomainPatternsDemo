@@ -119,6 +119,7 @@
     </Compile>
     <Compile Include="Urls\ActionUrls.cs" />
     <Compile Include="Urls\CustomerUrls.cs" />
+    <Compile Include="Urls\InvoiceUrls.cs" />
     <Compile Include="Urls\OrderUrls.cs" />
     <Compile Include="Urls\ProductUrls.cs" />
     <Compile Include="Urls\StorageUrls.cs" />

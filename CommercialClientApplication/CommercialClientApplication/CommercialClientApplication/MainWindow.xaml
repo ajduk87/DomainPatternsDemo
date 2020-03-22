@@ -24,9 +24,9 @@
             <TabItem Header="Order">
                 <uc:OrderControl/>
             </TabItem>
-            <TabItem Header="Invoice">
-                <uc:InvoiceControl/>
-            </TabItem>
+            <!--<TabItem Header="Invoice">
+                  <uc:InvoiceControl/> 
+            </TabItem>-->
         </TabControl>
     </Grid>
 </Window>

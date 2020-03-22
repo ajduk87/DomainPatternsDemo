@@ -116,7 +116,7 @@ namespace CommercialClientApplication
 
             this.OrderItems.Add(orderItem);
 
-            //dgCurrentOrder.ItemsSource = this.OrderItems;
+            dgCurrentOrder.ItemsSource = this.OrderItems;
 
         }
     }
